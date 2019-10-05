@@ -31,7 +31,14 @@
     <meta name="og:type" content="website">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+      WebFont.load({
+        google: {
+          families: ['Roboto']
+        }
+      });
+    </script>
 
 
     <!-- Inline stylesheet since there isn't a lot of classes -->
@@ -145,6 +152,7 @@
 </head>
 
 <body>
+
     <!-- Headshot -->
     <div class="headshot">
         <a href="images/me.jpg"><img src="images/me.jpg" alt="Alex Alemi Headshot" title="Alex Alemi Headshot" /></a>
