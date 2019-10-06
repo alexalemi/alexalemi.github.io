@@ -1,0 +1,32 @@
+[
+    {
+        "title": "TherML",
+        "link": {
+            "href": "https://docs.google.com/presentation/d/1Uhr4oJwTm2yI7FAvkjMbdK6s_HNwD9T61j6Ccz_eBmc/present",
+            "blank": true,
+            "text": "[slides]"
+        },
+        "date": "2019-01",
+        "venue": "Aspen: Machine Learning and Physics"
+    },
+    {
+        "title": "Focusing on the Representation",
+        "link": {
+            "href": "https://docs.google.com/presentation/d/1Zd_-R6vVWkPegm_oEXTnlTvFbPTcdb71AtrHYk4-JpM/present",
+            "blank": true,
+            "text": "[slides]"
+        },
+        "date": "2018-11",
+        "venue": "Cornell AI Seminar"
+    },
+    {
+        "title": "Thermodynamics and Machine Learning",
+        "link": {
+            "href": "https://docs.google.com/presentation/d/1B2xbdhFRByzIJOdehPVGm5xrCpbUXkijnFRPEwVMKtk/present",
+            "blank": true,
+            "text": "[slides]"
+        },
+        "date": "2018-11",
+        "venue": "Cornell Physics Colloquium"
+    }
+]
