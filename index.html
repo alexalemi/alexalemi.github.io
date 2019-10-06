@@ -54,6 +54,22 @@
             -webkit-text-size-adjust: 100%;
         }
 
+        /* Variables */
+        :root {
+          /* Goldenrod */
+          --accent-color: #D8BB18;  
+          /* Dark Slate Gray */
+          --default-color: #2B2D54;
+          /* Light Coral */
+          --highlight-color: #F39BB3;
+          /* Brick Red */
+          --em-color: #CE2235;
+          /* Light Steel Blue */
+          --alt-color: #99A3D8;
+          /* offwhite */
+          --bg-color: #fefefe;
+        }
+
         *,
         *::before,
         *::after {
@@ -64,8 +80,8 @@
         body {
 
             /* Nice light gray background to offset the text a little */
-            background-color: #fefefe;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--default-color);
             margin: 0 auto;
             max-width: 50em;
 
@@ -79,7 +95,7 @@
         h1,
         h2,
         strong {
-            color: #333;
+            color: var(--default-color);
             font-family: "Muli", sans-serif;
         }
 
@@ -88,12 +104,16 @@
         }
 
         a {
-            color: #005fd3;
+            color: var(--em-color);
+        }
+
+        a:hover {
+            color: var(--highlight-color);
         }
 
         h2 a {
           text-decoration: none;
-          color: #333;
+          color: var(--default-color);
         }
 
         .headshot {
@@ -153,7 +173,7 @@
         }
 
         svg path {
-            fill: #005fd3;
+            fill: var(--accent-color);
         }
 
         section ul {
@@ -166,13 +186,13 @@
         }
 
         section ul li p {
-          color: #666;
+          color: var(--alt-color);
           font-size: 0.8em;
           padding: none;
         }
 
         section ul li p date {
-          color: #333;
+          color: var(--default-color);
           font-style: normal;
         }
 
