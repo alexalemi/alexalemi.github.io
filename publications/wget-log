@@ -1,9 +1,0 @@
---2019-10-05 13:54:01--  http://wget/
-Resolving wget (wget)... failed: Temporary failure in name resolution.
-wget: unable to resolve host address ‘wget’
---2019-10-05 13:54:01--  https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=1092
-Resolving docs.lib.purdue.edu (docs.lib.purdue.edu)... 72.5.9.223
-Connecting to docs.lib.purdue.edu (docs.lib.purdue.edu)|72.5.9.223|:443... connected.
-HTTP request sent, awaiting response... 400 Bad Request
-2019-10-05 13:54:01 ERROR 400: Bad Request.
-
