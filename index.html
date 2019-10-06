@@ -33,7 +33,7 @@
     <!-- Fonts -->
     <script type="text/javascript">
         WebFontConfig = {
-            google: { families: [ 'Open Sans' ] }
+            google: { families: [ 'Muli', 'Lato' ] }
         };
         (function() {
             var wf = document.createElement('script');
