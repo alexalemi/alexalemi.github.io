@@ -243,7 +243,7 @@
         <p>
             <strong>Jump to: </strong>
             <a href="#publications">Research</a> |
-            <a href="#software-projects">Software Projects</a> |
+            <a href="#code">Code</a> |
             <a href="#talks">Talks</a> |
             <!-- <a href="#poster-presentations">Poster Presentations</a> | -->
             <a href="#etc">Etc.</a>
@@ -280,9 +280,9 @@
 
     </section>
 
-    <!-- Software projects section -->
-    <section id="software">
-        <h2><a href="#software-projects">Software Projects</a></h2>
+    <!-- Code projects section -->
+    <section id="code">
+        <h2><a href="#code">Code</a></h2>
 
         <p>I've contributed to various Google Opensource projects including: 
         <a href="http://tensorflow.org" target="_blank">TensorFlow</a>,
