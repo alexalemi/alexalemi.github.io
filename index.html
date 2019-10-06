@@ -33,7 +33,7 @@
     <!-- Fonts -->
     <script type="text/javascript">
         WebFontConfig = {
-            google: { families: [ 'Roboto' ] }
+            google: { families: [ 'Open Sans' ] }
         };
         (function() {
             var wf = document.createElement('script');
@@ -45,153 +45,14 @@
         })();
     </script>
 
-
-    <!-- Inline stylesheet since there isn't a lot of classes -->
-    <style>
-
-        /* Browser reset */
-        html {
-            box-sizing: border-box;
-            line-height: 1.15;
-            -webkit-text-size-adjust: 100%;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit;
-        }
-
-
-        body {
-
-            /* Nice light gray background to offset the text a little */
-            background-color: #fefefe;
-            color: #333;
-            margin: 0 auto;
-            max-width: 50em;
-
-            /* System fonts as fallbacks */
-            font-family: "Roboto", sans-serif;
-            line-height: 1.5;
-            padding: 2em 1em;
-            scroll-behavior: smooth;
-        }
-
-        h1,
-        h2,
-        strong {
-            color: #333;
-            font-family: "Roboto", sans-serif;
-        }
-
-        h2 {
-            margin-top: 1em;
-        }
-
-        a {
-            color: #005fd3;
-        }
-
-        h2 a {
-          text-decoration: none;
-          color: #333;
-        }
-
-        .headshot {
-            float: right;
-            width: 14em;
-            padding-left: 2em;
-        }
-
-        .headshot img {
-            width: 100%;
-        }
-
-        @media (max-width: 650px) {
-            .headshot {
-                width: 10em;
-            }
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-flow: row;
-        }
-
-        @media (max-width: 650px) {
-            header {
-                display: flex;
-                align-items: baseline;
-                flex-flow: column;
-            }
-
-            .social-links {
-                margin-top: 0.5em;
-            }
-        }
-
-        @media (max-width: 390px) {
-            header {
-                width: 8em;
-            }
-
-            .social-links {
-                width: 8em;
-            }
-        }
-
-        .social-links a {
-            text-decoration: none;
-        }
-
-        svg {
-            margin-left: 10px;
-            margin-right: 10px;
-            height: 25px;
-            width: 25px;
-        }
-
-        svg path {
-            fill: #005fd3;
-        }
-
-        section ul {
-          list-style: none;
-        }
-
-        section ul li {
-          margin: 0 0 1.3em 0;
-          line-height: 1;
-        }
-
-        section ul li p {
-          color: #666;
-          font-size: 0.8em;
-          padding: none;
-        }
-
-        section ul li p date {
-          color: #333;
-          font-style: normal;
-        }
-
-        section ul li cite {
-          font-style: normal;
-        }
-
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/theme.css">
 </head>
 
 <body>
 
     <!-- Headshot -->
     <div class="headshot">
-        <a href="images/me.jpg"><img src="images/me.jpg" alt="Alex Alemi Headshot" title="Alex Alemi Headshot" /></a>
+        <a href="assets/images/me.jpg"><img src="assets/images/me.jpg" alt="Alex Alemi Headshot" title="Alex Alemi Headshot" /></a>
     </div>
 
     <!-- Header with social links -->
@@ -260,437 +121,563 @@
 
 
         <ul>
-          <li>
-            <cite>On Variational Bounds of Mutual Information</cite>
-            <a href="https://arxiv.org/abs/1905.06922" class="arxiv">[arxiv]</a>
-            <a href="publications/vmibounds.pdf" class="pdf">[pdf]</a>
-            <p>
-              B Poole, S Ozair, A van den Oord, AA Alemi, G Tucker
-              <date>2019-05</date>
-              <strong>ICML</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>Dueling Decoders: Regularizing Variational Autoencoder Latent Spaces</cite>
-            <a href="https://arxiv.org/abs/1905.07478" class="arxiv">[arxiv]</a>
-            <a href="publications/dueling.pdf" class="pdf">[pdf]</a>
-            <p>
-              B Seybold, E Fertig, A Alemi, I Fischer
-              <date>2019-05</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>Variational Autoencoders with Tensorflow Probability Layers</cite>
-            <a href="https://medium.com/tensorflow/variational-autoencoders-with-tensorflow-probability-layers-d06c658931b7">[TF Blog]</a>
-            <p>I Fischer, A Alemi, JV Dillon, TFP Team <date>2019-03</date></p>
-          </li>
-
-          <li>
-            <cite>On the Use of ArXiv as a Dataset</cite>
-              <a href="https://arxiv.org/abs/1905.00075">[arxiv]</a>
-              <a href="publications/arxiv.pdf">[pdf]</a>
-              <p>
-                CB Clement, M Bierbaum, KP O'Keeffe, AA Alemi
-                <date>2019-05</date>
-                <strong>ICLR workshop RLGM</strong>
-              </p>
-          </li>
-
-          <li>
-            <cite>β-VAEs can retain label information even at high compression</cite>
-            <a href="https://arxiv.org/abs/1812.02682">[arxiv]</a>
-            <a href="publications/beta_retain.pdf">[pdf]</a>
-            <p>
-              E Fertig, A Arbabi, AA Alemi
-              <date>2018-12</date>
-              <strong>NeurIPS BDL Workshop</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite> Canonical Sectors and Evolution of Firms in the US Stock Markets </cite>
-            <a href="https://arxiv.org/abs/1503.06205">[arxiv]</a>
-            <a href="publications/stocks.pdf">[pdf]</a>
-            <p>
-              LX Hayden, R Chachra, AA Alemi, PH Ginsparg, JP Sethna
-              <date>2018-10</date>
-              <strong>Quantitative Finance</strong>
-            </p>
-          </li>
-
-
-          <li>
-            <cite>
-              WAIC, but Why? Generative Ensembles for Robust Anomaly Detection
-            </cite>
-            <a href="https://arxiv.org/abs/1810.01392">[arxiv]</a>
-            <a href="publications/waic.pdf">[pdf]</a>
-            <p>
-              H Choi, E Jang, AA Alemi
-              <date>2018-10</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              TherML: Thermodynamics of Machine Learning
-            </cite>
-            <a href="https://arxiv.org/abs/1807.04162">[arxiv]</a>
-            <a href="publications/therml.pdf">[pdf]</a>
-            <p>
-              AA Alemi, I Fisher
-              <date>2018-07</date>
-              <strong>ICML2018 TFADGM Workshop</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-            Uncertainty in the Variational Information Bottleneck
-            </cite>
-            <a href="https://arxiv.org/abs/1807.00906">[arxiv]</a>
-            <a href="publications/uncert_vib.pdf">[pdf]</a>
-            <p>
-              AA Alemi, I Fischer, JV Dillon
-              <date>2018-07</date>
-              <strong>UAI UDL Workshop</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Watch your step: Learning node embeddings via graph attention
-            </cite>
-            <a href="https://arxiv.org/abs/1710.09599">[arxiv]</a>
-            <a href="publications/watch_step.pdf">[pdf]</a>
-            <p>
-              S Abu-El-Haija, B Perozzi, R Al-Rfou, AA Alemi
-              <date>2018-12</date>
-              <strong>NeurIPS</strong>
-            </p>
-          </li>
-
-
-          <li>
-            <cite>
-              GILBO: one metric to measure them all
-            </cite>
-            <a href="https://arxiv.org/abs/1802.04874">[arxiv]</a>
-            <a href="publications/gilbo.pdf">[pdf]</a>
-            <p>
-              AA Alemi, I Fischer
-              <date>2018-12</date>
-              <strong>NeurIPS</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Fixing a Broken ELBO
-            </cite>
-            <a href="https://arxiv.org/abs/1711.00464">[arxiv]</a>
-            <a href="publications/broken_elbo.pdf">[pdf]</a>
-            <p>
-              AA Alemi, B Poole, I Fischer, JV Dillon, RA Saurous, K Murphy
-              <date>2018-05</date>
-              <strong>ICML</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Tensorflow distributions
-            </cite>
-            <a href="https://arxiv.org/abs/1711.10604">[arxiv]</a>
-            <a href="publications/tfd.pdf">[pdf]</a>
-            <p>
-              JV Dillon, I Langmore, D Tran, E Brevdo, S Vasudevan, D Moore, B Patton,
-              A Alemi, M Hoffman, RA Saurous
-              <date>2017-11</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Light microscopy at maximal precision
-            </cite>
-            <a href="https://arxiv.org/abs/1702.07336">[arxiv]</a>
-            <a href="publications/peri.pdf">[pdf]</a>
-            <p>
-              M Bierbaum, BD Leahy, AA Alemi, I Cohen, JP Sethna
-              <date>2017-02</date>
-              <strong>Phys Rev X</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Jeffrey's prior sampling of deep sigmoidal networks
-            </cite>
-            <a href="https://arxiv.org/abs/1705.10589">[arxiv]</a>
-            <a href="publications/jeffrey.pdf">[pdf]</a>
-            <p>
-              LX Hayden, AA Alemi, PH Ginsparg, JP Sethna
-              <date>2017-05</date>
-            </p>
-          </li>
-
-
-          <li>
-            <cite>
-              Motion prediction under multimodality with conditional stochastic networks
-            </cite>
-            <a href="https://arxiv.org/abs/1705.02082">[arxiv]</a>
-            <a href="publications/motion.pdf">[pdf]</a>
-            <p>
-              K Fragkiadaki, J Huang, A Alemi, S Vijayanarasimhan, S Ricco, R Sukthankar <br />
-              <date>2017-05</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Inception-v4, inception-resnet and the impact of residual connections on learning
-            </cite>
-            <a href="https://arxiv.org/abs/1602.07261">[arxiv]</a>
-            <a href="publications/inceptionv4.pdf">[pdf]</a>
-            <p>
-              C Szegedy, S Ioffe, V Vanhoucke, AA Alemi
-              <date>2017-02</date>
-              <strong>AAAI</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Deep Variational Information Bottleneck
-            </cite>
-            <a href="https://arxiv.org/abs/1612.00410">[arxiv]</a>
-            <a href="publications/vib.pdf">[pdf]</a>
-            <p>
-              AA Alemi, I Fischer, JV Dillon, K Murphy
-              <date>2017-03</date>
-              <strong>ICLR</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Improved generator objectives for gans
-            </cite>
-            <a href="https://arxiv.org/abs/1612.02780">[arxiv]</a>
-            <a href="publications/improved_gan.pdf">[pdf]</a>
-            <p>
-              B Poole, AA Alemi, J Sohl-Dickstein, A Angelova
-              <date>2016-12</date>
-              <strong>NeurIPS Adversarial Workshop</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Tree-Structured Variational Autoencoder
-            </cite>
-            <a href="publications/tree_vae.pdf">[pdf]</a>
-            <p>
-              R Shin, AA Alemi, G Irving, O Vinyals
-              <date>2016-11</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Improving inception and image classification in tensorflow
-            </cite>
-            <a href="https://ai.googleblog.com/2016/08/improving-inception-and-image.html">[Blog]</a>
-            <p>
-              AA Alemi
-              <date>2016-06</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              DeepMath-deep sequence models for premise selection
-            </cite>
-            <a href="https://arxiv.org/abs/1606.04442">[arxiv]</a>
-            <a href="publications/deep_math.pdf">[pdf]</a>
-            <p>
-              G Irving, C Szegedy, AA Alemi, N Eén, F Chollet, J Urban
-              <date>2016-06</date>
-              <strong>NeurIPS</strong>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              SPARTA: Fast global planning of collision-avoiding robot trajectories
-            </cite>
-            <a href="publications/sparta.pdf">[pdf]</a>
-            <p>
+        
+            <li>
+             <cite>On Variational Bounds of Mutual Information</cite>
+             
+                 <a href="https://arxiv.org/abs/1905.06922">[arxiv]</a>
+             
+             
+                 <a href="publications/vmibounds.pdf">[pdf]</a>
+             
+             
+             <p>
+               B Poole, S Ozair, A van den Oord, AA Alemi, G Tucker
+               <date>2019-05</date>
+               <strong>ICML</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Dueling Decoders: Regularizing Variational Autoencoder Latent Spaces</cite>
+             
+                 <a href="https://arxiv.org/abs/1905.07478">[arxiv]</a>
+             
+             
+                 <a href="publications/dueling.pdf">[pdf]</a>
+             
+             
+             <p>
+               B Seybold, E Fertig, AA Alemi, I Fischer
+               <date>2019-05</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Variational Autoencoders with Tensorflow Probability Layers</cite>
+             
+             
+             
+                 <a href="https://medium.com/tensorflow/variational-autoencoders-with-tensorflow-probability-layers-d06c658931b7">[post]</a>
+             
+             <p>
+               I Fischer, AA Alemi, JV Dillon, TFP Team
+               <date>2019-03</date>
+               <strong>Tensorflow Blog</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>On the Use of ArXiv as a Dataset</cite>
+             
+                 <a href="https://arxiv.org/abs/1905.0075">[arxiv]</a>
+             
+             
+                 <a href="publications/arxiv.pdf">[pdf]</a>
+             
+             
+             <p>
+               CB Clement, M Bierbaum, KP O'Keeffe, AA Alemi
+               <date>2019-05</date>
+               <strong>ICLR workshop RLGM</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>β-VAEs can retain label information even at high compression</cite>
+             
+                 <a href="https://arxiv.org/abs/1812.02682">[arxiv]</a>
+             
+             
+                 <a href="publications/beta_retain.pdf">[pdf]</a>
+             
+             
+             <p>
+               E Fertig, A Arbabi, AA Alemi
+               <date>2018-12</date>
+               <strong>NeurIPS BDL Workshop</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Canonical Sectors and Evolution of Firms in the US Stock Markets</cite>
+             
+                 <a href="https://arxiv.org/abs/1503.06205">[arxiv]</a>
+             
+             
+                 <a href="publications/stocks.pdf">[pdf]</a>
+             
+             
+             <p>
+               LX Hayden, R Chachra, AA Alemi, PH Ginsparg, JP Sethna
+               <date>2018-10</date>
+               <strong>Quantitative Finance</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>WAIC, but Why? Generative Ensembles for Robust Anomaly Detection</cite>
+             
+                 <a href="https://arxiv.org/abs/1810.01392">[arxiv]</a>
+             
+             
+                 <a href="publications/waic.pdf">[pdf]</a>
+             
+             
+             <p>
+               H Choi, E Jang, AA Alemi
+               <date>2018-10</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>TherML: Thermodynamics of Machine Learning</cite>
+             
+                 <a href="https://arxiv.org/abs/1807.04162">[arxiv]</a>
+             
+             
+                 <a href="publications/therml.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, I Fisher
+               <date>2018-07</date>
+               <strong>ICML2018 TFADGM Workshop</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Uncertainty in the Variational Information Bottleneck</cite>
+             
+                 <a href="https://arxiv.org/abs/1807.00906">[arxiv]</a>
+             
+             
+                 <a href="publications/uncert_vib.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, I Fischer, JV Dillon
+               <date>2018-07</date>
+               <strong>UAI UDL Workshop</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Watch your step: Learning node embeddings via graph attention</cite>
+             
+                 <a href="https://arxiv.org/abs/1710.09599">[arxiv]</a>
+             
+             
+                 <a href="publications/watch_step.pdf">[pdf]</a>
+             
+             
+             <p>
+               S Abu-El-Haija, B Perozzi, R Al-Rfou, AA Alemi
+               <date>2018-12</date>
+               <strong>NeurIPS</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>GILBO: one metric to measure them all</cite>
+             
+                 <a href="https://arxiv.org/abs/1802.04874">[arxiv]</a>
+             
+             
+                 <a href="publications/gilbo.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, I Fischer
+               <date>2018-12</date>
+               <strong>NeurIPS</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Fixing a Broken ELBO</cite>
+             
+                 <a href="https://arxiv.org/abs/1711.00464">[arxiv]</a>
+             
+             
+                 <a href="publications/broken_elbo.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, B Poole, I Fischer, JV Dillon, RA Saurous, K Murphy
+               <date>2018-05</date>
+               <strong>ICML</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Tensorflow distributions</cite>
+             
+                 <a href="https://arxiv.org/abs/1711.10604">[arxiv]</a>
+             
+             
+                 <a href="publications/tfd.pdf">[pdf]</a>
+             
+             
+             <p>
+               JV Dillon, I Langmore, D Tran, E Brevdo, S Vasudevan, D Moore, B Patton, AA Alemi, M Hoffman, RA Saurous
+               <date>2017-11</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Light microscopy at maximal precision</cite>
+             
+                 <a href="https://arxiv.org/abs/1702.07336">[arxiv]</a>
+             
+             
+                 <a href="publications/peri.pdf">[pdf]</a>
+             
+             
+             <p>
+               M Bierbaum, BD Leahy, AA Alemi, I Cohen, JP Sethna
+               <date>2017-02</date>
+               <strong>Phys Rev X</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Jeffrey's prior sampling of deep sigmoidal networks</cite>
+             
+                 <a href="https://arxiv.org/abs/1705.10589">[arxiv]</a>
+             
+             
+                 <a href="publications/jeffrey.pdf">[pdf]</a>
+             
+             
+             <p>
+               LX Hayden, AA Alemi, PH Ginsparg, JP Sethna
+               <date>2017-05</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Motion prediction under multimodality with conditional stochastic networks</cite>
+             
+                 <a href="https://arxiv.org/abs/1705.02082">[arxiv]</a>
+             
+             
+                 <a href="publications/motion.pdf">[pdf]</a>
+             
+             
+             <p>
+               K Fragkiadaki, J Huang, AA Alemi, S Vijayanarasimhan, S Ricco, R Sukthankar
+               <date>2017-05</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Inception-v4, inception-resnet and the impact of residual connections on learning</cite>
+             
+                 <a href="https://arxiv.org/abs/1602.07261">[arxiv]</a>
+             
+             
+                 <a href="publications/inceptionv4.pdf">[pdf]</a>
+             
+             
+             <p>
+               C Szegedy, S Ioffe, V Vanhoucke, AA Alemi
+               <date>2017-02</date>
+               <strong>AAAI</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Deep Variational Information Bottleneck</cite>
+             
+                 <a href="https://arxiv.org/abs/1612.00410">[arxiv]</a>
+             
+             
+                 <a href="publications/vib.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, I Fischer, JV Dillon, K Murphy
+               <date>2017-03</date>
+               <strong>ICLR</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Improved generator objectives for gans</cite>
+             
+                 <a href="https://arxiv.org/abs/1612.02780">[arxiv]</a>
+             
+             
+                 <a href="publications/improved_gan.pdf">[pdf]</a>
+             
+             
+             <p>
+               B Poole, AA Alemi, J Sohl-Dickstein, A Angelova
+               <date>2016-12</date>
+               <strong>NeurIPS Adversarial Workshop</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Tree-Structured Variational Autoencoder</cite>
+             
+             
+                 <a href="publications/tree_vae.pdf">[pdf]</a>
+             
+             
+             <p>
+               R Shin, AA Alemi, G Irving, O Vinyals
+               <date>2016-11</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Improving inception and image classification in tensorflow</cite>
+             
+             
+             
+                 <a href="https://ai.googleblog.com/2016/08/improving-inception-and-image.html">[post]</a>
+             
+             <p>
+               AA Alemi
+               <date>2016-06</date>
+               <strong>Google Research Blog</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>DeepMath-deep sequence models for premise selection</cite>
+             
+                 <a href="https://arxiv.org/abs/1606.04442">[arxiv]</a>
+             
+             
+                 <a href="publications/deep_math.pdf">[pdf]</a>
+             
+             
+             <p>
+               G Irving, C Szegedy, AA Alemi, N Eén, F Chollet, J Urban
+               <date>2016-06</date>
+               <strong>NeurIPS</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>SPARTA: Fast global planning of collision-avoiding robot trajectories</cite>
+             
+             
+                 <a href="publications/sparta.pdf">[pdf]</a>
+             
+             
+             <p>
                CJM Mathy, F Gonda, D Schmidt, N Derbinsky, AA Alemi, J Bento, FM Delle Fave, JS Yedidia
-              <date>2015-12</date>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              You can run, you can hide: The epidemiology and statistical mechanics of zombies
-            </cite>
-            <a href="https://arxiv.org/abs/1503.01104">[arxiv]</a>
-            <a href="publications/zombies.pdf">[pdf]</a>
-            <p>
-              AA Alemi, M Bierbaum, CR Myers, JP Sethna
-              <date>2015-11</date>
-              <strong>Phys Rev E</strong>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Zombies Reading Segmented Graphene Articles On The Arxiv
-            </cite>
-            <a href="publications/thesis.pdf">[pdf]</a>
-            <p>
-              AA Alemi
-              <date>2015-08</date>
-              <strong>Thesis</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Clustering via Content-Augmented Stochastic Blockmodels
-            </cite>
-            <a href="https://arxiv.org/abs/1505.06538">[arxiv]</a>
-            <a href="publications/blockmodels.pdf">[pdf]</a>
-            <p>
-              JM Cashore, X Zhao, AA Alemi, Y Liu, PI Frazier
-              <date>2015-05</date>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Text segmentation based on semantic word embeddings
-            </cite>
-            <a href="https://arxiv.org/abs/1503.05543">[arxiv]</a>
-            <a href="publications/segmentation.pdf">[pdf]</a>
-            <p>
-              AA Alemi, P Ginsparg
-              <date>2015-03</date>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Mechanical properties of growing melanocytic nevi and the progression to melanoma
-            </cite>
-            <a href="https://arxiv.org/abs/1404.4116">[arxiv]</a>
-            <a href="publications/cancer.pdf">[pdf]</a>
-            <p>
-              A Taloni, AA Alemi, E Ciusani, JP Sethna, S Zapperi, CAM La Porta
-              <date>2014-04</date>
-              <strong>PloS One</strong>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Ensuring reliability, reproducibility and transferability in atomistic simulations: The knowledgebase of interatomic models (https://openkim. org)
-            </cite>
-            <a href="publications/openkim.pdf">[pdf]</a>
-            <p>
-              E Tadmor, R Elliott, D Karls, A Ludvik, J Sethna, M Bierbaum, A Alemi, T Wennblom
-              <date>2014-10</date>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Knowledgebase of Interatomic Models application programming interface as a standard for molecular simulations
-            </cite>
-            <a href="http://openkim.org">[openkim.org]</a>
-            <a href="publications/openkim2.pdf">[pdf]</a>
-            <p>
-              R Elliott, E Tadmor, D Karls, A Ludvik, J Sethna, M Bierbaum, A Alemi, T Wennblom
-              <date>2014-10</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Imaging atomic rearrangements in two-dimensional silica glass: watching silica's dance
-            </cite>
-            <a href="publications/glass.pdf">[pdf]</a>
-            <p>
-              PY Huang, S Kurasch, JS Alden, A Shekhawat, AA Alemi, PL McEuen, JP Sethna, U Kaiser, DA Muller
-              <date>2013-10</date>
-              <strong>Science</strong>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Growth and form of melanoma cell colonies
-            </cite>
-            <a href="https://arxiv.org/abs/1308.6037">[arxiv]</a>
-            <a href="publications/melanoma.pdf">[pdf]</a>
-            <p>
-              MM Baraldi, AA Alemi, JP Sethna, S Caracciolo, CAM La Porta, S Zapperi
-              <date>2013-08</date>
-              <strong>JSM</strong>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Near-field radiative heat transfer between macroscopic planar surfaces
-            </cite>
-            <a href="https://arxiv.org/abs/1103.2389">[arxiv]</a>
-            <a href="publications/heat.pdf">[pdf]</a>
-            <p>
-              RS Ottens, Volker Quetschke, Stacy Wise, AA Alemi, Ramsey Lundock, Guido Mueller, David H Reitze, David B Tanner, Bernard F Whiting
-              <date>2011-03</date>
-              <strong>Phys Rev Lett</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Laplace-Runge-Lenz Vector
-            </cite>
-            <a href="publications/laplace.pdf">[pdf]</a>
-            <p>
-              AA Alemi
-              <date>2009-06</date>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              NEMS Coupling
-            </cite>
-            <a href="publications/nems.pdf">[pdf]</a>
-            <p>
-              AA Alemi
-              <date>2008-09</date>
-            </p>
-          </li>
-  
-          <li>
-            <cite>
-              Why Venus has no moon
-            </cite>
-            <a href="publications/venus.pdf">[pdf]</a>
-            <p>
-              A Alemi, DJ Stevenson
-              <date>2006-09</date>
-              <strong>AAS Talk</strong>
-            </p>
-          </li>
+               <date>2015-12</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>You can run, you can hide: The epidemiology and statistical mechanics of zombies</cite>
+             
+                 <a href="https://arxiv.org/abs/1503.01104">[arxiv]</a>
+             
+             
+                 <a href="publications/zombies.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, M Bierbaum, CR Myers, JP Sethna
+               <date>2015-11</date>
+               <strong>Phys Rev E</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Zombies Reading Segmented Graphene Articles On The Arxiv</cite>
+             
+             
+                 <a href="publications/thesis.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi
+               <date>2015-08</date>
+               <strong>Thesis</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Clustering via Content-Augmented Stochastic Blockmodels</cite>
+             
+                 <a href="https://arxiv.org/abs/1505.06538">[arxiv]</a>
+             
+             
+                 <a href="publications/blockmodels.pdf">[pdf]</a>
+             
+             
+             <p>
+               JM Cashore, X Zhao, AA Alemi, Y Liu, PI Frazier
+               <date>2015-05</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Text segmentation based on semantic word embeddings</cite>
+             
+                 <a href="https://arxiv.org/abs/1503.05543">[arxiv]</a>
+             
+             
+                 <a href="publications/segmentation.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, P Ginsparg
+               <date>2015-03</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Mechanical properties of growing melanocytic nevi and the progression to melanoma</cite>
+             
+                 <a href="https://arxiv.org/abs/1404.4116">[arxiv]</a>
+             
+             
+                 <a href="publications/cancer.pdf">[pdf]</a>
+             
+             
+             <p>
+               A Taloni, AA Alemi, E Ciusani, JP Sethna, S Zapperi, CAM La Porta
+               <date>2014-04</date>
+               <strong>PloS One</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Ensuring reliability, reproducibility and transferability in atomistic simulations: The knowledgebase of interatomic models (https://openkim.org)</cite>
+             
+             
+                 <a href="publications/openkim.pdf">[pdf]</a>
+             
+             
+             <p>
+               E Tadmor, R Elliott, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom
+               <date>2014-10</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Knowledgebase of Interatomic Models application programming interface as a standard for molecular simulations</cite>
+             
+             
+                 <a href="publications/openkim2.pdf">[pdf]</a>
+             
+             
+                 <a href="http://openkim.org">[openkim.org]</a>
+             
+             <p>
+               R Elliott, E Tadmor, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom
+               <date>2014-10</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Imaging atomic rearrangements in two-dimensional silica glass: watching silica's dance</cite>
+             
+             
+                 <a href="publications/glass.pdf">[pdf]</a>
+             
+             
+             <p>
+               PY Huang, S Kurasch, JS Alden, A Shekhawat, AA Alemi, PL McEuen, JP Sethna, U Kaiser, DA Muller
+               <date>2013-10</date>
+               <strong>Science</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Growth and form of melanoma cell colonies</cite>
+             
+                 <a href="https://arxiv.org/abs/1308.6037">[arxiv]</a>
+             
+             
+                 <a href="publications/melanoma.pdf">[pdf]</a>
+             
+             
+             <p>
+               MM Baraldi, AA Alemi, JP Sethna, S Caracciolo, CAM La Porta, S Zapperi
+               <date>2013-08</date>
+               <strong>JSM</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Near-field radiative heat transfer between macroscopic planar surfaces</cite>
+             
+                 <a href="https://arxiv.org/abs/1103.2389">[arxiv]</a>
+             
+             
+                 <a href="publications/heat.pdf">[pdf]</a>
+             
+             
+             <p>
+               RS Ottens, Volker Quetschke, Stacy Wise, AA Alemi, Ramsey Lundock, Guido Mueller, David H Reitze, David B Tanner, Bernard F Whiting
+               <date>2011-03</date>
+               <strong>Phys Rev Lett</strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Laplace-Runge-Lenz Vector</cite>
+             
+             
+                 <a href="publications/laplace.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi
+               <date>2009-06</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>NEMS Coupling</cite>
+             
+             
+                 <a href="publications/nems.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi
+               <date>2008-09</date>
+               <strong></strong>
+             </p>
+            </li>
+        
+            <li>
+             <cite>Why Venus has no moon</cite>
+             
+             
+                 <a href="publications/venus.pdf">[pdf]</a>
+             
+             
+             <p>
+               AA Alemi, DJ Stevenson
+               <date>2006-09</date>
+               <strong>AAS Oral</strong>
+             </p>
+            </li>
+        
   
         </ul>
 
@@ -700,7 +687,21 @@
     <section id="software">
         <h2><a href="#software-projects">Software Projects</a></h2>
 
+        <p>I've contributed to various Google Opensource projects including: 
+        <a href="http://tensorflow.org" target="_blank">TensorFlow</a>,
+        <a href="https://www.tensorflow.org/probability" target="_blank">Tensorflow Probability</a>,
+        <a href="https://www.tensorflow.org/datasets" target="_blank">Tensorflow Datasets</a>,
+        <a href="https://github.com/google/jax" target="_blank">JAX</a>,
+        and <a href="https://github.com/google/neural-tangents" target="_blank">Neural Tangents</a>.
+        </p>
 
+        <p>I also opensourced a top class image classification network: <a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/inception_resnet_v2.py" target="_blank">Inception Resnet V2</a>.
+        </p>
+
+        <p><a href="https://github.com/pychebfun" target="_blank">pychebfun</a> is 
+        an open source reimplimentation of <a href="http://chebfun.org" target="_blank">ChebFun</a>.
+        </p>
+        
 
 
     </section>
@@ -710,39 +711,40 @@
         <h2><a href="#talks">Talks</a></h2>
         <ul>
 
-          <li>
-            <cite>
-              TherML
-            </cite>
-            <a href="https://docs.google.com/presentation/d/1Uhr4oJwTm2yI7FAvkjMbdK6s_HNwD9T61j6Ccz_eBmc/present" target="_blank">[slides]</a>
-            <p>
-              <date>2019-01</date>
-              <strong>Aspen</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Focusing on the Representation
-            </cite>
-            <a href="https://docs.google.com/presentation/d/1Zd_-R6vVWkPegm_oEXTnlTvFbPTcdb71AtrHYk4-JpM/present" target="_blank">[slides]</a>
-            <p>
-              <date>2018-11</date>
-              <strong>Cornell AI Seminar</strong>
-            </p>
-          </li>
-
-          <li>
-            <cite>
-              Thermodynamics and Machine Learning
-            </cite>
-            <a href="https://docs.google.com/presentation/d/1B2xbdhFRByzIJOdehPVGm5xrCpbUXkijnFRPEwVMKtk/present" target="_blank">[slides]</a>
-            <p>
-              <date>2018-11</date>
-              <strong>Cornell Physics Colloquium</strong>
-            </p>
-          </li>
-
+          
+              <li>
+                <cite>TherML</cite>
+                
+                <a href="https://docs.google.com/presentation/d/1Uhr4oJwTm2yI7FAvkjMbdK6s_HNwD9T61j6Ccz_eBmc/present"  target="_blank" >[slides]</a>
+                
+                <p>
+                  <date>2019-01</date>
+                  <strong>Aspen: Machine Learning and Physics</strong>
+                </p>
+              </li>
+          
+              <li>
+                <cite>Focusing on the Representation</cite>
+                
+                <a href="https://docs.google.com/presentation/d/1Zd_-R6vVWkPegm_oEXTnlTvFbPTcdb71AtrHYk4-JpM/present"  target="_blank" >[slides]</a>
+                
+                <p>
+                  <date>2018-11</date>
+                  <strong>Cornell AI Seminar</strong>
+                </p>
+              </li>
+          
+              <li>
+                <cite>Thermodynamics and Machine Learning</cite>
+                
+                <a href="https://docs.google.com/presentation/d/1B2xbdhFRByzIJOdehPVGm5xrCpbUXkijnFRPEwVMKtk/present"  target="_blank" >[slides]</a>
+                
+                <p>
+                  <date>2018-11</date>
+                  <strong>Cornell Physics Colloquium</strong>
+                </p>
+              </li>
+          
 
         </ul>
     </section>
