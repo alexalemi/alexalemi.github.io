@@ -1,5 +1,30 @@
 [
     {
+	"title": "Variational Predictive Information Bottleneck",
+	"file": "pib.pdf",
+	"authors": "AA Alemi",
+	"date": "2019-10"
+    },
+    {
+	"title": "Information in Infinite Ensembles of Infinitely-Wide Networks",
+	"file": "infiniteinfo.pdf",
+	"authors": "R Shwartz-Ziv, AA Alemi",
+	"date": "2019-10"
+    },
+    {
+	"title": "CEB Improves Model Robustness",
+	"file": "cebrobust.pdf",
+	"authors": "I Fischer, AA Alemi",
+	"date": "2019-10"
+    },
+    {
+	"title": "On Predictive Information Sub-Optimality of RNNs",
+	"file": "salamander.pdf",
+	"authors": "Z Dong, D Oktay, B Poole, AA Alemi",
+	"arxiv": "1910.09578",
+	"date": "2019-10"
+    },
+    {
         "title": "On Variational Bounds of Mutual Information",
         "file": "vmibounds.pdf",
         "authors": "B Poole, S Ozair, A van den Oord, AA Alemi, G Tucker",
