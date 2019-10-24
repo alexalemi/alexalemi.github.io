@@ -56,16 +56,14 @@
 
         /* Variables */
         :root {
-          /* Goldenrod */
-          --accent-color: #D8BB18;  
+          --accent-color: #3685B5;  
           /* Dark Slate Gray */
           --default-color: #2B2D54;
-          /* Light Coral */
-          --highlight-color: #F39BB3;
-          /* Brick Red */
-          --em-color: #CE2235;
-          /* Light Steel Blue */
-          --alt-color: #99A3D8;
+
+          --em-color: #0471A6;
+          --highlight-color: #5C9FB3;
+
+          --alt-color: DimGray;
           /* offwhite */
           --bg-color: #fefefe;
         }
