@@ -44,10 +44,10 @@ def add_publication(fe, publication):
 
 def add_talk(fe, talk):
   fe.title(talk["title"])
-  fe.guid(talk["id"], permalink=True)
+  fe.link(href=talk["link"]["href"])
+  fe.id(talk["id"])
   fe.published(convert_date(talk["date"]))
   fe.category(term="talks", scheme=TALK_SCHEME, label="talks")
-  fe.link(href=talk["link"]["href"])
   return fe
 
 
