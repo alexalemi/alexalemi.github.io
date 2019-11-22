@@ -8,7 +8,8 @@
         },
         "date": "2019-01",
         "venue": "Aspen: Machine Learning and Physics",
-	"id": "therml"
+        "id": "therml",
+        "description": "Drawing an analogy between Thermodynamics and modern deep variational latent variable generative modelling"
     },
     {
         "title": "Focusing on the Representation",
@@ -18,8 +19,9 @@
             "text": "[slides]"
         },
         "date": "2018-11",
-	"id": "focusing-on-the-representation",
-        "venue": "Cornell AI Seminar"
+        "id": "focusing-on-the-representation",
+        "venue": "Cornell AI Seminar",
+        "description": "An overview of my work, which often amounts to reinterpreting existing techniques in a representational light."
     },
     {
         "title": "Thermodynamics and Machine Learning",
@@ -29,7 +31,32 @@
             "text": "[slides]"
         },
         "date": "2018-11",
-	"id": "thermodynamics-and-ml",
-        "venue": "Cornell Physics Colloquium"
+        "id": "thermodynamics-and-ml",
+        "venue": "Cornell Physics Colloquium",
+        "description": "An earlier talk relating thermodynamics and machine learning for a physics audience."
+    },
+    {
+        "title": "Fixing a BrokenELBO",
+        "link": {
+            "href": "https://docs.google.com/presentation/d/11ToIFlOLrcP3GTl8u6Lv-jPntifO0iohIp2VIlTsqj8/present",
+            "blank": true,
+            "text": "[slides]"
+        },
+        "date": "2018-07",
+        "id": "fixing-broken-elbo",
+        "venue": "ICML2018",
+        "description": "A representational reinterpretation of VAEs that help clarify issues such as posterior collapse."
+    },
+    {
+        "title": "Uncertainty in VIB",
+        "link": {
+            "href": "https://docs.google.com/presentation/d/1bM2DwLXeRACHXVxBzUX_Ue3fepMgeZhXFKEQgnT6x8g/present",
+            "blank": true,
+            "text": "[slides]"
+        },
+        "date": "2018-08",
+        "id": "uaivib",
+        "venue": "UAI UDL Workshop 2018",
+        "description": "VIB classifiers capture uncertainty effectively."
     }
 ]

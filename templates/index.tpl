@@ -301,6 +301,9 @@
                <date>{{ a.date }}</date>
                <strong>{{ a.venue }}</strong>
              </p>
+             <p>
+               {{ a.description }}
+             </p>
             </li>
         {% endfor %}
   
@@ -345,6 +348,9 @@
                 <p>
                   <date>{{ t.date }}</date>
                   <strong>{{ t.venue }}</strong>
+                </p>
+                <p>
+                  {{ t.description }}
                 </p>
               </li>
           {% endfor %}
