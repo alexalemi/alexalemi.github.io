@@ -31,7 +31,7 @@ def add_publication(fe, publication):
     pdf_path = os.path.join(PDF_SCHEME, pub["file"])
     fe.guid(pdf_path, permalink=True)
     fe.link(href=pdf_path)
-    size = os.path.getsize(os.path.join(PDF_PATH, pub["file"]))
+    size = os.path.getsize(os.path.join(ROOT, PDF_PATH, pub["file"]))
     fe.enclosure(pdf_path, str(size), "application/pdf")
   elif pub.get('link'):
     href = pub["link"]["href"]
@@ -54,7 +54,7 @@ def add_talk(fe, talk):
 if __name__ == "__main__":
   fg = FeedGenerator()
   fg.id("https://alexalemi.com/rss.xml")
-  fg.title("Alexander A. Alemi's Publications")
+  fg.title("AlexAlemi.com")
   fg.author({"name": "Alexander A. Alemi", "email": "alexalemi@gmail.com"})
   fg.link(href="https://alexalemi.com", rel="alternate")
   fg.logo("http://alexalemi.com/favicon.ico")
@@ -63,13 +63,13 @@ if __name__ == "__main__":
   fg.language("en")
 
 
-  with open(os.path.join(DATA_PATH, "research.json"), 'r') as f:
+  with open(os.path.join(ROOT, DATA_PATH, "research.json"), 'r') as f:
       data = json.load(f)
       for pub in data:
         fe = fg.add_entry()
         add_publication(fe, pub)
 
-  with open(os.path.join(DATA_PATH, "talks.json"), 'r') as f:
+  with open(os.path.join(ROOT, DATA_PATH, "talks.json"), 'r') as f:
       data = json.load(f)
       for talk in data:
         fe = fg.add_entry()
