@@ -52,6 +52,7 @@ def add_talk(fe, talk):
 
 
 if __name__ == "__main__":
+  logging.info("Generating RSS Feed.")
   fg = FeedGenerator()
   fg.id("https://alexalemi.com/rss.xml")
   fg.title("AlexAlemi.com")
@@ -76,4 +77,6 @@ if __name__ == "__main__":
         add_talk(fe, talk)
 
 
-rssfeed = fg.rss_file(os.path.join(BUILD_PATH, RSS_FILENAME))
+  outpath = os.path.join(ROOT, BUILD_PATH, RSS_FILENAME)
+  logging.info(f"Writing to {outpath}")
+  rssfeed = fg.rss_file(outpath)
