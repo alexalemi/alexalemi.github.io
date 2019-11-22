@@ -167,8 +167,8 @@
         }
 
         svg {
-            margin-left: 10px;
-            margin-right: 10px;
+            margin-left: 7px;
+            margin-right: 7px;
             height: 25px;
             width: 25px;
         }
