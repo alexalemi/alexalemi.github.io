@@ -15,8 +15,15 @@ RSS_FILENAME = "rss.xml"
 DATA_PATH = "../data"
 BUILD_PATH = "../"
 PDF_PATH = "../publications/"
+TALKS_PATH = "../talks/"
 PDF_SCHEME = "https://alexalemi.com/publications/"
 TALK_SCHEME = "https://alexalemi.com/talks/"
+
+REDIRECT_TEMPLATE = """<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Redirecting to {href}</title>
+<meta http-equiv="refresh" content="0; URL={href}">
+<link rel="canonical" href="{href}">"""
 
 
 def convert_date(s):
@@ -36,16 +43,27 @@ def add_publication(fe, publication):
   elif pub.get('link'):
     href = pub["link"]["href"]
     if pub.get("id"):
-      fe.guid(os.path.join(PDF_SCHEME, pub["id"]), permalink=True)
+      fe.guid(os.path.join(PDF_SCHEME, pub["id"] + ".html"), permalink=True)
+      with open(os.path.join(ROOT, PDF_PATH, pub["id"] + ".html"), "w") as f:
+          f.write(REDIRECT_TEMPLATE.format(href=href))
     else:
       fe.guid(href)
     fe.link(href=href)
+  if pub.get('arxiv'):
+      fe.link(href=f"https://arxiv.org/abs/{pub['arxiv']}", rel="alternate")
+
+  fe.description(f"{pub.get('authors', '')} / {pub.get('arxiv', '')} / {pub.get('venue', '')} / {pub.get('description', '')}",
+          isSummary=True)
   return fe
 
 def add_talk(fe, talk):
   fe.title(talk["title"])
-  fe.link(href=talk["link"]["href"])
-  fe.id(talk["link"]["href"])
+  target = talk["link"]["href"]
+  fe.link(href=target, rel="alternate")
+  href = os.path.join(TALK_SCHEME, talk["id"] + ".html")
+  fe.guid(href, permalink=True)
+  with open(os.path.join(ROOT, TALKS_PATH, talk["id"] + ".html"), "w") as f:
+      f.write(REDIRECT_TEMPLATE.format(href=target))
   fe.published(convert_date(talk["date"]))
   fe.category(term="talks", scheme=TALK_SCHEME, label="talks")
   return fe
