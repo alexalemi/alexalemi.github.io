@@ -45,6 +45,7 @@
     },
     {
         "title": "Variational Autoencoders with Tensorflow Probability Layers",
+	"id": "vaetfp",
         "link": {
             "href": "https://medium.com/tensorflow/variational-autoencoders-with-tensorflow-probability-layers-d06c658931b7",
             "text": "[post]"
@@ -185,6 +186,7 @@
     },
     {
         "title": "Improving inception and image classification in tensorflow",
+	"id": "inceptionblog",
         "link" : {
             "href": "https://ai.googleblog.com/2016/08/improving-inception-and-image.html",
             "text": "[post]"
@@ -252,6 +254,7 @@
     },
     {
         "title": "Knowledgebase of Interatomic Models application programming interface as a standard for molecular simulations",
+	"id": "openkim2",
         "link": {
             "href": "http://openkim.org",
             "text": "[openkim.org]"
