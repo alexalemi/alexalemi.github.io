@@ -7,7 +7,8 @@
             "text": "[slides]"
         },
         "date": "2019-01",
-        "venue": "Aspen: Machine Learning and Physics"
+        "venue": "Aspen: Machine Learning and Physics",
+	"id": "therml"
     },
     {
         "title": "Focusing on the Representation",
@@ -17,6 +18,7 @@
             "text": "[slides]"
         },
         "date": "2018-11",
+	"id": "focusing-on-the-representation",
         "venue": "Cornell AI Seminar"
     },
     {
@@ -27,6 +29,7 @@
             "text": "[slides]"
         },
         "date": "2018-11",
+	"id": "thermodynamics-and-ml",
         "venue": "Cornell Physics Colloquium"
     }
 ]
