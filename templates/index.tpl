@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alexalemi.com</title>
 
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="AlexAlemi.com" href="https://alexalemi.com/rss.xml" />
+
     <!-- Search Engine -->
     <meta name="description" content="Alexander A. Alemi, Research Scientist">
     <meta name="image" content="http://alexalemi.com/images/me.jpg">
