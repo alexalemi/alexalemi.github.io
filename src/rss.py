@@ -52,7 +52,8 @@ def add_publication(fe, publication):
   if pub.get('arxiv'):
       fe.link(href=f"https://arxiv.org/abs/{pub['arxiv']}", rel="alternate")
 
-  fe.description(f"{pub.get('authors', '')} / {pub.get('arxiv', '')} / {pub.get('venue', '')} / {pub.get('description', '')}",
+  fe.description(
+          f"{pub.get('description', '')} / {pub.get('authors', '')} / {pub.get('arxiv', '')} / {pub.get('venue', '')}",
           isSummary=True)
   return fe
 
@@ -66,6 +67,9 @@ def add_talk(fe, talk):
       f.write(REDIRECT_TEMPLATE.format(href=target))
   fe.published(convert_date(talk["date"]))
   fe.category(term="talks", scheme=TALK_SCHEME, label="talks")
+  fe.description(
+          f"{pub.get('description', '')} / {pub.get('venue', '')}",
+          isSummary=True)
   return fe
 
 
