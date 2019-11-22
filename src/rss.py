@@ -68,7 +68,7 @@ def add_talk(fe, talk):
   fe.published(convert_date(talk["date"]))
   fe.category(term="talks", scheme=TALK_SCHEME, label="talks")
   fe.description(
-          f"{pub.get('description', '')} / {pub.get('venue', '')}",
+          f"{talk.get('description', '')} / {talk.get('venue', '')}",
           isSummary=True)
   return fe
 
