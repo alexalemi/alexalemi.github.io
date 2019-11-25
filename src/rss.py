@@ -21,7 +21,7 @@ TALK_SCHEME = "https://alexalemi.com/talks/"
 
 REDIRECT_TEMPLATE = """<!DOCTYPE html>
 <meta charset="utf-8">
-<title>Redirecting to {href}</title>
+<title>Redirecting to <a href="{href}">{href}</a>.</title>
 <meta http-equiv="refresh" content="0; URL={href}">
 <link rel="canonical" href="{href}">"""
 
