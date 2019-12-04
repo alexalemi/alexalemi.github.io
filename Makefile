@@ -1,4 +1,4 @@
-
+.PHONY = serve
 
 all: index.html rss.xml
 
@@ -7,3 +7,7 @@ index.html: templates/index.tpl data/research.json data/talks.json src/compile.p
 
 rss.xml: data/research.json data/talks.json src/rss.py
 	python src/rss.py
+
+serve:
+	python -m http.server
+
