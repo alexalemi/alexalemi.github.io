@@ -20,6 +20,17 @@ PDF_SCHEME = "https://alexalemi.com/publications/"
 TALK_SCHEME = "https://alexalemi.com/talks/"
 
 REDIRECT_TEMPLATE = """<!DOCTYPE html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153903138-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153903138-1');
+</script>
+</head>
 <meta charset="utf-8">
 <title>Redirecting to <a href="{href}">{href}</a>.</title>
 <meta http-equiv="refresh" content="0; URL={href}">
