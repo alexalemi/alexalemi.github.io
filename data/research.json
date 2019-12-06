@@ -1,356 +1,369 @@
 [
-    {
-        "title": "Variational Predictive Information Bottleneck",
-        "file": "pib.pdf",
-        "authors": "AA Alemi",
-        "date": "2019-10",
-        "arxiv": "1910.10831",
-        "venue": "AABI Symposium 2019",
-        "description": "Most modern inference procedures can be rederived as a simple variational bound on a predictive information bottleneck objective."
+  {
+    "title": "Neural Tangents: Fast and Easy Infinite Neural Networks in Python",
+    "file": "neural_tangents.pdf",
+    "authors": "R Novak, L Xiao, J Hron, J Lee, AA Alemi, J Sohl-Dickstein, SS Schoenholz",
+    "date": "2019-12",
+    "arxiv": "1912.02803",
+    "link": {
+      "href": "https://github.com/google/neural-tangents",
+      "text": "[code]"
     },
-    {
-        "title": "Information in Infinite Ensembles of Infinitely-Wide Networks",
-        "file": "infiniteinfo.pdf",
-        "authors": "R Shwartz-Ziv, AA Alemi",
-        "venue": "AABI Symposium 2019",
-        "arxiv": "1911.09189",
-        "date": "2019-10",
-        "description": "While they seem complex, infinite ensembles of infinitely-wide networks are simple enough to enable tractable calculations of many information theoretic quantities."
+    "description": "Simple to use python package for training infinitely wide neural networks."
+
+  },
+  {
+    "title": "Variational Predictive Information Bottleneck",
+    "file": "pib.pdf",
+    "authors": "AA Alemi",
+    "date": "2019-10",
+    "arxiv": "1910.10831",
+    "venue": "AABI Symposium 2019",
+    "description": "Most modern inference procedures can be rederived as a simple variational bound on a predictive information bottleneck objective."
+  },
+  {
+    "title": "Information in Infinite Ensembles of Infinitely-Wide Networks",
+    "file": "infiniteinfo.pdf",
+    "authors": "R Shwartz-Ziv, AA Alemi",
+    "venue": "AABI Symposium 2019",
+    "arxiv": "1911.09189",
+    "date": "2019-10",
+    "description": "While they seem complex, infinite ensembles of infinitely-wide networks are simple enough to enable tractable calculations of many information theoretic quantities."
+  },
+  {
+    "title": "CEB Improves Model Robustness",
+    "file": "cebrobust.pdf",
+    "authors": "I Fischer, AA Alemi",
+    "date": "2019-10",
+    "description": "A class conditional version of VIB shows good robustness."
+  },
+  {
+    "title": "On Predictive Information Sub-Optimality of RNNs",
+    "file": "salamander.pdf",
+    "authors": "Z Dong, D Oktay, B Poole, AA Alemi",
+    "arxiv": "1910.09578",
+    "date": "2019-10",
+    "description": "Modern RNNs do not optimally capture predictive information in sequences."
+  },
+  {
+    "title": "On Variational Bounds of Mutual Information",
+    "file": "vmibounds.pdf",
+    "authors": "B Poole, S Ozair, A van den Oord, AA Alemi, G Tucker",
+    "arxiv": "1905.06922",
+    "date": "2019-05",
+    "venue": "ICML",
+    "description": "Overview of recent advances in variationally bounding mutual information."
+  },
+  {
+    "title": "Dueling Decoders: Regularizing Variational Autoencoder Latent Spaces",
+    "file": "dueling.pdf",
+    "arxiv": "1905.07478",
+    "authors": "B Seybold, E Fertig, AA Alemi, I Fischer",
+    "date": "2019-05",
+    "description": "Sometimes a worse decoder gives better representations."
+  },
+  {
+    "title": "Variational Autoencoders with Tensorflow Probability Layers",
+    "id": "vaetfp",
+    "link": {
+      "href": "https://medium.com/tensorflow/variational-autoencoders-with-tensorflow-probability-layers-d06c658931b7",
+      "text": "[post]"
     },
-    {
-        "title": "CEB Improves Model Robustness",
-        "file": "cebrobust.pdf",
-        "authors": "I Fischer, AA Alemi",
-        "date": "2019-10",
-        "description": "A class conditional version of VIB shows good robustness."
+    "authors": "I Fischer, AA Alemi, JV Dillon, TFP Team",
+    "date": "2019-03",
+    "venue": "Tensorflow Blog",
+    "description": "TFP makes VAEs easy."
+  },
+  {
+    "title": "On the Use of ArXiv as a Dataset",
+    "arxiv": "1905.0075",
+    "link": {
+      "href": "https://github.com/mattbierbaum/arxiv-public-datasets",
+      "text": "[code]"
     },
-    {
-        "title": "On Predictive Information Sub-Optimality of RNNs",
-        "file": "salamander.pdf",
-        "authors": "Z Dong, D Oktay, B Poole, AA Alemi",
-        "arxiv": "1910.09578",
-        "date": "2019-10",
-        "description": "Modern RNNs do not optimally capture predictive information in sequences."
+    "file": "arxiv.pdf",
+    "authors": "CB Clement, M Bierbaum, KP O'Keeffe, AA Alemi",
+    "date": "2019-05",
+    "venue": "ICLR workshop RLGM",
+    "description": "More people should use the ArXiv as a dataset."
+  },
+  {
+    "title": "β-VAEs can retain label information even at high compression",
+    "arxiv": "1812.02682",
+    "file": "beta_retain.pdf",
+    "authors": "E Fertig, A Arbabi, AA Alemi",
+    "venue": "NeurIPS BDL Workshop",
+    "date": "2018-12",
+    "description": "Some rich decoder VAEs can magically focus on salient information."
+  },
+  {
+    "title": "Canonical Sectors and Evolution of Firms in the US Stock Markets",
+    "arxiv": "1503.06205",
+    "file": "stocks.pdf",
+    "authors": "LX Hayden, R Chachra, AA Alemi, PH Ginsparg, JP Sethna",
+    "date": "2018-10",
+    "venue": "Quantitative Finance",
+    "description": "Matrix factorization gives automatic and continous sector assignments to stocks."
+  },
+  {
+    "title": "WAIC, but Why? Generative Ensembles for Robust Anomaly Detection",
+    "arxiv": "1810.01392",
+    "file": "waic.pdf",
+    "authors": "H Choi, E Jang, AA Alemi",
+    "date": "2018-10",
+    "description": "Even though it shouldn't work, robust likelihoods can detect OOD data in practice."
+  },
+  {
+    "title": "TherML: Thermodynamics of Machine Learning",
+    "arxiv": "1807.04162",
+    "file": "therml.pdf",
+    "authors": "AA Alemi, I Fisher",
+    "date": "2018-07",
+    "venue": "ICML2018 TFADGM Workshop",
+    "description": "Modern variational latent variable modelling looks a lot like Thermodynamics."
+  },
+  {
+    "title": "Uncertainty in the Variational Information Bottleneck",
+    "arxiv": "1807.00906",
+    "file": "uncert_vib.pdf",
+    "authors": "AA Alemi, I Fischer, JV Dillon",
+    "date": "2018-07",
+    "venue": "UAI UDL Workshop",
+    "description": "VIB builds robust classifiers which are aware of what they don't know."
+  },
+  {
+    "title": "Watch your step: Learning node embeddings via graph attention",
+    "arxiv": "1710.09599",
+    "file": "watch_step.pdf",
+    "authors": "S Abu-El-Haija, B Perozzi, R Al-Rfou, AA Alemi",
+    "date": "2018-12",
+    "venue": "NeurIPS",
+    "description": "Building better graph representations."
+  },
+  {
+    "title": "GILBO: one metric to measure them all",
+    "arxiv": "1802.04874",
+    "file": "gilbo.pdf",
+    "authors": "AA Alemi, I Fischer",
+    "date": "2018-12",
+    "venue": "NeurIPS",
+    "description": "A variational lower bound on the mutual informations in GANs highlight some of their problems."
+  },
+  {
+    "title": "Fixing a Broken ELBO",
+    "arxiv": "1711.00464",
+    "file": "broken_elbo.pdf",
+    "authors": "AA Alemi, B Poole, I Fischer, JV Dillon, RA Saurous, K Murphy",
+    "date": "2018-05",
+    "venue": "ICML",
+    "description": "Adopting a representational view of VAEs can help explain away some of their problems."
+  },
+  {
+    "title": "Tensorflow distributions",
+    "arxiv": "1711.10604",
+    "file": "tfd.pdf",
+    "link": {
+      "href": "https://www.tensorflow.org/probability",
+      "text": "[code]"
     },
-    {
-        "title": "On Variational Bounds of Mutual Information",
-        "file": "vmibounds.pdf",
-        "authors": "B Poole, S Ozair, A van den Oord, AA Alemi, G Tucker",
-        "arxiv": "1905.06922",
-        "date": "2019-05",
-        "venue": "ICML",
-        "description": "Overview of recent advances in variationally bounding mutual information."
+    "authors": "JV Dillon, I Langmore, D Tran, E Brevdo, S Vasudevan, D Moore, B Patton, AA Alemi, M Hoffman, RA Saurous",
+    "date": "2017-11",
+    "description": "Paper accompanying library."
+  },
+  {
+    "title": "Light microscopy at maximal precision",
+    "arxiv": "1702.07336",
+    "file": "peri.pdf",
+    "authors": "M Bierbaum, BD Leahy, AA Alemi, I Cohen, JP Sethna",
+    "date": "2017-02",
+    "venue": "Phys Rev X",
+    "description": "Better featuring of colloids."
+  },
+  {
+    "title": "Jeffrey's prior sampling of deep sigmoidal networks",
+    "arxiv": "1705.10589",
+    "file": "jeffrey.pdf",
+    "authors": "LX Hayden, AA Alemi, PH Ginsparg, JP Sethna",
+    "date": "2017-05",
+    "description": "Jeffrey's prior doesn't really work for neural networks."
+  },
+  {
+    "title": "Motion prediction under multimodality with conditional stochastic networks",
+    "arxiv": "1705.02082",
+    "file": "motion.pdf",
+    "authors": "K Fragkiadaki, J Huang, AA Alemi, S Vijayanarasimhan, S Ricco, R Sukthankar",
+    "date": "2017-05",
+    "description": "Pedestrian motion is stochastic which creates certain challenges."
+  },
+  {
+    "title": "Inception-v4, inception-resnet and the impact of residual connections on learning",
+    "arxiv": "1602.07261",
+    "file": "inceptionv4.pdf",
+    "authors": "C Szegedy, S Ioffe, V Vanhoucke, AA Alemi",
+    "date": "2017-02",
+    "venue": "AAAI",
+    "description": "Residual connections improve the inception family of classifiers."
+  },
+  {
+    "title": "Deep Variational Information Bottleneck",
+    "arxiv": "1612.00410",
+    "file": "vib.pdf",
+    "authors": "AA Alemi, I Fischer, JV Dillon, K Murphy",
+    "date": "2017-03",
+    "venue": "ICLR",
+    "description": "A modern formulation of the Information Bottleneck which is friendly towards neural networks."
+  },
+  {
+    "title": "Improved generator objectives for gans",
+    "arxiv": "1612.02780",
+    "file": "improved_gan.pdf",
+    "authors": "B Poole, AA Alemi, J Sohl-Dickstein, A Angelova",
+    "date": "2016-12",
+    "venue": "NeurIPS Adversarial Workshop",
+    "description": "You can target separate divergences for the generator and discriminator of a GAN."
+  },
+  {
+    "title": "Tree-Structured Variational Autoencoder",
+    "file": "tree_vae.pdf",
+    "authors": "R Shin, AA Alemi, G Irving, O Vinyals",
+    "date": "2016-11",
+    "description": "Attempting to learn tree-structured representations."
+  },
+  {
+    "title": "Improving inception and image classification in tensorflow",
+    "id": "inceptionblog",
+    "link" : {
+      "href": "https://ai.googleblog.com/2016/08/improving-inception-and-image.html",
+      "text": "[post]"
     },
-    {
-        "title": "Dueling Decoders: Regularizing Variational Autoencoder Latent Spaces",
-        "file": "dueling.pdf",
-        "arxiv": "1905.07478",
-        "authors": "B Seybold, E Fertig, AA Alemi, I Fischer",
-        "date": "2019-05",
-        "description": "Sometimes a worse decoder gives better representations."
+    "authors": "AA Alemi",
+    "date": "2016-06",
+    "venue": "Google Research Blog",
+    "description": "Blogpost accompanying open source release of Inception Resnet V2."
+  },
+  {
+    "title": "DeepMath-deep sequence models for premise selection",
+    "arxiv": "1606.04442",
+    "file": "deep_math.pdf",
+    "authors": "G Irving, C Szegedy, AA Alemi, N Eén, F Chollet, J Urban",
+    "date": "2016-06",
+    "venue": "NeurIPS",
+    "description": "Using neural networks to improve automatic theorem proving."
+  },
+  {
+    "title": "SPARTA: Fast global planning of collision-avoiding robot trajectories",
+    "file": "sparta.pdf",
+    "authors": "CJM Mathy, F Gonda, D Schmidt, N Derbinsky, AA Alemi, J Bento, FM Delle Fave, JS Yedidia",
+    "date": "2015-12",
+    "description": "Using ADMM to do fast trajectory planning."
+  },
+  {
+    "title": "You can run, you can hide: The epidemiology and statistical mechanics of zombies",
+    "arxiv": "1503.01104",
+    "file": "zombies.pdf",
+    "authors": "AA Alemi, M Bierbaum, CR Myers, JP Sethna",
+    "date": "2015-11",
+    "venue": "Phys Rev E",
+    "description": "A fun pedadogical introduction to epidemiology and statistical mechanics."
+  },
+  {
+    "title": "Zombies Reading Segmented Graphene Articles On The Arxiv",
+    "file": "thesis.pdf",
+    "authors": "AA Alemi",
+    "date": "2015-08",
+    "venue": "Thesis",
+    "description": "A collection of four of my graduate student projects."
+  },
+  {
+    "title": "Clustering via Content-Augmented Stochastic Blockmodels",
+    "arxiv": "1505.06538",
+    "file": "blockmodels.pdf",
+    "authors": "JM Cashore, X Zhao, AA Alemi, Y Liu, PI Frazier",
+    "date": "2015-05",
+    "description": "Better clustering through content conditioning."
+  },
+  {
+    "title": "Text segmentation based on semantic word embeddings",
+    "arxiv": "1503.05543",
+    "file": "segmentation.pdf",
+    "authors": "AA Alemi, P Ginsparg",
+    "date": "2015-03",
+    "description": "Using word2vec vectors to do automatic text segmentation."
+  },
+  {
+    "title": "Mechanical properties of growing melanocytic nevi and the progression to melanoma",
+    "arxiv": "1404.4116",
+    "file": "cancer.pdf",
+    "authors": "A Taloni, AA Alemi, E Ciusani, JP Sethna, S Zapperi, CAM La Porta",
+    "date": "2014-04",
+    "venue": "PloS One",
+    "description": "Elastic models of skin cancer."
+  },
+  {
+    "title": "Ensuring reliability, reproducibility and transferability in atomistic simulations: The knowledgebase of interatomic models (https://openkim.org)",
+    "file": "openkim.pdf",
+    "authors": "E Tadmor, R Elliott, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom",
+    "date": "2014-10"
+  },
+  {
+    "title": "Knowledgebase of Interatomic Models application programming interface as a standard for molecular simulations",
+    "id": "openkim2",
+    "link": {
+      "href": "http://openkim.org",
+      "text": "[openkim.org]"
     },
-    {
-        "title": "Variational Autoencoders with Tensorflow Probability Layers",
-        "id": "vaetfp",
-        "link": {
-            "href": "https://medium.com/tensorflow/variational-autoencoders-with-tensorflow-probability-layers-d06c658931b7",
-            "text": "[post]"
-        },
-        "authors": "I Fischer, AA Alemi, JV Dillon, TFP Team",
-        "date": "2019-03",
-        "venue": "Tensorflow Blog",
-        "description": "TFP makes VAEs easy."
-    },
-    {
-        "title": "On the Use of ArXiv as a Dataset",
-        "arxiv": "1905.0075",
-        "link": {
-            "href": "https://github.com/mattbierbaum/arxiv-public-datasets",
-            "text": "[code]"
-        },
-        "file": "arxiv.pdf",
-        "authors": "CB Clement, M Bierbaum, KP O'Keeffe, AA Alemi",
-        "date": "2019-05",
-        "venue": "ICLR workshop RLGM",
-        "description": "More people should use the ArXiv as a dataset."
-    },
-    {
-        "title": "β-VAEs can retain label information even at high compression",
-        "arxiv": "1812.02682",
-        "file": "beta_retain.pdf",
-        "authors": "E Fertig, A Arbabi, AA Alemi",
-        "venue": "NeurIPS BDL Workshop",
-        "date": "2018-12",
-        "description": "Some rich decoder VAEs can magically focus on salient information."
-    },
-    {
-        "title": "Canonical Sectors and Evolution of Firms in the US Stock Markets",
-        "arxiv": "1503.06205",
-        "file": "stocks.pdf",
-        "authors": "LX Hayden, R Chachra, AA Alemi, PH Ginsparg, JP Sethna",
-        "date": "2018-10",
-        "venue": "Quantitative Finance",
-        "description": "Matrix factorization gives automatic and continous sector assignments to stocks."
-    },
-    {
-        "title": "WAIC, but Why? Generative Ensembles for Robust Anomaly Detection",
-        "arxiv": "1810.01392",
-        "file": "waic.pdf",
-        "authors": "H Choi, E Jang, AA Alemi",
-        "date": "2018-10",
-        "description": "Even though it shouldn't work, robust likelihoods can detect OOD data in practice."
-    },
-    {
-        "title": "TherML: Thermodynamics of Machine Learning",
-        "arxiv": "1807.04162",
-        "file": "therml.pdf",
-        "authors": "AA Alemi, I Fisher",
-        "date": "2018-07",
-        "venue": "ICML2018 TFADGM Workshop",
-        "description": "Modern variational latent variable modelling looks a lot like Thermodynamics."
-    },
-    {
-        "title": "Uncertainty in the Variational Information Bottleneck",
-        "arxiv": "1807.00906",
-        "file": "uncert_vib.pdf",
-        "authors": "AA Alemi, I Fischer, JV Dillon",
-        "date": "2018-07",
-        "venue": "UAI UDL Workshop",
-        "description": "VIB builds robust classifiers which are aware of what they don't know."
-    },
-    {
-        "title": "Watch your step: Learning node embeddings via graph attention",
-        "arxiv": "1710.09599",
-        "file": "watch_step.pdf",
-        "authors": "S Abu-El-Haija, B Perozzi, R Al-Rfou, AA Alemi",
-        "date": "2018-12",
-        "venue": "NeurIPS",
-        "description": "Building better graph representations."
-    },
-    {
-        "title": "GILBO: one metric to measure them all",
-        "arxiv": "1802.04874",
-        "file": "gilbo.pdf",
-        "authors": "AA Alemi, I Fischer",
-        "date": "2018-12",
-        "venue": "NeurIPS",
-        "description": "A variational lower bound on the mutual informations in GANs highlight some of their problems."
-    },
-    {
-        "title": "Fixing a Broken ELBO",
-        "arxiv": "1711.00464",
-        "file": "broken_elbo.pdf",
-        "authors": "AA Alemi, B Poole, I Fischer, JV Dillon, RA Saurous, K Murphy",
-        "date": "2018-05",
-        "venue": "ICML",
-        "description": "Adopting a representational view of VAEs can help explain away some of their problems."
-    },
-    {
-        "title": "Tensorflow distributions",
-        "arxiv": "1711.10604",
-        "file": "tfd.pdf",
-        "link": {
-            "href": "https://www.tensorflow.org/probability",
-            "text": "[code]"
-        },
-        "authors": "JV Dillon, I Langmore, D Tran, E Brevdo, S Vasudevan, D Moore, B Patton, AA Alemi, M Hoffman, RA Saurous",
-        "date": "2017-11",
-        "description": "Paper accompanying library."
-    },
-    {
-        "title": "Light microscopy at maximal precision",
-        "arxiv": "1702.07336",
-        "file": "peri.pdf",
-        "authors": "M Bierbaum, BD Leahy, AA Alemi, I Cohen, JP Sethna",
-        "date": "2017-02",
-        "venue": "Phys Rev X",
-        "description": "Better featuring of colloids."
-    },
-    {
-        "title": "Jeffrey's prior sampling of deep sigmoidal networks",
-        "arxiv": "1705.10589",
-        "file": "jeffrey.pdf",
-        "authors": "LX Hayden, AA Alemi, PH Ginsparg, JP Sethna",
-        "date": "2017-05",
-        "description": "Jeffrey's prior doesn't really work for neural networks."
-    },
-    {
-        "title": "Motion prediction under multimodality with conditional stochastic networks",
-        "arxiv": "1705.02082",
-        "file": "motion.pdf",
-        "authors": "K Fragkiadaki, J Huang, AA Alemi, S Vijayanarasimhan, S Ricco, R Sukthankar",
-        "date": "2017-05",
-        "description": "Pedestrian motion is stochastic which creates certain challenges."
-    },
-    {
-        "title": "Inception-v4, inception-resnet and the impact of residual connections on learning",
-        "arxiv": "1602.07261",
-        "file": "inceptionv4.pdf",
-        "authors": "C Szegedy, S Ioffe, V Vanhoucke, AA Alemi",
-        "date": "2017-02",
-        "venue": "AAAI",
-        "description": "Residual connections improve the inception family of classifiers."
-    },
-    {
-        "title": "Deep Variational Information Bottleneck",
-        "arxiv": "1612.00410",
-        "file": "vib.pdf",
-        "authors": "AA Alemi, I Fischer, JV Dillon, K Murphy",
-        "date": "2017-03",
-        "venue": "ICLR",
-        "description": "A modern formulation of the Information Bottleneck which is friendly towards neural networks."
-    },
-    {
-        "title": "Improved generator objectives for gans",
-        "arxiv": "1612.02780",
-        "file": "improved_gan.pdf",
-        "authors": "B Poole, AA Alemi, J Sohl-Dickstein, A Angelova",
-        "date": "2016-12",
-        "venue": "NeurIPS Adversarial Workshop",
-        "description": "You can target separate divergences for the generator and discriminator of a GAN."
-    },
-    {
-        "title": "Tree-Structured Variational Autoencoder",
-        "file": "tree_vae.pdf",
-        "authors": "R Shin, AA Alemi, G Irving, O Vinyals",
-        "date": "2016-11",
-        "description": "Attempting to learn tree-structured representations."
-    },
-    {
-        "title": "Improving inception and image classification in tensorflow",
-        "id": "inceptionblog",
-        "link" : {
-            "href": "https://ai.googleblog.com/2016/08/improving-inception-and-image.html",
-            "text": "[post]"
-        },
-        "authors": "AA Alemi",
-        "date": "2016-06",
-        "venue": "Google Research Blog",
-        "description": "Blogpost accompanying open source release of Inception Resnet V2."
-    },
-    {
-        "title": "DeepMath-deep sequence models for premise selection",
-        "arxiv": "1606.04442",
-        "file": "deep_math.pdf",
-        "authors": "G Irving, C Szegedy, AA Alemi, N Eén, F Chollet, J Urban",
-        "date": "2016-06",
-        "venue": "NeurIPS",
-        "description": "Using neural networks to improve automatic theorem proving."
-    },
-    {
-        "title": "SPARTA: Fast global planning of collision-avoiding robot trajectories",
-        "file": "sparta.pdf",
-        "authors": "CJM Mathy, F Gonda, D Schmidt, N Derbinsky, AA Alemi, J Bento, FM Delle Fave, JS Yedidia",
-        "date": "2015-12",
-        "description": "Using ADMM to do fast trajectory planning."
-    },
-    {
-        "title": "You can run, you can hide: The epidemiology and statistical mechanics of zombies",
-        "arxiv": "1503.01104",
-        "file": "zombies.pdf",
-        "authors": "AA Alemi, M Bierbaum, CR Myers, JP Sethna",
-        "date": "2015-11",
-        "venue": "Phys Rev E",
-        "description": "A fun pedadogical introduction to epidemiology and statistical mechanics."
-    },
-    {
-        "title": "Zombies Reading Segmented Graphene Articles On The Arxiv",
-        "file": "thesis.pdf",
-        "authors": "AA Alemi",
-        "date": "2015-08",
-        "venue": "Thesis",
-        "description": "A collection of four of my graduate student projects."
-    },
-    {
-        "title": "Clustering via Content-Augmented Stochastic Blockmodels",
-        "arxiv": "1505.06538",
-        "file": "blockmodels.pdf",
-        "authors": "JM Cashore, X Zhao, AA Alemi, Y Liu, PI Frazier",
-        "date": "2015-05",
-        "description": "Better clustering through content conditioning."
-    },
-    {
-        "title": "Text segmentation based on semantic word embeddings",
-        "arxiv": "1503.05543",
-        "file": "segmentation.pdf",
-        "authors": "AA Alemi, P Ginsparg",
-        "date": "2015-03",
-        "description": "Using word2vec vectors to do automatic text segmentation."
-    },
-    {
-        "title": "Mechanical properties of growing melanocytic nevi and the progression to melanoma",
-        "arxiv": "1404.4116",
-        "file": "cancer.pdf",
-        "authors": "A Taloni, AA Alemi, E Ciusani, JP Sethna, S Zapperi, CAM La Porta",
-        "date": "2014-04",
-        "venue": "PloS One",
-        "description": "Elastic models of skin cancer."
-    },
-    {
-        "title": "Ensuring reliability, reproducibility and transferability in atomistic simulations: The knowledgebase of interatomic models (https://openkim.org)",
-        "file": "openkim.pdf",
-        "authors": "E Tadmor, R Elliott, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom",
-        "date": "2014-10"
-    },
-    {
-        "title": "Knowledgebase of Interatomic Models application programming interface as a standard for molecular simulations",
-        "id": "openkim2",
-        "link": {
-            "href": "http://openkim.org",
-            "text": "[openkim.org]"
-        },
-        "file": "openkim2.pdf",
-        "authors": "R Elliott, E Tadmor, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom",
-        "date": "2014-10",
-        "description": "Building a website to collect interatomic potentials and score them."
-    },
-    {
-        "title": "Imaging atomic rearrangements in two-dimensional silica glass: watching silica's dance",
-        "file": "glass.pdf",
-        "authors": "PY Huang, S Kurasch, JS Alden, A Shekhawat, AA Alemi, PL McEuen, JP Sethna, U Kaiser, DA Muller",
-        "date": "2013-10",
-        "venue": "Science",
-        "description": "Applying elastic theory to the atomic scale."
-    },
-    {
-        "title": "Growth and form of melanoma cell colonies",
-        "arxiv": "1308.6037",
-        "file": "melanoma.pdf",
-        "authors": "MM Baraldi, AA Alemi, JP Sethna, S Caracciolo, CAM La Porta, S Zapperi",
-        "date": "2013-08",
-        "venue": "JSM",
-        "description": "Simple models of skin cancer growth."
-    },
-    {
-        "title": "Near-field radiative heat transfer between macroscopic planar surfaces",
-        "arxiv": "1103.2389",
-        "file": "heat.pdf",
-        "authors": "RS Ottens, Volker Quetschke, Stacy Wise, AA Alemi, Ramsey Lundock, Guido Mueller, David H Reitze, David B Tanner, Bernard F Whiting",
-        "date": "2011-03",
-        "venue": "Phys Rev Lett",
-        "description": "Exploration of quantum tunnelling as a mechanism for cooling the next generation LIGO detectors."
-    },
-    {
-        "title": "Laplace-Runge-Lenz Vector",
-        "file": "laplace.pdf",
-        "authors": "AA Alemi",
-        "date": "2009-06",
-        "description": "Undergraduate project on the history of the Runge Vector."
-    },
-    {
-        "title": "NEMS Coupling",
-        "file": "nems.pdf",
-        "authors": "AA Alemi",
-        "date": "2008-09",
-        "description": "Undergraduate research project on synchronization in nano cantilevers."
-    },
-    {
-        "title": "Why Venus has no moon",
-        "file": "venus.pdf",
-        "authors": "AA Alemi, DJ Stevenson",
-        "date": "2006-09",
-        "venue": "AAS Oral",
-        "description": "Undergraduate research investigating whether two collisions in the opposite direction could explain Venus' lack of moon and slow rotation."
-    }
+    "file": "openkim2.pdf",
+    "authors": "R Elliott, E Tadmor, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom",
+    "date": "2014-10",
+    "description": "Building a website to collect interatomic potentials and score them."
+  },
+  {
+    "title": "Imaging atomic rearrangements in two-dimensional silica glass: watching silica's dance",
+    "file": "glass.pdf",
+    "authors": "PY Huang, S Kurasch, JS Alden, A Shekhawat, AA Alemi, PL McEuen, JP Sethna, U Kaiser, DA Muller",
+    "date": "2013-10",
+    "venue": "Science",
+    "description": "Applying elastic theory to the atomic scale."
+  },
+  {
+    "title": "Growth and form of melanoma cell colonies",
+    "arxiv": "1308.6037",
+    "file": "melanoma.pdf",
+    "authors": "MM Baraldi, AA Alemi, JP Sethna, S Caracciolo, CAM La Porta, S Zapperi",
+    "date": "2013-08",
+    "venue": "JSM",
+    "description": "Simple models of skin cancer growth."
+  },
+  {
+    "title": "Near-field radiative heat transfer between macroscopic planar surfaces",
+    "arxiv": "1103.2389",
+    "file": "heat.pdf",
+    "authors": "RS Ottens, Volker Quetschke, Stacy Wise, AA Alemi, Ramsey Lundock, Guido Mueller, David H Reitze, David B Tanner, Bernard F Whiting",
+    "date": "2011-03",
+    "venue": "Phys Rev Lett",
+    "description": "Exploration of quantum tunnelling as a mechanism for cooling the next generation LIGO detectors."
+  },
+  {
+    "title": "Laplace-Runge-Lenz Vector",
+    "file": "laplace.pdf",
+    "authors": "AA Alemi",
+    "date": "2009-06",
+    "description": "Undergraduate project on the history of the Runge Vector."
+  },
+  {
+    "title": "NEMS Coupling",
+    "file": "nems.pdf",
+    "authors": "AA Alemi",
+    "date": "2008-09",
+    "description": "Undergraduate research project on synchronization in nano cantilevers."
+  },
+  {
+    "title": "Why Venus has no moon",
+    "file": "venus.pdf",
+    "authors": "AA Alemi, DJ Stevenson",
+    "date": "2006-09",
+    "venue": "AAS Oral",
+    "description": "Undergraduate research investigating whether two collisions in the opposite direction could explain Venus' lack of moon and slow rotation."
+  }
 ]
 
