@@ -13,7 +13,7 @@
       "date": "2019-12",
       "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
 			"id": "case-for-compression",
-			"descripion": "I offer arguments both for and against learning compressed representations in the form of a generalized information bottleneck."
+			"description": "I offer arguments both for and against learning compressed representations in the form of a generalized information bottleneck."
     },
     {
         "title": "TherML",
