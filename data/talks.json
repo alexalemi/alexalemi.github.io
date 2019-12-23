@@ -1,5 +1,21 @@
 [
     {
+      "title": "A Case for Compression",
+      "link": {
+        "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
+        "blank": true,
+        "text": "[slides]"
+      },
+      "video": {
+        "href": "https://slideslive.com/38921970",
+        "text": "[video starts @ 25:30]"
+      },
+      "date": "2019-12",
+      "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
+			"id": "case-for-compression",
+			"descripion": "I offer arguments both for and against learning compressed representations in the form of a generalized information bottleneck."
+    },
+    {
         "title": "TherML",
         "link": {
             "href": "https://docs.google.com/presentation/d/1Uhr4oJwTm2yI7FAvkjMbdK6s_HNwD9T61j6Ccz_eBmc/present",
