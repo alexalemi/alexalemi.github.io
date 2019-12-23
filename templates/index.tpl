@@ -354,6 +354,9 @@
                 {% if t.link %}
                 <a href="{{ t.link.href }}" {% if t.link.blank %} target="_blank" {% endif %}>{{ t.link.text }}</a>
                 {% endif %}
+                {% if t.video %}
+                <a href="{{ t.video.href }}" {% if t.video.blank %} target="_blank" {% endif %}>{{ t.video.text }}</a>
+                {% endif %}
                 <p>
                   <date>{{ t.date }}</date>
                   <strong>{{ t.venue }}</strong>
