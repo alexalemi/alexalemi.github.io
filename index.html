@@ -225,7 +225,7 @@
         <h1 style="margin-top: 0px; margin-bottom: 4px">Alexander A. Alemi</h1>
 
         <div class="social-links">
-            <a href="mailto:alexalemi@gmail.com"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 36 24">
+            <a href="mailto:alemi@google.com"> <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 36 24">
                     <g>
                         <path class="cls-1" d="M18,13.47,34.52.25A2.55,2.55,0,0,0,33.43,0H2.57a2.55,2.55,0,0,0-1.1.25Z"></path>
                         <path class="cls-1" d="M35.74,1.46l-.06.07L18.54,15.24a.86.86,0,0,1-1.07,0L.32,1.53.26,1.46A2.54,2.54,0,0,0,0,2.57V21.43A2.57,2.57,0,0,0,2.57,24H33.43A2.57,2.57,0,0,0,36,21.43V2.57A2.55,2.55,0,0,0,35.74,1.46Z"></path>
