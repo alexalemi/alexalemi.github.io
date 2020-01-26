@@ -20,24 +20,24 @@
 
     <!-- Search Engine -->
     <meta name="description" content="Alexander A. Alemi, Research Scientist">
-    <meta name="image" content="https://alexalemi.com/images/me.jpg">
+    <meta name="image" content="https://alexalemi.com/images/me_small.jpg">
 
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="alexalemi.com">
     <meta itemprop="description" content="Alexander A. Alemi, Research Scientist">
-    <meta itemprop="image" content="https://alexalemi.com/images/me.jpg">
+    <meta itemprop="image" content="https://alexalemi.com/images/me_small.jpg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="alexalemi.com">
     <meta name="twitter:description" content="Alexander A. Alemi, Research Scientist">
     <meta name="twitter:creator" content="alemi">
-    <meta name="twitter:image:src" content="https://alexalemi.com/images/me.jpg">
+    <meta name="twitter:image:src" content="https://alexalemi.com/images/me_small.jpg">
 
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="alexalemi.com">
     <meta name="og:description" content="Alexander A. Alemi, Research Scientist">
-    <meta name="og:image" content="https://alexalemi.com/images/me.jpg">
+    <meta name="og:image" content="https://alexalemi.com/images/me_small.jpg">
     <meta name="og:url" content="https://alexalemi.com">
     <meta name="og:site_name" content="alexalemi.com">
     <meta name="og:type" content="website">
@@ -217,7 +217,7 @@
 
     <!-- Headshot -->
     <div class="headshot">
-        <a href="assets/images/me.jpg"><img src="assets/images/me.jpg" alt="Alex Alemi Headshot" title="Alex Alemi Headshot" /></a>
+        <a href="assets/images/me.jpg"><img src="assets/images/me_round.jpg" alt="Alex Alemi Headshot" title="Alex Alemi Headshot" /></a>
     </div>
 
     <!-- Header with social links -->
