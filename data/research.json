@@ -5,6 +5,7 @@
     "authors": "R Novak, L Xiao, J Hron, J Lee, AA Alemi, J Sohl-Dickstein, SS Schoenholz",
     "date": "2019-12",
     "arxiv": "1912.02803",
+    "venue": "ICLR",
     "link": {
       "href": "https://github.com/google/neural-tangents",
       "text": "[code]"
