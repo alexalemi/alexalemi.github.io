@@ -51,15 +51,16 @@ def add_publication(fe, publication):
     fe.link(href=pdf_path)
     size = os.path.getsize(os.path.join(ROOT, PDF_PATH, pub["file"]))
     fe.enclosure(pdf_path, str(size), "application/pdf")
-  elif pub.get('link'):
-    href = pub["link"]["href"]
+  elif pub.get('links'):
+    for link in pub.get('links', []):
+      href = link["href"]
+      fe.link(href=href)
     if pub.get("id"):
       fe.guid(os.path.join(PDF_SCHEME, pub["id"] + ".html"), permalink=True)
       with open(os.path.join(ROOT, PDF_PATH, pub["id"] + ".html"), "w") as f:
           f.write(REDIRECT_TEMPLATE.format(href=href))
     else:
       fe.guid(href)
-    fe.link(href=href)
   if pub.get('arxiv'):
       fe.link(href=f"https://arxiv.org/abs/{pub['arxiv']}", rel="alternate")
 
@@ -70,8 +71,9 @@ def add_publication(fe, publication):
 
 def add_talk(fe, talk):
   fe.title(talk["title"])
-  target = talk["link"]["href"]
-  fe.link(href=target, rel="alternate")
+  for link in talk.get('links', []):
+    target = link["href"]
+    fe.link(href=target, rel="alternate")
   href = os.path.join(TALK_SCHEME, talk["id"] + ".html")
   fe.guid(href, permalink=True)
   with open(os.path.join(ROOT, TALKS_PATH, talk["id"] + ".html"), "w") as f:

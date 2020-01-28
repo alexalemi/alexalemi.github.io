@@ -1,27 +1,24 @@
 [
     {
       "title": "A Case for Compression",
-      "link": {
+      "links": [{
         "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
-        "blank": true,
         "text": "[slides]"
-      },
-      "video": {
+      }, {
         "href": "https://slideslive.com/38921970",
         "text": "[video starts @ 25:30]"
-      },
+      }],
       "date": "2019-12",
       "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
-			"id": "case-for-compression",
-			"description": "I offer arguments both for and against learning compressed representations in the form of a generalized information bottleneck."
+      "id": "case-for-compression",
+      "description": "I offer arguments both for and against learning compressed representations in the form of a generalized information bottleneck."
     },
     {
         "title": "TherML",
-        "link": {
+        "links": [{
             "href": "https://docs.google.com/presentation/d/1Uhr4oJwTm2yI7FAvkjMbdK6s_HNwD9T61j6Ccz_eBmc/present",
-            "blank": true,
             "text": "[slides]"
-        },
+        }],
         "date": "2019-01",
         "venue": "Aspen: Machine Learning and Physics",
         "id": "therml",
@@ -29,11 +26,10 @@
     },
     {
         "title": "Focusing on the Representation",
-        "link": {
+        "links": [{
             "href": "https://docs.google.com/presentation/d/1Zd_-R6vVWkPegm_oEXTnlTvFbPTcdb71AtrHYk4-JpM/present",
-            "blank": true,
             "text": "[slides]"
-        },
+        }],
         "date": "2018-11",
         "id": "focusing-on-the-representation",
         "venue": "Cornell AI Seminar",
@@ -41,11 +37,10 @@
     },
     {
         "title": "Thermodynamics and Machine Learning",
-        "link": {
+        "links": [{
             "href": "https://docs.google.com/presentation/d/1B2xbdhFRByzIJOdehPVGm5xrCpbUXkijnFRPEwVMKtk/present",
-            "blank": true,
             "text": "[slides]"
-        },
+        }],
         "date": "2018-11",
         "id": "thermodynamics-and-ml",
         "venue": "Cornell Physics Colloquium",
@@ -53,11 +48,10 @@
     },
     {
         "title": "Fixing a BrokenELBO",
-        "link": {
+        "links": [{
             "href": "https://docs.google.com/presentation/d/11ToIFlOLrcP3GTl8u6Lv-jPntifO0iohIp2VIlTsqj8/present",
-            "blank": true,
             "text": "[slides]"
-        },
+        }],
         "date": "2018-07",
         "id": "fixing-broken-elbo",
         "venue": "ICML2018",
@@ -65,11 +59,10 @@
     },
     {
         "title": "Uncertainty in VIB",
-        "link": {
+        "links": [{
 	    "href": "https://docs.google.com/presentation/d/1PjEaRIeDOwVYKEmyLBIBiKS8bYPYwwKcXki_Gb8i42c/present",
-            "blank": true,
             "text": "[slides]"
-        },
+        }],
         "date": "2018-08",
         "id": "uaivib",
         "venue": "UAI UDL Workshop 2018",

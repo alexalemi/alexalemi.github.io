@@ -302,9 +302,9 @@
              {% if a.file %}
                  <a href="publications/{{ a.file }}">[pdf]</a>
              {% endif %}
-             {% if a.link %}
-                 <a href="{{ a.link.href }}">{{ a.link.text }}</a>
-             {% endif %}
+             {% for link in a.links %}
+                 <a href="{{ link.href }}">{{ link.text }}</a>
+             {% endfor %}
              <p>
                {{ a.authors }}
                <date>{{ a.date }}</date>
@@ -351,12 +351,9 @@
           {% for t in talks %}
               <li>
                 <cite>{{ t.title }}</cite>
-                {% if t.link %}
-                <a href="{{ t.link.href }}" {% if t.link.blank %} target="_blank" {% endif %}>{{ t.link.text }}</a>
-                {% endif %}
-                {% if t.video %}
-                <a href="{{ t.video.href }}" {% if t.video.blank %} target="_blank" {% endif %}>{{ t.video.text }}</a>
-                {% endif %}
+                {% for link in t.link %}
+                <a href="{{ link.href }}" {% if link.blank %} target="_blank" {% endif %}>{{ link.text }}</a>
+                {% endfor %}
                 <p>
                   <date>{{ t.date }}</date>
                   <strong>{{ t.venue }}</strong>
