@@ -351,7 +351,7 @@
           {% for t in talks %}
               <li>
                 <cite>{{ t.title }}</cite>
-                {% for link in t.link %}
+                {% for link in t.links %}
                 <a href="{{ link.href }}" {% if link.blank %} target="_blank" {% endif %}>{{ link.text }}</a>
                 {% endfor %}
                 <p>
