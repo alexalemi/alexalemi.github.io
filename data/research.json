@@ -6,10 +6,10 @@
     "date": "2019-12",
     "arxiv": "1912.02803",
     "venue": "ICLR",
-    "link": {
-      "href": "https://github.com/google/neural-tangents",
-      "text": "[code]"
-    },
+    "links": [{
+	    "href": "https://github.com/google/neural-tangents",
+	    "text": "[code]"
+    }],
     "description": "Simple to use python package for training infinitely wide neural networks."
 
   },
@@ -66,10 +66,10 @@
   {
     "title": "Variational Autoencoders with Tensorflow Probability Layers",
     "id": "vaetfp",
-    "link": {
+    "links": [{
       "href": "https://medium.com/tensorflow/variational-autoencoders-with-tensorflow-probability-layers-d06c658931b7",
       "text": "[post]"
-    },
+    }],
     "authors": "I Fischer, AA Alemi, JV Dillon, TFP Team",
     "date": "2019-03",
     "venue": "Tensorflow Blog",
@@ -78,10 +78,10 @@
   {
     "title": "On the Use of ArXiv as a Dataset",
     "arxiv": "1905.0075",
-    "link": {
+    "links": [{
       "href": "https://github.com/mattbierbaum/arxiv-public-datasets",
       "text": "[code]"
-    },
+    }],
     "file": "arxiv.pdf",
     "authors": "CB Clement, M Bierbaum, KP O'Keeffe, AA Alemi",
     "date": "2019-05",
@@ -163,10 +163,10 @@
     "title": "Tensorflow distributions",
     "arxiv": "1711.10604",
     "file": "tfd.pdf",
-    "link": {
+    "links": [{
       "href": "https://www.tensorflow.org/probability",
       "text": "[code]"
-    },
+    }],
     "authors": "JV Dillon, I Langmore, D Tran, E Brevdo, S Vasudevan, D Moore, B Patton, AA Alemi, M Hoffman, RA Saurous",
     "date": "2017-11",
     "description": "Paper accompanying library."
@@ -233,10 +233,10 @@
   {
     "title": "Improving inception and image classification in tensorflow",
     "id": "inceptionblog",
-    "link" : {
+    "links" : [{
       "href": "https://ai.googleblog.com/2016/08/improving-inception-and-image.html",
       "text": "[post]"
-    },
+    }],
     "authors": "AA Alemi",
     "date": "2016-06",
     "venue": "Google Research Blog",
@@ -309,10 +309,10 @@
   {
     "title": "Knowledgebase of Interatomic Models application programming interface as a standard for molecular simulations",
     "id": "openkim2",
-    "link": {
+    "links": [{
       "href": "http://openkim.org",
       "text": "[openkim.org]"
-    },
+    }],
     "file": "openkim2.pdf",
     "authors": "R Elliott, E Tadmor, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom",
     "date": "2014-10",
