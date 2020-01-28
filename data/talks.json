@@ -2,11 +2,11 @@
     {
       "title": "A Case for Compression",
       "links": [{
-        "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
-        "text": "[slides]"
-      }, {
         "href": "https://slideslive.com/38921970",
         "text": "[video starts @ 25:30]"
+      },{
+        "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
+        "text": "[slides]"
       }],
       "date": "2019-12",
       "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
