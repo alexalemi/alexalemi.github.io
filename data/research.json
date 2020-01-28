@@ -19,14 +19,14 @@
     "authors": "AA Alemi",
     "date": "2019-10",
     "arxiv": "1910.10831",
-    "venue": "AABI Symposium 2019",
+    "venue": "AABI",
     "description": "Most modern inference procedures can be rederived as a simple variational bound on a predictive information bottleneck objective."
   },
   {
     "title": "Information in Infinite Ensembles of Infinitely-Wide Networks",
     "file": "infiniteinfo.pdf",
     "authors": "R Shwartz-Ziv, AA Alemi",
-    "venue": "AABI Symposium 2019",
+    "venue": "AABI",
     "arxiv": "1911.09189",
     "date": "2019-10",
     "description": "While they seem complex, infinite ensembles of infinitely-wide networks are simple enough to enable tractable calculations of many information theoretic quantities."
