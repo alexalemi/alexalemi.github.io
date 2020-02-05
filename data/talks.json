@@ -6,7 +6,7 @@
         "text": "[slides]"
       }],
       "date": "2020-02",
-      "venue": "2020 Information Theory and ApplicationsWorkshop",
+      "venue": "Information Theory and Applications Workshop",
       "id": "ita-pib",
       "description": "I attempt to show that most modern forms of inference can be viewed as optimizing a variational bound on a predictive information bottleneck objective."
     },
