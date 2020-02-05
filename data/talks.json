@@ -3,7 +3,8 @@
       "title": "Variational Predictive Information Bottleneck",
       "links": [{
         "href": "https://docs.google.com/presentation/d/1wlQzWYr2cHu081NWPL9Cfp6z1cC4wIxe_qfFUhAfWcg/present",
-        "text": "[slides]"
+        "text": "[slides]",
+        "canonical": true
       }],
       "date": "2020-02",
       "venue": "Information Theory and Applications Workshop",
@@ -17,7 +18,8 @@
         "text": "[video starts @ 25:30]"
       },{
         "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
-        "text": "[slides]"
+        "text": "[slides]",
+        "canonical": true
       }],
       "date": "2019-12",
       "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
@@ -28,7 +30,8 @@
         "title": "TherML",
         "links": [{
             "href": "https://docs.google.com/presentation/d/1Uhr4oJwTm2yI7FAvkjMbdK6s_HNwD9T61j6Ccz_eBmc/present",
-            "text": "[slides]"
+            "text": "[slides]",
+            "canonical": true
         }],
         "date": "2019-01",
         "venue": "Aspen: Machine Learning and Physics",
@@ -39,7 +42,8 @@
         "title": "Focusing on the Representation",
         "links": [{
             "href": "https://docs.google.com/presentation/d/1Zd_-R6vVWkPegm_oEXTnlTvFbPTcdb71AtrHYk4-JpM/present",
-            "text": "[slides]"
+            "text": "[slides]",
+            "canonical": true
         }],
         "date": "2018-11",
         "id": "focusing-on-the-representation",
@@ -50,7 +54,8 @@
         "title": "Thermodynamics and Machine Learning",
         "links": [{
             "href": "https://docs.google.com/presentation/d/1B2xbdhFRByzIJOdehPVGm5xrCpbUXkijnFRPEwVMKtk/present",
-            "text": "[slides]"
+            "text": "[slides]",
+            "canonical": true
         }],
         "date": "2018-11",
         "id": "thermodynamics-and-ml",
@@ -61,7 +66,8 @@
         "title": "Fixing a BrokenELBO",
         "links": [{
             "href": "https://docs.google.com/presentation/d/11ToIFlOLrcP3GTl8u6Lv-jPntifO0iohIp2VIlTsqj8/present",
-            "text": "[slides]"
+            "text": "[slides]",
+            "canonical": true
         }],
         "date": "2018-07",
         "id": "fixing-broken-elbo",
@@ -71,8 +77,9 @@
     {
         "title": "Uncertainty in VIB",
         "links": [{
-	    "href": "https://docs.google.com/presentation/d/1PjEaRIeDOwVYKEmyLBIBiKS8bYPYwwKcXki_Gb8i42c/present",
-            "text": "[slides]"
+            "href": "https://docs.google.com/presentation/d/1PjEaRIeDOwVYKEmyLBIBiKS8bYPYwwKcXki_Gb8i42c/present",
+            "text": "[slides]",
+            "canonical": true
         }],
         "date": "2018-08",
         "id": "uaivib",
