@@ -352,7 +352,11 @@
               <li>
                 <cite>{{ t.title }}</cite>
                 {% for link in t.links %}
-                <a href="{{ link.href }}" {% if link.blank %} target="_blank" {% endif %}>{{ link.text }}</a>
+                    {% if link.canonical %}
+                        <a href="talks/{{ t.id }}.html" {% if link.blank %} target="_blank" {% endif %}>{{ link.text }}</a>
+                    {% else %}
+                        <a href="{{ link.href }}" {% if link.blank %} target="_blank" {% endif %}>{{ link.text }}</a>
+                    {% endif %}
                 {% endfor %}
                 <p>
                   <date>{{ t.date }}</date>
