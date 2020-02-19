@@ -36,6 +36,7 @@
     "file": "cebrobust.pdf",
     "authors": "I Fischer, AA Alemi",
     "date": "2019-10",
+    "arxiv": "2002.05380",
     "description": "A class conditional version of VIB shows good robustness."
   },
   {
