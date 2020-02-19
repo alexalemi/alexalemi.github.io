@@ -40,7 +40,7 @@
     "description": "A class conditional version of VIB shows good robustness."
   },
   {
-    "title": "On Predictive Information Sub-Optimality of RNNs",
+    "title": "On Predictive Information in RNNs",
     "file": "salamander.pdf",
     "authors": "Z Dong, D Oktay, B Poole, AA Alemi",
     "arxiv": "1910.09578",
