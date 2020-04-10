@@ -1,0 +1,3 @@
+[submodule "texpad"]
+	path = texpad
+	url = git@github.com:alexalemi/texpad.git
