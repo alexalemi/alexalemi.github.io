@@ -280,6 +280,7 @@
         <p>
             <strong>Jump to: </strong>
             <a href="#publications">Research</a> |
+            <a href="#writing">Writing</a> |
             <a href="#code">Code</a> |
             <a href="#talks">Talks</a> |
             <!-- <a href="#poster-presentations">Poster Presentations</a> | -->
@@ -319,7 +320,27 @@
         </ul>
 
     </section>
+    <!--- Writings section --->
+    <section id="writing">
+        <h2><a href="#writing">Writing</a></h2>
 
+        <ul>
+        {% for a in posts %}
+            <li>
+             <cite>{{ a.title }}</cite>
+             {% for link in a.links %}
+                 <a href="{{ link.href }}">{{ link.text }}</a>
+             {% endfor %}
+             <p>
+               <date>{{ a.date }}</date>
+               {{ a.description }}
+             </p>
+            </li>
+        {% endfor %}
+  
+        </ul>
+
+    </section>
     <!-- Code projects section -->
     <section id="code">
         <h2><a href="#code">Code</a></h2>
