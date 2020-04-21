@@ -16,8 +16,10 @@ DATA_PATH = "../data"
 BUILD_PATH = "../"
 PDF_PATH = "../publications/"
 TALKS_PATH = "../talks/"
+POSTS_PATH = "../posts/"
 PDF_SCHEME = "https://alexalemi.com/publications/"
 TALK_SCHEME = "https://alexalemi.com/talks/"
+POST_SCHEME = "https://alexalemi.com/posts/"
 
 REDIRECT_TEMPLATE = """<!DOCTYPE html>
 <head>
@@ -85,6 +87,22 @@ def add_talk(fe, talk):
           isSummary=True)
   return fe
 
+def add_post(fe, post):
+  fe.title(post["title"])
+  for link in post.get('links', []):
+    target = link["href"]
+    fe.link(href=target, rel="alternate")
+  href = os.path.join(POST_SCHEME, post["id"] + ".html")
+  fe.guid(href, permalink=True)
+  # if not os.path.exists(os.path.join(ROOT, POSTS_PATH, post["id"] + ".html")):
+  #     with open(os.path.join(ROOT, POSTS_PATH, post["id"] + ".html"), "w") as f:
+  #         f.write(REDIRECT_TEMPLATE.format(href=target))
+  fe.published(convert_date(post["date"]))
+  fe.category(term="posts", scheme=POST_SCHEME, label="posts")
+  fe.description(
+          f"{posts.get('description', '')}",
+          isSummary=True)
+  return fe
 
 if __name__ == "__main__":
   logging.info("Generating RSS Feed.")
