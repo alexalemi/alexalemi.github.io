@@ -42,6 +42,9 @@ REDIRECT_TEMPLATE = """<!DOCTYPE html>
 def convert_date(s):
   return datetime.datetime.strptime(s, "%Y-%m").astimezone()
 
+def convert_date_full(s):
+  return datetime.datetime.strptime(s, "%Y-%m-%d").astimezone()
+
 def add_publication(fe, publication):
   fe.title(pub["title"])
   fe.published(convert_date(pub["date"]))
@@ -89,18 +92,20 @@ def add_talk(fe, talk):
 
 def add_post(fe, post):
   fe.title(post["title"])
+  href = None
   for link in post.get('links', []):
     target = link["href"]
     fe.link(href=target, rel="alternate")
-  href = os.path.join(POST_SCHEME, post["id"] + ".html")
+    if link.get("canonical"):
+        href = target
   fe.guid(href, permalink=True)
   # if not os.path.exists(os.path.join(ROOT, POSTS_PATH, post["id"] + ".html")):
   #     with open(os.path.join(ROOT, POSTS_PATH, post["id"] + ".html"), "w") as f:
   #         f.write(REDIRECT_TEMPLATE.format(href=target))
-  fe.published(convert_date(post["date"]))
+  fe.published(convert_date_full(post["date"]))
   fe.category(term="posts", scheme=POST_SCHEME, label="posts")
   fe.description(
-          f"{posts.get('description', '')}",
+          f"{post.get('description', '')}",
           isSummary=True)
   return fe
 
@@ -129,6 +134,11 @@ if __name__ == "__main__":
         fe = fg.add_entry()
         add_talk(fe, talk)
 
+  with open(os.path.join(ROOT, DATA_PATH, "posts.json"), 'r') as f:
+      data = json.load(f)
+      for post in data:
+        fe = fg.add_entry()
+        add_post(fe, post)
 
   outpath = os.path.join(ROOT, BUILD_PATH, RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
