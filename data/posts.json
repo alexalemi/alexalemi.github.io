@@ -1,0 +1,24 @@
+[
+    {
+      "title": "Coronavirus Logistic Growth Plots",
+      "links": [{
+        "href": "https://observablehq.com/@alemi/logistic-growth-plots",
+        "text": "[Observable]",
+        "canonical": true
+      }],
+      "date": "2020-04-13",
+      "id": "corona-logistic-growth-plots",
+      "description": "A distinct way to view Coronavirus growth."
+    },
+    {
+      "title": "'Live' Logistic Coronavirus Death Counter",
+      "links": [{
+        "href": "https://observablehq.com/@alemi/live-corona-death-counter",
+        "text": "[Observable]",
+        "canonical": true
+      }],
+      "date": "2020-03-27",
+      "id": "live-corona-death-counter",
+      "description": "An approximate 'live' corona death counter."
+    }
+]
