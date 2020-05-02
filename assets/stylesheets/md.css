@@ -1,0 +1,134 @@
+/* Browser reset */
+@import url('https://fonts.googleapis.com/css?family=Lato|Muli&display=swap');
+@import url('https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css');
+
+
+html {
+  box-sizing: border-box;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Variables */
+:root {
+  --accent-color: #3685B5;  
+  /* Dark Slate Gray */
+  --default-color: #2B2D54;
+
+  --em-color: #0471A6;
+  --highlight-color: #5C9FB3;
+
+  --alt-color: DimGray;
+  /* offwhite */
+  --bg-color: #fefefe;
+}
+
+*,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+
+  body#md {
+
+    /* Nice light gray background to offset the text a little */
+    background-color: var(--bg-color);
+    color: var(--default-color);
+    margin: 0 auto;
+    max-width: 50em;
+
+    /* System fonts as fallbacks */
+    font-family: "Computer Modern Sans", sans-serif;
+    font-smooth: auto;
+    line-height: 1.5;
+    padding: 2em 1em;
+    scroll-behavior: smooth;
+  }
+
+	.md code {
+		font-family: "Computer Modern Typewriter", monospace;
+	}
+
+
+  .md div.title,
+  .md h1,
+  .md h2,
+  .md strong {
+    color: var(--default-color);
+    font-family: "Computer Modern Bright", sans-serif;
+  }
+
+  .md h2 {
+    margin-top: 1em;
+  }
+
+  .md a {
+    color: var(--em-color);
+  }
+
+  .md a:hover {
+    color: var(--highlight-color);
+  }
+
+  .md h2 a {
+    text-decoration: none;
+    color: var(--default-color);
+  }
+
+  .md header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row;
+  }
+
+  @media (max-width: 650px) {
+    .md header {
+      display: flex;
+      align-items: baseline;
+      flex-flow: column;
+    }
+
+    .social-links {
+      margin-top: 0.5em;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .md header {
+      width: 8em;
+    }
+
+    .social-links {
+      width: 8em;
+    }
+  }
+
+  .social-links a {
+    text-decoration: none;
+  }
+
+  .md section ul {
+    list-style: none;
+  }
+
+  .md section ul li {
+    margin: 0 0 1.3em 0;
+    line-height: 1;
+  }
+
+  .md section ul li p {
+    color: var(--alt-color);
+    font-size: 0.8em;
+    padding: none;
+  }
+
+  .md section ul li p date {
+    color: var(--default-color);
+    font-style: normal;
+  }
+
+  .md section ul li cite {
+    font-style: normal;
+  }
