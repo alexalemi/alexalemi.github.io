@@ -1,0 +1,126 @@
+                <meta charset="utf-8" emacsmode="-*- markdown -*-">
+
+                            **Thermodynamics**
+
+I try to tell a simple story motivating thermodynamics in a 
+very similar vein to [#Jaynes-Info-StatMech], but with some additional emphasis on the
+geometry and distinction between equilibrium and nonequilbrium states of a
+system.
+
+Body
+====
+
+Imagine we have a physical system. The system has a large number of states it
+could be in. Let's denote the microstate of the system with $\theta$.
+
+We are interested in a set of observables of these states.  I want to be
+general about what they are but require that they be well defined for 
+any single state.  Things such as the energy, or the volume, or the number
+of particles are well defined observables given a state.
+\[ \hat U(\theta) \quad \hat V(\theta) \quad \hat N(\theta) \]
+Without loss of generality, we will imagine that these statefunctions are defined
+so as to be bounded below by zero[^positive].
+
+[^positive]: For a quantity that should naturally be on the whole real line, we could simply consider the exponential of that quantity for instance.
+
+We want to somehow make predictions or inferences about what state
+the system is in, however we do not know which state the system is in. There
+is some uncertainty in our beliefs about which state the system is in.  Let's
+encode our own personal set of beliefs into a distribution: [^subjective]
+
+[^subjective]: Here I mean to invoke the same kind of subjective Bayesian philosophy as 
+  people like Jayes do [#Jaynes].
+
+\[ p(\theta) \]
+We can *uniquely* [#Caticha] quantify our degree of uncertainty
+in terms of the relative information, or kl divergence, or relative
+entropy of our distribution with respect to some measure on the space
+of states [^sign].
+
+[^sign]: Notice that this entropy has the opposite sign to the one we
+are used to in thermodynamics.  The relative entropy is guarenteed to be 
+positive.  For $m(\theta)$ chosen to be uniform, we recover the negative
+of the ordinary thermodynamic entropy with a constant offset given by the volume
+of the total state space.
+
+\[ S[p] = \int d\theta\, p(\theta) \log \frac{p(\theta)}{m(\theta)} \geq 0 \]
+This information is no longer a function of the state of the system, it is a 
+functional of a given distribution over states, which we could compute for any
+distribution whatsoever.
+
+What do we do about our microstate functions?  Well, we can naturally consider
+corresponding functionals that measure the expected value of the state function
+across the distribution.
+\[ X[p] \equiv \int d\theta\, p(\theta) \hat X(\theta) \]
+
+Consider now the space of all possible distributions over states $p(\theta)$. 
+Given any distribution, we could evaluate each of the state functionals, as well
+as the information (e.g. $U[p], V[p], N[p], S[p]$).  This would give us a 
+single point in an $N+1$ dimensional space (where we imagine $N$ functionals and
+the entropy).  We assumed our functionals were all bounded below by zero, and
+so is the entropy, which ensures that even if we consider the space of all
+possible distributions $p(\theta)$, the achievable region is bounded trivially to
+live in the positive orthant.  Any nontrivial relationships between
+the functionals will relax this surface away from flat edges.  We can
+broadly appeal to smoothness and analyticity type arguments in physics to 
+argue that this region is connected and smooth.  
+
+We imagine therefore that there is some kind of smooth connected boundary
+to the space of all possible achievable coordinates in this $N+1$ dimensional
+space. Furthermore, since entropy is *strictly convex*
+in its argument [#Cover-Thomas]:
+\[ S[\lambda p + (1-\lambda) q] \leq \lambda S[p] + (1-\lambda) S[q] \]
+With equality if and only if $p = q$, we know that this surface is
+*convex*. 
+
+This is the thermodynamic surface.  The geometry of this surface is all that we
+study in Thermodynamics.  Its first partial derivatives are the generalized
+forces such as pressure, temperaturea and chemical potential.  Its second
+partial derviatives mix [^maxwell] and are the *susceptibilities* such as
+thermal conductivity, bulk modulus, etc.
+
+[^maxwell]: which gives us Maxwell Relations
+
+
+To get perhaps a better intuition, we can imagine solving 
+the constrained optimization problem to characterize this surface:
+\[ \min_p S[p] \text{ s.t. } U[p] = U_0, V[p] = V_0, N[p] = N_0.
+  \quad \int d\theta\, p(\theta) = 1 \]
+We could solve this by using the method of Lagrange multipliers and obtain
+the usual~\cite{jaynes} result:
+
+\[ p^*(\theta) = \frac{m(\theta)}{Z} e^{-\beta \left( U + \mu N + p V \right)} \]
+
+Here we identity the Langrange multipliers with the generalized thermodynamic
+forces like temperature ($\beta$), pressure ($p$) and chemical potential ($\mu$).
+Its also quite clear now why these *intensive* quantities are
+only defined at equilibrium.  Equilibrium is just those states on the boundary,
+and it is only on the boundary that our $N+1$ dimensional space is bounded 
+by an $N$ dimensional convex surface with *entire* derivatives.
+Unlike in ordinary thermodynamics, we still have an operational picture
+of what happens out of equilibrium.  Out of equilibrium we simply are at a point
+in the $N+1$ dimensional space that is off the convex bounding surface.
+
+In this information theoretic interpretation, certain things become 
+pretty trivial.  For any Markov process [#Cover-Thomas], the relative information
+between two distributions *monotonically* decreases every step of
+the evolution.  So, for any stationary Markov process, the relative entropy
+with respect to the stationary distribution monotonically decreases 
+each step.  This is a stronger and more precise statement of the second law.
+
+Bibliography
+============
+
+[#Caticha]: Ariel Caticha.  Lectures on probability, entropy, and statistical physics,2008.
+
+[#Cover-Thomas]: Thomas M Cover and Joy A Thomas. Elements of information theory.John Wiley &amp; Sons,2012.
+
+[#Jaynes-Info-StatMech]: Edwin T Jaynes.  Information theory and statistical mechanics.Physi-cal review, 106(4):620,1957.
+
+[#Jaynes]: Edwin T Jaynes. Probability theory: The logic of science.  Cambridge university press,2003.
+
+
+
+<!-- <link rel="stylesheet" href="https://casual-effects.com/markdeep/latest/latex.css?"> -->
+<link rel="stylesheet" href="../assets/stylesheets/md.css?">
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
