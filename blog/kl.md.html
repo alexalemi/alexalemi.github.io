@@ -1,0 +1,103 @@
+                <meta charset="utf-8" emacsmode="-*- markdown -*-">
+
+                            **KL Divergence**
+                            Alexander A. Alemi
+                            2020-04-30
+
+
+The KL Divergence is ubiqutious in information theory, but where does it come from and how unique is it?
+
+# Degrees of Belief
+
+Also in [#Caticha] and [#Jaynes], Cox's axioms.
+
+
+# Argument from Symmetry
+
+Let's start by imagining we have some distribution $p$ and some model $q$.  We want to assign a sort of 
+badness or excess to the model in light of the true distribution.  Some kind of ranking or scoring scheme.
+We seek some kind of functional $S[p,q]$ that will assign a Score to the model $q$.  Let's see if we can
+just argue our way towards what the form should be.
+
+
+In [#Caticha] an argument is given for the *uniqueness* of the KL divergence.  It roughly goes as follows,
+let's say we want some kind of functional measuring the information between two distributions ($S[p,q]$).  
+What sort of properties should this have?
+
+The first axiom is one of locality.  It is argued that if we gain no new information, we require that
+nothing changes about our degrees of belief.  It is said that this requires our functional to take
+the form
+
+\begin{equation}
+  S[p,q]=  \int dx\, F(p(x), q(x), x)
+\end{equation}
+
+Next the argument comes that it should have a coordinate invariance.  The requirement that
+it be reparameterization independent now gives us a form:
+
+\begin{equation}
+S[p,q] = \int dx\, m(x) \Phi \left(  \frac{p(x)}{m(x)},  \frac{q(x)}{m(x)} \right)
+\end{equation}
+
+Then the requirement that if there is no new information we don't update the distribution gives us
+
+\begin{equation}
+  S[p,q] = \int dx\, q(x) \Phi \left( \frac{p(x)}{q(x)} \right)
+\end{equation}
+
+Requiring consistency for indepedent subsystems then apparently fixes the form of the KL divergence
+
+\begin{equation}
+  S[p,q] = -\int dx\, p(x) \log \frac{p(x)}{q(x)} 
+\end{equation}
+
+# Bayesian interpretation
+
+[#Chodrow] gives an overview of the Bayesian interpretation.
+
+This take starts with the notion of a loss function for inference.  First we define what it means for a loss function
+to be *proper*, a loss function $f$ is proper if for any alphabet $\mathcal{Y}$ and random
+variable $Y$ on $\mathcal{Y}$:
+
+\begin{equation}
+  p_{X|Y=y} = {\arg\,\min}_{p \in \mathcal{P}^\mathcal{X}} \mathbb{E}\left[ f(p,x) | Y=y  \right]
+\end{equation}
+
+In words, this is saying that you should basically always do bayesian inference if you can minimize the loss
+exactly.  So a proper scoring rule is one in which a Bayesian player is optimal.  Feels a bit of putting the 
+cart before the horse but thats fine.
+
+A loss function is *local* if $f(p,x) = \phi(p, p(x))$ for some function $\phi$.
+They say this has to do with the loss only depending on the events that happened, and 
+not any that didn't happen.  This is "fair", or so they say.
+
+And at that they claim that the only local proper scoring rule is $f(p,x) = -\log p(x)$ up to a multiplicative
+constant and offset.
+
+# Likelihood interpretation
+
+# Axiomatic Formulation
+
+# Category theoretic
+
+
+# Units / Dimensions
+
+
+Bibliography
+============
+
+[#Caticha]: Ariel Caticha.  Lectures on probability, entropy, and statistical physics,2008.
+
+[#Cover-Thomas]: Thomas M Cover and Joy A Thomas. Elements of information theory.John Wiley &amp; Sons,2012.
+
+[#Jaynes-Info-StatMech]: Edwin T Jaynes.  Information theory and statistical mechanics.Physi-cal review, 106(4):620,1957.
+
+[#Jaynes]: Edwin T Jaynes. Probability theory: The logic of science.  Cambridge university press,2003.
+
+[#Chodrow]: Philip Chodrow. Divergence, Entropy, Information: An Opinionated Introduction to Information Theory. [arXiv:1708.07459](https://arxiv.org/abs/1708.07459)
+
+
+
+<link rel="stylesheet" href="../assets/stylesheets/md.css?">
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
