@@ -48,6 +48,15 @@
     "description": "Modern RNNs do not optimally capture predictive information in sequences."
   },
   {
+    "title": "Thermodynamic Computing",
+    "file": "thermodynamic.pdf",
+    "authors": "T Conte, E DeBenedictis, N Ganesh, T Hylton, JP Strachan, RS Williams, AA Alemi, L Altenberg, G Crooks, J Crutchfield, L del Rio, J Deutsch, M DeWeese, K Douglas, M Esposito, M Frank, R Fry, P Harsha, M Hill, C Kello, J Krichmar, S Kumar, SC Liu, S Lloyd, M Marsili, I Nemenman, A Nugent, N Packard, D Randall, P Sadowski, N Santhanam, R Shaw, A Stieg, E Stopnitzky, C Teuscher, C Watkins, D Wolpert, J Yang, Y Yufik",
+    "arxiv": "1911.01968",
+    "venue": "CCC",
+    "date": "2019-11",
+    "description": "A Position paper on the future of thermodynamic computing."
+  },
+  {
     "title": "On Variational Bounds of Mutual Information",
     "file": "vmibounds.pdf",
     "authors": "B Poole, S Ozair, A van den Oord, AA Alemi, G Tucker",
