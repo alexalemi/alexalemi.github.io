@@ -1,5 +1,19 @@
 [
   {
+    "title": "The OpenKIM Processing Pipeline: A Cloud-Based Automatic Materials Property Computation Engine",
+    "file": "openkim.pdf",
+    "authors": "DS Karls, M Bierbaum, AA Alemi, RS Elliot, JP Sethna, EB Tadmor",
+    "date": "2020-05",
+    "arxiv": "2005.09062",
+    "venue": "Journal of Chemical Physics",
+    "links": [{
+	    "href": "https://openkim.org",
+	    "text": "[openkim.org]"
+    }],
+    "description": "Database for Interatomic Potentials."
+
+  },
+  {
     "title": "Neural Tangents: Fast and Easy Infinite Neural Networks in Python",
     "file": "neural_tangents.pdf",
     "authors": "R Novak, L Xiao, J Hron, J Lee, AA Alemi, J Sohl-Dickstein, SS Schoenholz",
@@ -312,7 +326,7 @@
   },
   {
     "title": "Ensuring reliability, reproducibility and transferability in atomistic simulations: The knowledgebase of interatomic models (https://openkim.org)",
-    "file": "openkim.pdf",
+    "file": "openkim-abs.pdf",
     "authors": "E Tadmor, R Elliott, D Karls, A Ludvik, J Sethna, M Bierbaum, AA Alemi, T Wennblom",
     "date": "2014-10"
   },
