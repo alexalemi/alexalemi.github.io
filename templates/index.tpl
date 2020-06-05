@@ -325,7 +325,8 @@
         <h2><a href="#writing">Writing</a></h2>
 
         <ul>
-        {% for a in posts %}
+        {% for a in writing %}
+          {% if not a.hidden %}
             <li>
              <cite>{{ a.title }}</cite>
              {% for link in a.links %}
@@ -336,6 +337,7 @@
                {{ a.description }}
              </p>
             </li>
+          {% endif %}
         {% endfor %}
   
         </ul>
