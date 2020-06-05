@@ -1,6 +1,7 @@
 # Lint as: python3
 """Generate the RSS feeds."""
 
+import sys
 import json
 import logging
 import datetime
@@ -176,10 +177,12 @@ def blog():
   rssfeed = fg.rss_file(outpath)
 
 if __name__ == "__main__":
-  logging.info("Generating RSS Feed.")
-  main()
-  logging.info("Generating Blog RSS Feed.")
-  blog()
+    if sys.argv[1] == 'main':
+      logging.info("Generating RSS Feed.")
+      main()
+    elif sys.argv[1] == 'blog':
+      logging.info("Generating Blog RSS Feed.")
+      blog()
 
 
 
