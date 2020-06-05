@@ -325,7 +325,7 @@
         <h2><a href="#writing">Writing</a></h2>
 
         <ul>
-        {% for a in posts %}
+        {% for a in writing %}
             <li>
              <cite>{{ a.title }}</cite>
              {% for link in a.links %}
