@@ -1,3 +1,4 @@
+import sys
 import jinja2
 import json
 import logging
@@ -8,14 +9,7 @@ from pathlib import Path
 
 logging.basicConfig(level=logging.DEBUG)
 
-ROOT =          Path(__file__).resolve().parent
-TEMPLATE_PATH = Path('../templates')
-TEMPLATES =     [Path('index.tpl'), Path('blog/index.tpl')]
-POST_TEMPLATE = Path('post.tpl')
-DATA_PATH =     Path('../data')
-BLOG_PATH =     Path('../blog')
-BLOG_DATA_PATH =     Path('../blog/data')
-BUILD_PATH =    Path('..')
+ROOT = Path(__file__).resolve().parent
 
 
 def augment_post(post):
@@ -29,7 +23,7 @@ def augment_post(post):
     return post
 
 def load_data(data_files):
-    logging.info(f"Loading data from {[x.name for x in data_files]}.")
+    logging.info(f"Loading data from {[x.stem for x in data_files]}.")
     data = {}
     for data_file in data_files:
         logging.debug(f"Reading {data_file}...")
@@ -54,21 +48,36 @@ def compile_template(template_path, data, output_path):
         f.write(template.render(**data))
 
 
-def process_template(template_path, data):
-    logging.debug(f"Compiling {template_path}")
-    template_file = (ROOT / TEMPLATE_PATH / template_path).resolve()
+def process_template(template_file, data, output_dir):
+    logging.debug(f"Compiling {template_file}")
     filename = template_file.stem
-    output_path = ROOT / BUILD_PATH / template_file.relative_to((ROOT / TEMPLATE_PATH).resolve()).with_suffix('.html')
+    output_path = output_dir / template_file.with_suffix('.html').name
     compile_template(
         template_file,
         data,
         output_path
     )
 
+def main():
+    logging.debug("Compiling..")
+    data_files = list((ROOT / Path('../data/')).resolve().glob('*.json'))
+    blog_files = list((ROOT / Path('../blog/data/')).resolve().glob('*.json'))
+    data = load_data(data_files)
+    blog_data = load_data(blog_files)
+
+    # weave writing and posts
+    data['writing'] = blog_data.get('posts', []) + data['writing']
+
+    # Render the templated pages
+    templates = [ROOT / Path('../templates/index.tpl')]
+    for template_file in templates:
+        process_template(template_file, data, ROOT / Path('..'))
+
+
 def process_post(template_file, post):
     logging.debug(f"Compiling {post['title']}")
     src = post['src']
-    input_path = (ROOT / BLOG_PATH / Path(src)).resolve()
+    input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     output_path = input_path.with_suffix('.html')
     with open(input_path, 'r') as fin:
         post['content'] = mistletoe.markdown(fin)
@@ -77,33 +86,24 @@ def process_post(template_file, post):
             post,
             output_path)
 
-def main():
-    logging.debug("Compiling..")
-    templates = (ROOT / TEMPLATE_PATH).resolve().glob('*/*.tpl')
-    data_files = list((ROOT / DATA_PATH).resolve().glob('*.json'))
-    blog_files = list((ROOT / BLOG_DATA_PATH).resolve().glob('*.json'))
-    data = load_data(data_files)
-    blog_data = load_data(blog_files)
-
-    # weave writing and posts
-    data['writing'] = blog_data.get('posts', []) + data['writing']
-
-    # Render the templated pages
-    for template_file in TEMPLATES:
-        process_template(template_file, data)
-
-
 def blog():
     logging.debug("Compiling Blog..")
-    blog_files = list((ROOT / BLOG_DATA_PATH).resolve().glob('*.json'))
+    blog_files = list((ROOT / Path('../blog/data/')).resolve().glob('*.json'))
     blog_data = load_data(blog_files)
 
+    # Render the templated pages
+    templates = [ROOT / Path('../blog/templates/index.tpl')]
+    for template_file in templates:
+        process_template(template_file, blog_data, ROOT / Path('../blog'))
+
     for post in blog_data['posts']:
-        process_post((ROOT / TEMPLATE_PATH / POST_TEMPLATE), post)
+        process_post(ROOT / Path('../blog/templates/post.tpl'), post)
 
 if __name__ == '__main__':
-
-    main()
-
-    blog()
+    if sys.argv[1] == 'main':
+      logging.info("Generating RSS Feed.")
+      main()
+    elif sys.argv[1] == 'blog':
+      logging.info("Generating Blog RSS Feed.")
+      blog()
 
