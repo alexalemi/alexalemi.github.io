@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>alexalemi.com</title>
+    <title>blog.alexalemi.com {{title}}</title>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153903138-1"></script>
     <script>
@@ -16,31 +16,7 @@
     </script>
 
     <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="AlexAlemi.com" href="https://alexalemi.com/rss.xml" />
-
-    <!-- Search Engine -->
-    <meta name="description" content="Alexander A. Alemi, Research Scientist">
-    <meta name="image" content="https://alexalemi.com/images/me_small.jpg">
-
-    <!-- Schema.org for Google -->
-    <meta itemprop="name" content="alexalemi.com">
-    <meta itemprop="description" content="Alexander A. Alemi, Research Scientist">
-    <meta itemprop="image" content="https://alexalemi.com/images/me_small.jpg">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="alexalemi.com">
-    <meta name="twitter:description" content="Alexander A. Alemi, Research Scientist">
-    <meta name="twitter:creator" content="alemi">
-    <meta name="twitter:image:src" content="https://alexalemi.com/images/me_small.jpg">
-
-    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="alexalemi.com">
-    <meta name="og:description" content="Alexander A. Alemi, Research Scientist">
-    <meta name="og:image" content="https://alexalemi.com/images/me_small.jpg">
-    <meta name="og:url" content="https://alexalemi.com">
-    <meta name="og:site_name" content="alexalemi.com">
-    <meta name="og:type" content="website">
+    <link rel="alternate" type="application/rss+xml" title="blog.AlexAlemi.com" href="https://blog.alexalemi.com/rss.xml" />
 
     <!-- Fonts -->
     <script type="text/javascript">
@@ -149,6 +125,12 @@
             flex-flow: row;
         }
 
+        header p {
+          align-items: right;
+          font-size: 0.6em;
+          font-weight: normal;
+        }
+
         @media (max-width: 650px) {
             header {
                 display: flex;
@@ -211,6 +193,9 @@
         }
     </style>
 
+    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 
 <body>
@@ -219,18 +204,19 @@
   <header>
     <h3>Alex Alemi's Blog</h3>
     <nav>
-      <a href='https://alexalemi.com'>Home</a> | 
-      <a href='https://blog.alexalemi.com'>Index</a>
+      <a href='../' />Home</a> | 
+      <a href='./' />Index</a> |
+      <a rel="alternate" type="application/rss+xml" title="blog.AlexAlemi.com" href="https://blog.alexalemi.com/rss.xml" />RSS</a>
     </nav>
   </header>
 
   <article>
     <header>
-      <h1>Thermodynamics Made Simple</h1>
-      <p>Alexander A. Alemi. <time datetime='2020-02-26'>2020-02-26</time></p>
+      <h1>{{ title }}<h1>
+      <p>Alexander A. Alemi. <time datetime='{{ date }}'>{{ date }}</time></p>
     </header>
 
-    <p>This is an example of some text.</p>
+    {{ content }} 
 
   </article>
 
