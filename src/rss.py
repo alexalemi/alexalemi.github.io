@@ -136,8 +136,9 @@ def main():
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
       for post in data:
-        fe = fg.add_entry()
-        add_post(fe, post)
+        if not post.get('hidden', False):
+            fe = fg.add_entry()
+            add_post(fe, post)
 
   with open(os.path.join(ROOT, DATA_PATH, "writing.json"), 'r') as f:
       data = json.load(f)
@@ -165,9 +166,10 @@ def blog():
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
       for post in data:
-        fe = fg.add_entry()
-        post = augment_post(post)
-        add_post(fe, post)
+        if not post.get('hidden', False):
+            fe = fg.add_entry()
+            post = augment_post(post)
+            add_post(fe, post)
 
   outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
