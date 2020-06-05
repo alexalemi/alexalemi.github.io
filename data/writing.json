@@ -1,0 +1,101 @@
+[
+    {
+      "title": "Coronavirus Logistic Growth Plots",
+      "links": [{
+        "href": "https://observablehq.com/@alemi/logistic-growth-plots",
+        "text": "[Observable]",
+        "canonical": true
+      }],
+      "date": "2020-04-13",
+      "id": "corona-logistic-growth-plots",
+      "description": "A distinct way to view Coronavirus growth."
+    },
+    {
+      "title": "'Live' Logistic Coronavirus Death Counter",
+      "links": [{
+        "href": "https://observablehq.com/@alemi/live-corona-death-counter",
+        "text": "[Observable]",
+        "canonical": true
+      }],
+      "date": "2020-03-27",
+      "id": "live-corona-death-counter",
+      "description": "An approximate 'live' corona death counter."
+    },
+    {
+      "title": "Can I compute the mass of a coin based on the sound of its fall?",
+      "links": [{
+        "href": "https://physics.stackexchange.com/questions/121879/can-i-compute-the-mass-of-a-coin-based-on-the-sound-of-its-fall/121932#121932",
+        "text": "[Physics Stackexchange]",
+        "canonical": true
+      }],
+      "date": "2014-06-26",
+      "id": "mass-of-coin",
+      "description": "Using the sound of coins dropping to predict their values."
+    },
+    {
+      "title": "How effective is speeding?",
+      "links": [{
+        "href": "https://physics.stackexchange.com/questions/123753/how-effective-is-speeding/123760#123760",
+        "text": "[Physics Stackexchange]",
+        "canonical": true
+      }],
+      "date": "2014-07-09",
+      "id": "effectiveness-of-speeding",
+      "description": "A simple model looking at how effective speeding is at saving time and money."
+    },
+    {
+      "title": "Physics of the weird boing sound on racquetball courts.",
+      "links": [{
+        "href": "https://physics.stackexchange.com/questions/127282/physics-of-weird-boing-sound-in-racquetball-courts/127447#127447",
+        "text": "[Physics Stackexchange]",
+        "canonical": true
+      }],
+      "date": "2014-07-21",
+      "id": "racquetball-boing",
+      "description": "A model that recreates the boing sound."
+    },
+    {
+      "title": "The Linear Theory of Battleship",
+      "links": [{
+        "href": "https://thephysicsvirtuosi.com/posts/old/the-linear-theory-of-battleship/",
+        "text": "[The Physics Virtuosi]",
+        "canonical": true
+      }],
+      "date": "2011-10-03",
+      "id": "linear-battleship",
+      "description": "Winning at battleship with a dirt simple model."
+    },
+    {
+      "title": "A tweet is worth at least 140 words",
+      "links": [{
+        "href": "https://thephysicsvirtuosi.com/posts/old/a-tweet-is-worth-at-least-140-words/",
+        "text": "[The Physics Virtuosi]",
+        "canonical": true
+      }],
+      "date": "2011-08-30",
+      "id": "twitter-compression",
+      "description": "Greedy twitter compression scheme."
+    },
+    {
+      "title": "How Long Can you Balance A (Quantum) Pencil",
+      "links": [{
+        "href": "https://thephysicsvirtuosi.com/posts/old/how-long-can-you-balance-a-quantum-pencil/",
+        "text": "[The Physics Virtuosi]",
+        "canonical": true
+      }],
+      "date": "2010-06-16",
+      "id": "quantum-pencil",
+      "description": "Simple and probably wrong calculation for the ultimate length of time a pencil can balance."
+    },
+    {
+      "title": "I was born on Wednesday",
+      "links": [{
+        "href": "https://thephysicsvirtuosi.com/posts/old/i-was-born-on-wednesday/",
+        "text": "[The Physics Virtuosi]",
+        "canonical": true
+      }],
+      "date": "2010-05-26",
+      "id": "born-wednesday",
+      "description": "A classic logic puzzle explained."
+    }
+]

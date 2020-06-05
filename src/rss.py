@@ -6,12 +6,13 @@ import logging
 import datetime
 import os
 from feedgen.feed import FeedGenerator
-
+from compile import augment_post
 
 logging.basicConfig(level=logging.DEBUG)
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
 RSS_FILENAME = "rss.xml"
+BLOG_RSS_FILENAME = "blog/rss.xml"
 DATA_PATH = "../data"
 BUILD_PATH = "../"
 PDF_PATH = "../publications/"
@@ -45,7 +46,7 @@ def convert_date(s):
 def convert_date_full(s):
   return datetime.datetime.strptime(s, "%Y-%m-%d").astimezone()
 
-def add_publication(fe, publication):
+def add_publication(fe, pub):
   fe.title(pub["title"])
   fe.published(convert_date(pub["date"]))
   fe.category(term="publications", scheme=PDF_PATH, label="publications")
@@ -109,8 +110,9 @@ def add_post(fe, post):
           isSummary=True)
   return fe
 
-if __name__ == "__main__":
-  logging.info("Generating RSS Feed.")
+
+def main():
+  # Main Feed
   fg = FeedGenerator()
   fg.id("https://alexalemi.com/rss.xml")
   fg.title("AlexAlemi.com")
@@ -140,6 +142,46 @@ if __name__ == "__main__":
         fe = fg.add_entry()
         add_post(fe, post)
 
+  with open(os.path.join(ROOT, DATA_PATH, "writing.json"), 'r') as f:
+      data = json.load(f)
+      for post in data:
+        fe = fg.add_entry()
+        add_post(fe, post)
+
   outpath = os.path.join(ROOT, BUILD_PATH, RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
   rssfeed = fg.rss_file(outpath)
+
+
+def blog():
+  # Main Feed
+  fg = FeedGenerator()
+  fg.id("https://blog.alexalemi.com/rss.xml")
+  fg.title("Blog.AlexAlemi.com")
+  fg.author({"name": "Alexander A. Alemi's Blog", "email": "alexalemi@gmail.com"})
+  fg.link(href="https://blog.alexalemi.com", rel="alternate")
+  fg.logo("http://blog.alexalemi.com/favicon.ico")
+  fg.subtitle("Various musings.")
+  fg.link(href="https://blog.alexalemi.com/rss.xml", rel="self")
+  fg.language("en")
+
+  with open(os.path.join(ROOT, DATA_PATH, "posts.json"), 'r') as f:
+      data = json.load(f)
+      for post in data:
+        fe = fg.add_entry()
+        post = augment_post(post)
+        add_post(fe, post)
+
+  outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
+  logging.info(f"Writing to {outpath}")
+  rssfeed = fg.rss_file(outpath)
+
+if __name__ == "__main__":
+  logging.info("Generating RSS Feed.")
+  main()
+  logging.info("Generating Blog RSS Feed.")
+  blog()
+
+
+
+
