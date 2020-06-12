@@ -1,5 +1,20 @@
 [
     {
+      "title": "TherML",
+      "links": [{
+        "href": "https://www.youtube.com/watch?v=jG4pqVqUCdw",
+        "text": "[video]",
+        "canonical": true
+      }, { 
+        "href": "https://docs.google.com/presentation/d/1LiovZcyZfh-P6mluB9fnyGFkOz4FJ7Y6V_hOuUx_j0A/present",
+        "text": "[slides]"
+      }],
+      "date": "2020-06",
+      "venue": "American Physical Society Topical Group on Data Science",
+      "id": "therml-aps",
+      "description": "Another version of my TherML talk."
+    },
+    {
       "title": "Variational Predictive Information Bottleneck",
       "links": [{
         "href": "https://docs.google.com/presentation/d/1wlQzWYr2cHu081NWPL9Cfp6z1cC4wIxe_qfFUhAfWcg/present",
