@@ -3,11 +3,11 @@
       "title": "TherML",
       "links": [{
         "href": "https://www.youtube.com/watch?v=jG4pqVqUCdw",
-        "text": "[video]",
-        "canonical": true
+        "text": "[video]"
       }, { 
         "href": "https://docs.google.com/presentation/d/1LiovZcyZfh-P6mluB9fnyGFkOz4FJ7Y6V_hOuUx_j0A/present",
-        "text": "[slides]"
+        "text": "[slides]",
+        "canonical": true
       }],
       "date": "2020-06",
       "venue": "American Physical Society Topical Group on Data Science",
