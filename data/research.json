@@ -1,4 +1,11 @@
 [
+  { "title": "Density of States Estimation for Out-of-Distribution Detection",
+    "file": "dose.pdf",
+    "authors": "WR Morningstar, C Ham, AG Gallagher, B Lakshminarayanan, AA Alemi, JV Dillon",
+    "date": "2020-06",
+    "arxiv": "2006.09273",
+    "description": "Simple density-of-states inspired out of distribution detection."
+  },
   {
     "title": "The OpenKIM Processing Pipeline: A Cloud-Based Automatic Materials Property Computation Engine",
     "file": "openkim.pdf",
