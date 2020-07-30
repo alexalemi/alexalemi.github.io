@@ -2,7 +2,8 @@ import sys
 import jinja2
 import json
 import logging
-import mistletoe
+from mistletoe import Document
+from mathjax import MathJaxRenderer
 import os
 from pathlib import Path
 
@@ -80,7 +81,8 @@ def process_post(template_file, post):
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     output_path = input_path.with_suffix('.html')
     with open(input_path, 'r') as fin:
-        post['content'] = mistletoe.markdown(fin)
+        with MathJaxRenderer() as renderer:
+            post['content'] = renderer.render(Document(fin))
     compile_template(
             template_file,
             post,
