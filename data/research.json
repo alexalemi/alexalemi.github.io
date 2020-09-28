@@ -55,6 +55,7 @@
   {
     "title": "CEB Improves Model Robustness",
     "file": "cebrobust.pdf",
+    "venue": "Entropy",
     "authors": "I Fischer, AA Alemi",
     "date": "2019-10",
     "arxiv": "2002.05380",
