@@ -58,6 +58,15 @@
       z-order: 3;
     }
 
+    /* #hand {
+      transition: transform 0.2s ease-in;
+    }
+    #slide-face {
+      transition: transform 0.2s ease-in;
+    }
+		*/
+
+
     .hand {
       stroke-width: 1;
       stroke: firebrick;
@@ -317,6 +326,157 @@ main.onwheel = (evt) => {
   evt.preventDefault();
   hand.attr('transform', 'rotate(' + handPosition + ')');
 };
+
+var ongoingHandTouches = [];
+var ongoingFaceTouches = [];
+
+function copyTouch({ identifier, pageX, pageY }) {
+  return { identifier, pageX, pageY, handPosition, innerPosition };
+}
+
+function ongoingHandTouchIndexById(idToFind) {
+  for (var i = 0; i < ongoingHandTouches.length; i++) {
+    var id = ongoingHandTouches[i].identifier;
+    
+    if (id == idToFind) {
+      return i;
+    }
+  }
+  return -1;    // not found
+}
+function ongoingFaceTouchIndexById(idToFind) {
+  for (var i = 0; i < ongoingFaceTouches.length; i++) {
+    var id = ongoingFaceTouches[i].identifier;
+    
+    if (id == idToFind) {
+      return i;
+    }
+  }
+  return -1;    // not found
+}
+
+function touchScroll(dX, dY, shiftKey) {
+	return 0.5 * (dY + dX / 2) / (shiftKey ? 10 : 1);
+}
+
+function handHandleStart(evt) {
+  evt.preventDefault();
+  // console.log('start');
+  var touches = evt.changedTouches;
+
+  for (var i=0; i<touches.length; i++) { 
+     // console.log("touchstart:" + i + "...");
+     ongoingHandTouches.push(copyTouch(touches[i]));
+     // console.log("touchstart:" + i + ".");
+  }
+}
+
+function handHandleMove(evt) {
+  evt.preventDefault();
+  var touches = evt.changedTouches;
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingHandTouchIndexById(touches[i].identifier);
+
+    if (idx >= 0) {
+      let dY = touches[i].pageY - ongoingHandTouches[idx].pageY;
+      let dX = touches[i].pageX - ongoingHandTouches[idx].pageX;
+			// console.log("dY = " + dY + ", dX = " + dX);
+      handPosition = ongoingHandTouches[idx].handPosition + touchScroll(dX, dY, evt.shiftKey); 
+      hand.attr('transform', 'rotate(' + handPosition + ')');
+    } else {
+      // console.log("Can't figure out which touch to continue.");
+    }
+  }
+}
+
+function handHandleEnd(evt) {
+  var touches = evt.changedTouches;
+
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingHandTouchIndexById(touches[i].identifier);
+
+    if (idx >= 0) {
+      ongoingHandTouches.splice(idx, 1);
+    } else {
+      // console.log("Can't figure out which touch to end.");
+    }
+  }
+}
+
+function handHandleCancel(evt) {
+  var touches = evt.changedTouches;
+
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingHandTouchIndexById(touches[i].identifier);
+    ongoingHandTouches.splice(idx, 1);
+  }
+}
+
+function faceHandleStart(evt) {
+  evt.preventDefault();
+  // console.log('start');
+  var touches = evt.changedTouches;
+
+  for (var i=0; i<touches.length; i++) { 
+     // console.log("touchstart:" + i + "...");
+     ongoingFaceTouches.push(copyTouch(touches[i]));
+     // console.log("touchstart:" + i + ".");
+  }
+}
+
+function faceHandleMove(evt) {
+  evt.preventDefault();
+  var touches = evt.changedTouches;
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingFaceTouchIndexById(touches[i].identifier);
+
+    if (idx >= 0) {
+      let dY = touches[i].pageY - ongoingFaceTouches[idx].pageY;
+      let dX = touches[i].pageX - ongoingFaceTouches[idx].pageX;
+			console.log("dY = " + dY + ", dX = " + dX);
+      innerPosition = ongoingFaceTouches[idx].innerPosition + touchScroll(dX, dY, evt.shiftKey); 
+      handPosition = ongoingHandTouches[idx].handPosition;
+      hand.attr('transform', 'rotate(' + handPosition + ')');
+      face.attr('transform', 'rotate(' + innerPosition + ')');
+    } else {
+      console.log("Can't figure out which touch to continue.");
+    }
+  }
+}
+
+function faceHandleEnd(evt) {
+  var touches = evt.changedTouches;
+
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingFaceTouchIndexById(touches[i].identifier);
+
+    if (idx >= 0) {
+      ongoingFaceTouches.splice(idx, 1);
+    } else {
+      console.log("Can't figure out which touch to end.");
+    }
+  }
+}
+
+function faceHandleCancel(evt) {
+  var touches = evt.changedTouches;
+
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingFaceTouchIndexById(touches[i].identifier);
+    ongoingFaceTouches.splice(idx, 1);
+  }
+}
+
+
+main.addEventListener("touchstart", handHandleStart, false);
+main.addEventListener("touchend", handHandleEnd, false);
+main.addEventListener("touchcancel", handHandleCancel, false);
+main.addEventListener("touchmove", handHandleMove, false);
+
+face.on("touchstart", faceHandleStart, false);
+face.on("touchend", faceHandleEnd, false);
+face.on("touchcancel", faceHandleCancel, false);
+face.on("touchmove", faceHandleMove, false);
 
 </script>
 </body>
