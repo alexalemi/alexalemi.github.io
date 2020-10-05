@@ -38,7 +38,7 @@
     }
 
     .minor-label {
-      font-size: 14px;
+      font-size: 10px;
     }
 
     .origin-label {
@@ -111,7 +111,12 @@
   you have your mouse outside of the face to move the hand.  Holding shift makes it go slower.
   Using the wheel inside the face moves the face.  Click outside the face to register the 
   inner face to the hand.  Click inside the face to reset to the origin. Touch on mobile
-  works as well.</p>
+  works as well.  The Gauge marks are as follows: π ~ 3.1416 is clear, 
+  e ~ 2.71828 as well, 
+  c ~ 1.128 marks sqrt(4/pi) the 
+  circle constant for finding areas of circles given their diameter. L
+  marks the natural log of 10 ~ 2.3026. r ~ 57.3 is the number of degrees
+  in a radian, and Q ~ 0.01745 is the number of radians in a degree.</p>
 </div>
 <script>
 
@@ -265,9 +270,7 @@ function drawClock(){ //create all the clock elements
     .append('text')
     .attr('class', 'label minor-label')
     .attr('text-anchor','middle')
-    .text(function(d){
-      return d;
-    })
+    .text(function(d){ return d; })
     .attr('x', 0)
     .attr('y', -innerMinorLabelRadius)
     .attr('transform', d => rotate(1 + d/10, innerPosition));
