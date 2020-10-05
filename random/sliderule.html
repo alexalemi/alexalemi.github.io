@@ -21,7 +21,7 @@
     svg{
       stroke: #000;
       font-family: "Merriweather", serif;
-      position: fixed;
+      position: absolute;
       top: 0;
       bottom: 0;
     }
@@ -96,11 +96,23 @@
       padding: 0 auto;
     }
 
+    #description {
+      color: #333;
+    }
+
   </style>
 </head>
 <body>
 <script src="https://d3js.org/d3.v6.min.js"></script>
-<div id="main"></div>
+<div id="main">
+</div>
+<div id="description">
+  <p>This is a simple circular sliderule simulator you can use.  Use the mouse wheel while 
+  you have your mouse outside of the face to move the hand.  Holding shift makes it go slower.
+  Using the wheel inside the face moves the face.  Click outside the face to register the 
+  inner face to the hand.  Click inside the face to reset to the origin. Touch on mobile
+  works as well.</p>
+</div>
 <script>
 
 const radians = 2 * Math.PI / 360;
