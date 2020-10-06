@@ -110,7 +110,8 @@
   <p>This is a simple circular sliderule simulator you can use.  Use the mouse wheel while 
   you have your mouse outside of the face to move the hand.  Holding shift makes it go slower.
   Using the wheel inside the face moves the face.  Click outside the face to register the 
-  inner face to the hand.  Click inside the face to reset to the origin. Touch on mobile
+  inner face to the hand.  Click again to register to the origin. 
+  Click inside the face to set the origin to the hand. Touch on mobile
   works as well.  The Gauge marks are as follows: π ~ 3.1416 is clear, 
   e ~ 2.71828 as well, 
   c ~ 1.128 marks sqrt(4/pi) the 
@@ -582,9 +583,13 @@ function resetFace(evt) {
   evt.preventDefault();
   console.log(evt.target);
   if (isDescendant(faceElement, evt.target)) {
-    setFace(0);
+    setHand(innerPosition + 180);
   } else {
-    setFace(handPosition + 180);
+     if (innerPosition === (handPosition + 180)) {
+      setFace(0);
+     } else {
+      setFace(handPosition + 180);
+     }
   }
 }
 
