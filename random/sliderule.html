@@ -96,6 +96,13 @@
       padding: 0 auto;
     }
 
+    #nums {
+      font-family: monospace;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
     #description {
       color: #333;
     }
@@ -105,6 +112,10 @@
 <body>
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <div id="main">
+</div>
+<div id="nums">
+  <div id="num1">0.001</div>
+  <div id="num2">0.001</div>
 </div>
 <div id="description">
   <p>This is a simple circular sliderule simulator you can use.  Use the mouse wheel while 
@@ -442,11 +453,11 @@ function isDescendant(parent, child) {
 }
 
 function wheelDistance(evt) {
-  return evt.deltaY / 10 / (evt.shiftKey ? 10 : 1);
+  return evt.deltaY / 10 / (evt.shiftKey ? 20 : 1);
 }
 
 function touchDistance(dY, dX, shiftKey) {
-  return 0.5 * (dY + dX / 2) / (shiftKey ? 10 : 1);
+  return 0.5 * (dY + dX / 2) / (shiftKey ? 20 : 1);
 }
 
 Number.prototype.mod = function(n) {
@@ -465,11 +476,17 @@ function optimalMove(frm, to) {
 function setFace(position) {
   innerPosition = optimalMove(innerPosition, position);
   face.attr('transform', 'rotate(' + innerPosition + ')');
+  num1.innerHTML = d3.format(".3f")(innerScale.invert((handPosition-innerPosition).mod(360)));
 }
+
+const num1 = document.getElementById('num1');
+const num2 = document.getElementById('num2');
 
 function setHand(position) {
   handPosition = optimalMove(handPosition, position);
   hand.attr('transform', 'rotate(' + handPosition + ')');
+  num1.innerHTML = d3.format(".3f")(innerScale.invert((handPosition-innerPosition).mod(360)));
+  num2.innerHTML = d3.format(".3f")(innerScale.invert(handPosition.mod(360)));
 }
 
 var main = document.getElementById('main');
