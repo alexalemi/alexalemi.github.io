@@ -409,13 +409,13 @@ function drawClock(){ //create all the clock elements
     .attr('x1', 0)
     .attr('x2', 0)
     .attr('y1', 0)
-    .attr('y2', radius + handBleed)
+    .attr('y2', -radius - handBleed)
 
   hand.append('line')
     .attr('class', 'hand hand-back')
     .attr('x1', 0)
     .attr('x2', 0)
-    .attr('y1', -handBack)
+    .attr('y1', handBack)
     .attr('y2', 0);
 
 	rule.append('g').attr('id','hand-overlay')
@@ -449,13 +449,26 @@ function touchDistance(dY, dX, shiftKey) {
   return 0.5 * (dY + dX / 2) / (shiftKey ? 10 : 1);
 }
 
+Number.prototype.mod = function(n) {
+    return ((this%n)+n)%n;
+};
+
+function optimalMove(frm, to) {
+  let diff = to.mod(360) - frm.mod(360);
+  if (Math.abs(diff) < 360/2.0) {
+    return frm + diff;
+  } else {
+    return frm - Math.sign(diff) * (360 - Math.abs(diff));
+  }
+}
+
 function setFace(position) {
-  innerPosition = position;
+  innerPosition = optimalMove(innerPosition, position);
   face.attr('transform', 'rotate(' + innerPosition + ')');
 }
 
 function setHand(position) {
-  handPosition = position;
+  handPosition = optimalMove(handPosition, position);
   hand.attr('transform', 'rotate(' + handPosition + ')');
 }
 
@@ -581,14 +594,13 @@ main.addEventListener("touchmove", handleMove, false);
 
 function resetFace(evt) {
   evt.preventDefault();
-  console.log(evt.target);
   if (isDescendant(faceElement, evt.target)) {
-    setHand(innerPosition + 180);
+    setHand(innerPosition);
   } else {
-     if (innerPosition === (handPosition + 180)) {
+     if ((innerPosition - handPosition).mod(360) === 0) {
       setFace(0);
      } else {
-      setFace(handPosition + 180);
+      setFace(handPosition);
      }
   }
 }
