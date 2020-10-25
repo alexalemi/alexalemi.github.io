@@ -192,7 +192,7 @@
 
         section ul li {
           margin: 0 0 1.3em 0;
-          line-height: 1;
+          line-height: 1.5;
         }
 
         section ul li p {
