@@ -1,4 +1,11 @@
 [
+  { "title": "PAC$^m$-Bayes: Narrowing the Empirical Risk Gap in the Misspecified Bayesian Regime",
+    "file": "pacm.pdf",
+    "authors": "WR Morningstar, AA Alemi, JV Dillon",
+    "date": "2020-10",
+    "arxiv": "2010.09629",
+    "description": "Multisample bound that does better than Bayes at prediction for misspecified models."
+  },
   { "title": "Density of States Estimation for Out-of-Distribution Detection",
     "file": "dose.pdf",
     "authors": "WR Morningstar, C Ham, AG Gallagher, B Lakshminarayanan, AA Alemi, JV Dillon",
