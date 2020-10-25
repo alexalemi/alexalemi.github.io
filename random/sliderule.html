@@ -116,6 +116,10 @@
 <div id="nums">
   <div id="num1">0.001</div>
   <div id="num2">0.001</div>
+  <div id="buttons">
+    <button value="resetHand" onclick="resetHand();">set Hand</button> <br />
+    <button value="resetFace" onclick="resetFace();">set Face</button>
+  </div>
 </div>
 <div id="description">
   <p>This is a simple circular sliderule simulator you can use.  Use the mouse wheel while 
@@ -456,8 +460,12 @@ function wheelDistance(evt) {
   return evt.deltaY / 10 / (evt.shiftKey ? 20 : 1);
 }
 
-function touchDistance(dY, dX, shiftKey) {
-  return 0.5 * (dY + dX / 2) / (shiftKey ? 20 : 1);
+function softplus(x) {
+  return Math.log(1 + Math.exp(x))/Math.log(2)
+}
+
+function touchDistance(dX, dY, shiftKey) {
+  return 0.5 * dY * softplus(0.01 * dX) / (shiftKey ? 20 : 1);
 }
 
 Number.prototype.mod = function(n) {
@@ -504,7 +512,8 @@ main.onwheel = (evt) => {
 var ongoingTouches = [];
 
 function copyTouch({ identifier, pageX, pageY, target }) {
-  return { identifier, pageX, pageY, target, handPosition, innerPosition };
+  return { identifier, pageX, pageY, target, handPosition, innerPosition,
+    startX:pageX, startY:pageY, prevX:pageX, prevY:pageY, speed:1 };
 }
 
 function ongoingTouchIndexById(idToFind) {
@@ -553,16 +562,27 @@ function handleMove(evt) {
   var touches = evt.changedTouches;
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
-    var idx = ongoingTouchIndexById(touches[i].identifier);
 
     if (idx >= 0) {
       let ongoingTouch = ongoingTouches[idx];
-      let dY = touches[i].pageY - ongoingTouch.pageY;
-      let dX = touches[i].pageX - ongoingTouch.pageX;
+
+      let dY = touches[i].pageY - ongoingTouch.prevY;
+      let dX = touches[i].pageX - ongoingTouch.prevX;
+      let dXtotal = touches[i].pageX - ongoingTouch.startX;
+      
+      let speed = softplus(0.01 * dXtotal)
+      let delta = 0.5 * dY * speed / (evt.shiftKey ? 20 : 1);
+
+      ongoingTouch.prevY = touches[i].pageY;
+      ongoingTouch.prevX = touches[i].pageX;
+      ongoingTouch.speed = speed;
+
       if (isDescendant(faceElement, ongoingTouch.target)) {
-        setFace(ongoingTouches[idx].innerPosition + touchDistance(dX, dY, evt.shiftKey));
+        ongoingTouch.innerPosition += delta;
+        setFace(ongoingTouch.innerPosition);
       } else { 
-        setHand(ongoingTouches[idx].handPosition + touchDistance(dX, dY, evt.shiftKey));
+        ongoingTouch.handPosition += delta;
+        setHand(ongoingTouch.handPosition);
       }
     } else {
       console.log("Can't figure out which touch to continue.");
@@ -604,26 +624,35 @@ function handleCancel(evt) {
   }
 }
 
+
+function resetHand() {
+  setHand(innerPosition);
+}
+
+function resetFace() {
+ if ((innerPosition - handPosition).mod(360) === 0) {
+  setFace(0);
+ } else {
+  setFace(handPosition);
+ }
+}
+
+function reset(evt) {
+  evt.preventDefault();
+  console.log(evt);
+  if (isDescendant(faceElement, evt.target)) {
+    resetHand();
+  } else {
+    resetFace();
+  }
+}
+
+main.addEventListener("click", reset, false);
+
 main.addEventListener("touchstart", handleStart, false);
 main.addEventListener("touchend", handleEnd, false);
 main.addEventListener("touchcancel", handleCancel, false);
 main.addEventListener("touchmove", handleMove, false);
-
-function resetFace(evt) {
-  evt.preventDefault();
-  if (isDescendant(faceElement, evt.target)) {
-    setHand(innerPosition);
-  } else {
-     if ((innerPosition - handPosition).mod(360) === 0) {
-      setFace(0);
-     } else {
-      setFace(handPosition);
-     }
-  }
-}
-
-main.addEventListener("click", resetFace, false);
-
 
 
 </script>

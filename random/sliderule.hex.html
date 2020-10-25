@@ -145,6 +145,7 @@ const radians = 2 * Math.PI / 360;
   halfTickLength = 0.8 * majorTickLength,
   mediumTickLength = 0.5 * majorTickLength,
   minorTickLength = 0.2 * majorTickLength,
+  minorHalfTickLength = 0.3 * majorTickLength,
   tinyTickLength = 0.1 * majorTickLength,
   innerMinorLabelRadius = radius - minorTickLength - 25,
   specialTickLength = majorTickLength * 0.9,
@@ -162,7 +163,8 @@ const radians = 2 * Math.PI / 360;
   ringMajorLabelRadius = ringOriginLabelRadius,
   ringMinorLabelRadius = radius + minorTickLength + 10;
 
-    
+   
+const limbu = ["᥆","᥇","᥈","᥉", "᥊", "᥋"];
 
 const innerScale = d3.scaleLog()
   .domain([1, base])
@@ -216,7 +218,7 @@ function drawClock(){ //create all the clock elements
 			.append('text')
 			.attr('class', 'label origin-label')
 			.attr('text-anchor','left')
-			.text(function(d){ return d; })
+			.text(function(d){ return limbu[d]; })
       .attr('x', 2)
       .attr('y', -innerOriginLabelRadius)
       .attr('transform', d => rotate(d, innerPosition));
@@ -240,7 +242,7 @@ function drawClock(){ //create all the clock elements
 			.append('text')
 			.attr('class', 'label major-label')
 			.attr('text-anchor','middle')
-			.text(function(d){ return d; })
+			.text(function(d){ return limbu[d]; })
       .attr('x', 0)
       .attr('y', -innerMajorLabelRadius)
       .attr('transform', d => rotate(d, innerPosition));
@@ -278,9 +280,20 @@ function drawClock(){ //create all the clock elements
     .attr('y2',-radius + minorTickLength)
     .attr('transform', d => rotate(d, innerPosition));
 
+  // Minor-Half Ticks
+  face.selectAll('.minorhalf-tick')
+    .data(d3.range(1 + 1/base/2, 6.0, 1/base/2)).enter()
+    .append('line')
+    .attr('class', 'tick minorhalf-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + minorHalfTickLength)
+    .attr('transform', d => rotate(d, innerPosition));
+
   // Tiny Ticks
   face.selectAll('.tiny-tick')
-    .data(d3.range(1 + 1/base/6/2, 2.0, 1/base/6/2)).enter()
+    .data(d3.range(1 + 1/base/6/2, 3.0, 1/base/6/2)).enter()
     .append('line')
     .attr('class', 'tick tiny-tick')
     .attr('x1',0)
@@ -295,7 +308,7 @@ function drawClock(){ //create all the clock elements
     .append('text')
     .attr('class', 'label minor-label')
     .attr('text-anchor','middle')
-    .text(function(d){ return d; })
+    .text(function(d){ return limbu[d]; })
     .attr('x', 0)
     .attr('y', -innerMinorLabelRadius)
     .attr('transform', d => rotate(1 + d/base, innerPosition));
@@ -343,7 +356,7 @@ function drawClock(){ //create all the clock elements
 			.append('text')
 			.attr('class', 'label origin-label')
 			.attr('text-anchor','left')
-			.text(function(d){ return d; })
+			.text(function(d){ return limbu[d]; })
       .attr('x', 2)
       .attr('y', -ringOriginLabelRadius)
       .attr('transform', d => rotate(d, innerPosition));
@@ -365,7 +378,7 @@ function drawClock(){ //create all the clock elements
 			.append('text')
 			.attr('class', 'label major-label')
 			.attr('text-anchor','left')
-			.text(function(d){ return d; })
+			.text(function(d){ return limbu[d]; })
       .attr('x', 5)
       .attr('y', -ringMajorLabelRadius)
       .attr('transform', d => rotate(d, innerPosition));
@@ -403,9 +416,20 @@ function drawClock(){ //create all the clock elements
     .attr('y2',-radius - minorTickLength)
     .attr('transform', d => rotate(d, innerPosition));
 
+  // Minor-Half Ticks
+  ring.selectAll('.minorhalf-tick')
+    .data(d3.range(1 + 1/base/2, 6.0, 1/base/2)).enter()
+    .append('line')
+    .attr('class', 'tick minorhalf-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius - minorHalfTickLength)
+    .attr('transform', d => rotate(d, innerPosition));
+
   // Tiny Ticks
   ring.selectAll('.tiny-tick')
-    .data(d3.range(1 + 1/base/6/2, 2.0, 1/base/6/2)).enter()
+    .data(d3.range(1 + 1/base/6/2, 3.0, 1/base/6/2)).enter()
     .append('line')
     .attr('class', 'tick tiny-tick')
     .attr('x1',0)
@@ -421,7 +445,7 @@ function drawClock(){ //create all the clock elements
     .attr('class', 'label minor-label')
     .attr('text-anchor','left')
     .text(function(d){
-      return d;
+      return limbu[d];
     })
     .attr('x', 5)
     .attr('y', -ringMinorLabelRadius)
