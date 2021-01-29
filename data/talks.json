@@ -1,5 +1,20 @@
 [
     {
+      "title": "VIB is Half Bayes",
+      "links": [{
+        "href": "https://youtu.be/JGDAZ4joUX8",
+        "text": "[talk]",
+        "canonical": true
+      }, { 
+        "href": "https://youtu.be/GVMmou2-zdk",
+        "text": "[poster]"
+      }],
+      "date": "2021-02",
+      "venue": "Advances in Approximate Bayesian Inference Symposium 2021",
+      "id": "vib-is-half-bayes",
+      "description": "The Variational Information Bottleneck can be viewed as a sort of half-Bayesian approach."
+    },
+    {
       "title": "Machine Learning and Thermodynamics",
       "links": [{
         "href": "https://umd.zoom.us/rec/play/HzmmQWvPH60zxHaOCHAy6Uwt3UUJWfZYB-YA007p6KHTOY56BXYpCtP-EZAosMIaVgVyja9DXsdpf39w.RV77En0w92lneh-v?continueMode=true&_x_zm_rtaid=uqeY5cMmQbe7o5ux5nhmdw.1605629917876.6f991d113b88c5fff5356c5d0db95d7f&_x_zm_rhtaid=693",
