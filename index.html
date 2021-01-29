@@ -280,7 +280,7 @@
     <nav style="margin-top: 1.5em;">
         <p>
             <strong>Jump to: </strong>
-            <a href="#publications">Research</a> |
+            <a href="#research">Research</a> |
             <a href="#writing">Writing</a> |
             <a href="#code">Code</a> |
             <a href="#talks">Talks</a> |
