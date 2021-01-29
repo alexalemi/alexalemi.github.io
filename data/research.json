@@ -3,6 +3,7 @@
     "file": "pacvib.pdf",
     "authors": "AA Alemi, WR Morningstar, B Poole, I Fischer, JV Dillon",
     "date": "2020-11",
+    "venue": "AABI 2021 Oral",
     "arxiv": "2011.08711",
     "description": "VIB can be rederived as a half-Bayesian half-Maximum likelihood method."
   },
@@ -16,6 +17,7 @@
   { "title": "Density of States Estimation for Out-of-Distribution Detection",
     "file": "dose.pdf",
     "authors": "WR Morningstar, C Ham, AG Gallagher, B Lakshminarayanan, AA Alemi, JV Dillon",
+    "venue": "AISTATS 2021 Oral",
     "date": "2020-06",
     "arxiv": "2006.09273",
     "description": "Simple density-of-states inspired out of distribution detection."
