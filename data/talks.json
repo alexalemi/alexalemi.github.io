@@ -2,12 +2,12 @@
     {
       "title": "VIB is Half Bayes",
       "links": [{
+        "href": "https://youtu.be/GVMmou2-zdk",
+        "text": "[poster]"
+      }, { 
         "href": "https://youtu.be/JGDAZ4joUX8",
         "text": "[talk]",
         "canonical": true
-      }, { 
-        "href": "https://youtu.be/GVMmou2-zdk",
-        "text": "[poster]"
       }],
       "date": "2021-02",
       "venue": "Advances in Approximate Bayesian Inference Symposium 2021",
