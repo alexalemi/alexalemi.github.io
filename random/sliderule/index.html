@@ -1,4 +1,6 @@
 <!DOCTYPE HTML>
+<html lang="en">
+<meta charset="utf-8">
 <html>
   <head>
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -6,35 +8,54 @@
   <title>alexalemi.com/random/sliderule.html</title>
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
       <title>Sliderule</title>
   </head>
   <body>
     <div class="page">
+      <!-- 
       <div class="section menu">
         menu
       </div>
+      -->
 
-      <div class="section dial">
+      <div class="section dial" id="dial">
       </div>
 
-      <div class="section info">
-        <div class="reading" id="handReading">1.000</div>
-        <button id="setHand">Set Hand</button>
-        <button id="setFace">Set Face </button>
-        <div class="reading" id="faceReading">1.000</div>
-      </div>
+      <div class="container extra">
+        <div class="section info">
+          <div class="reading" id="handReading">1.000</div>
+          <button id="setHand" onClick="resetHand();">Set Hand</button>
+          <button id="setFace" onClick="resetFace();">Set Face </button>
+          <div class="reading" id="faceReading">1.000</div>
+        </div>
 
-      <div class="section powers">
-        <button class="power" id="minusFive">-5</button>
-        <button class="power" id="minusOne">-1</button>
-        <div class="reading power" id="power">00</div>
-        <button class="power" id="plusOne">+1</button>
-        <button class="power" id="plusFive">+5</button>
-      </div>
+        <div class="section powers">
+          <button class="power" id="minusFive" onClick="addPower(-5);">-5</button>
+          <button class="power" id="minusOne" onClick="addPower(-1);">-1</button>
+          <input type="number" id="power" class="reading" name="power" step=1 value=0>
+          <button class="power" id="plusOne" onClick="addPower(+1);">+1</button>
+          <button class="power" id="plusFive" onClick="addPower(+5);">+5</button>
+        </div>
 
-      <div class="section text">
-        Some explanatory text.
+        <div class="section text">
+  <p>
+  This is a simple circular sliderule simulator you can use.  Use the mouse wheel while 
+  you have your mouse outside of the face to move the hand.  Holding shift makes it go slower.
+  Using the wheel inside the face moves the face.  Click outside the face to register the 
+  inner face to the hand.  Click again to register to the origin. 
+  Click inside the face to set the origin to the hand. Touch on mobile
+  works as well.  The Gauge marks are as follows:
+   π  ~ 3.1416 is clear, 
+  e ~ 2.71828 as well, 
+  c ~ 1.128 marks sqrt(4/pi) the circle constant for finding areas of circles given their diameter. 
+  L marks the natural log of 10 ~ 2.3026. 
+  r ~ 57.3 is the number of degrees
+  in a radian, and Q ~ 0.01745 is the number of radians in a degree.
+  </p>
+        </div>
       </div>
     </div>
+  <script src="lib.js" type="text/javascript"></script>
   </body>
 </html>
