@@ -160,8 +160,8 @@ function drawClock(){ //create all the clock elements
     .attr('y', -innerMinorLabelRadius)
     .attr('transform', d => rotate(1 + d/10, innerPosition));
 
-  let specialLocs = [Math.PI, Math.E, Math.sqrt(4 / Math.PI), Math.PI / 180, 180 / Math.PI, Math.log(10)]
-  let specialLabels = ["π", "e", "c", "Q", "r", "L", "M"]
+  let specialLocs = [Math.PI, Math.E, Math.sqrt(4 / Math.PI), Math.PI / 180, 180 / Math.PI, Math.log(10), Math.log10(Math.E)] // , 9.81, 746]
+  let specialLabels = ["π", "e", "c", "Q", "r", "L", "l", "g", "Hp"]
   // Pi
   face.selectAll('.special-ticks')
     .data(specialLocs).enter()
@@ -366,6 +366,7 @@ function setHand(position) {
   handReading.innerHTML = d3.format(".3f")(innerScale.invert(handPosition.mod(360)));
 }
 
+var page = document.getElementById('page');
 var dial = document.getElementById('dial');
 var faceElement = document.getElementById('slide-face');
 
