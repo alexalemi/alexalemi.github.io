@@ -13,6 +13,7 @@ html {
 .page {
   display: flex;
   flex-wrap: wrap;
+  min-width: 150px;
 }
 
 .section {
@@ -23,39 +24,68 @@ html {
   align-items: center;
 }
 
+.container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
 
 .menu {
-  background-color: #5995DA;
+  /* background-color: #5995DA; */
+  display: false;
+  visibility: none;
 }
 
 .dial {
-  background-color: #B2D6FF;
+  /* background-color: lightyellow; */
+  height: 70vmin;
+  width: 100%;
   min-height: 150px;
 }
+
 .extra { 
-  background-color: white;
+  /* background-color: #EAEDF0; */
+  align-content: flex-start;
 } 
 .info {
-  background-color: #EAEDF0;
+  /* background-color: #EAEDF0; */
+}
+.section > div, button {
+  margin: 10px;
 }
 .powers {
-  background-color: #F5CF8E;
+  /* background-color: #F5CF8E; */
 }
 .text {
-  background-color: #F09A9D;
+  color: #333;
+  width: 100%;
+  padding: 5px;
+  /* background-color: #F09A9D; */
+  display: block;
+  height: auto;
+  font-size: 0.8em;
+}
+
+.reading {
+  font-family: monospace;
+}
+
+#power {
+  width: 3em;
+  text-align: center;
 }
 
 /* mobile styles */
 @media only screen and (max-width: 400px) {
   body {
-    background-color: #F09A9D;
+    /* background-color: #F09A9D; */
   }
 }
 
 /* tablet styles */
 @media only screen and (min-width: 401px) and (max-width: 960px) {
   body {
-    background-color: #F5CF8E;
+    /* background-color: #F5CF8E; */
   }
   .info,
   .powers {
@@ -66,11 +96,16 @@ html {
 /* Desktop styles */
 @media only screen and (min-width: 961px) {
   body {
-    background-color: #B2D6FF;
+    /* background-color: #B2D6FF; */
+  }
+
+  .dial {
+    height: 90vmin;
+    width: 90vmin;
   }
 
   .page {
-    width: 960px;
+    /* width: 960px; */
     margin: 0 auto;
   }
 
@@ -90,9 +125,6 @@ html {
 svg{
   stroke: #000;
   font-family: "Merriweather", serif;
-  position: absolute;
-  top: 0;
-  bottom: 0;
 }
 
 .tick{
