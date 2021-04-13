@@ -1,0 +1,178 @@
+/* Browser reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+    line-height: 1.15;
+    /* -webkit-text-size-adjust: 100%; */
+}
+
+.page {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.menu {
+  background-color: #5995DA;
+}
+
+.dial {
+  background-color: #B2D6FF;
+  min-height: 150px;
+}
+.extra { 
+  background-color: white;
+} 
+.info {
+  background-color: #EAEDF0;
+}
+.powers {
+  background-color: #F5CF8E;
+}
+.text {
+  background-color: #F09A9D;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 400px) {
+  body {
+    background-color: #F09A9D;
+  }
+}
+
+/* tablet styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  body {
+    background-color: #F5CF8E;
+  }
+  .info,
+  .powers {
+    width: 50%;
+  }
+}
+
+/* Desktop styles */
+@media only screen and (min-width: 961px) {
+  body {
+    background-color: #B2D6FF;
+  }
+
+  .page {
+    width: 960px;
+    margin: 0 auto;
+  }
+
+  .dial {
+    width: 50%;
+  }
+
+  .extra{
+    width: 50%;
+  }
+}
+
+
+
+
+
+svg{
+  stroke: #000;
+  font-family: "Merriweather", serif;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.tick{
+  stroke-width:1;
+  fill:#000;	
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.minor-label {
+  font-size: 10px;
+}
+
+.origin-label {
+  font-size: 25px;
+}
+
+.special-label {
+  font-size: 10px;
+}
+
+.edge {
+  stroke-width:1;
+  fill: GhostWhite;
+  z-order: -2;
+}
+
+.indicator {
+  stroke-width: 1;
+  stroke: firebrick;
+  opacity: 0.75;
+  z-order: 3;
+}
+
+.animate {
+  transition: transform 0.2s ease-in;
+}
+
+.hand {
+  stroke-width: 1;
+  stroke: firebrick;
+  opacity: 0.75;
+  z-order: 5;
+}
+
+.hand-overlay {
+  opacity: 100;
+  stroke: firebrick;
+  fill: firebrick;
+  stroke-linecap:round;
+  z-order: 6;
+}
+
+.hand-back {
+  stroke-width: 2;
+  opacity: 100;
+  stroke: firebrick;
+  fill: firebrick;
+  stroke-linecap:round;
+  z-order: 7;
+}
+
+#main {
+  height: 100vh;
+  width: 100vw;
+  padding: 0 auto;
+}
+
+#nums {
+  font-family: monospace;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#description {
+  color: #333;
+}
+
