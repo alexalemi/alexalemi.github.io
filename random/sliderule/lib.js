@@ -517,7 +517,6 @@ function reset(evt) {
 }
 
 dial.addEventListener("click", reset, false);
-
 dial.addEventListener("touchstart", handleStart, false);
 dial.addEventListener("touchend", handleEnd, false);
 dial.addEventListener("touchcancel", handleCancel, false);
