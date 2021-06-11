@@ -79,7 +79,7 @@ def process_post(template_file, post):
     logging.debug(f"Compiling {post['title']}")
     src = post['src']
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
-    output_path = input_path.with_suffix('.html')
+    output_path = input_path.with_suffix('.mj.html')
     with open(input_path, 'r') as fin:
         with MathJaxRenderer() as renderer:
             post['content'] = renderer.render(Document(fin))
