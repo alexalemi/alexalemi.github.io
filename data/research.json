@@ -1,4 +1,11 @@
 [
+  { "title": "Does Knowledge Distillation Really Work?",
+    "file": "distillation.pdf",
+    "authors": "S Stanton, P Izmailov, P Kirichenko, AA Alemi, AG Wilson",
+    "date": "2021-06",
+    "arxiv": "2106.05945",
+    "description": "Knowledge distillation doesn't seem to work as well as people assume it does."
+  },
   { "title": "VIB is Half Bayes",
     "file": "pacvib.pdf",
     "authors": "AA Alemi, WR Morningstar, B Poole, I Fischer, JV Dillon",
