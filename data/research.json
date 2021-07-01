@@ -1,4 +1,11 @@
 [
+  { "title": "A Closer Look at the Adversarial Robustness of Information Bottleneck Models",
+    "file": "robustness.pdf",
+    "authors": "I Korshunova, D Stutz, AA Alemi, O Wiles, S Gowal",
+    "date": "2021-06",
+    "venue": "ICML 2021 AML Workshop Poster",
+    "description": "Looking more carefully, IB models aren't fully robust to adversarial examples."
+  },
   { "title": "Does Knowledge Distillation Really Work?",
     "file": "distillation.pdf",
     "authors": "S Stanton, P Izmailov, P Kirichenko, AA Alemi, AG Wilson",
