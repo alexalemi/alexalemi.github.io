@@ -6,7 +6,7 @@
     "venue": "ICML 2021 AML Workshop Poster",
     "links": [{
       "href": "https://openreview.net/forum?id=1UA9zfQuIdp",
-      "text": "openreview"
+      "text": "[openreview]"
     }],
     "description": "Looking more carefully, IB models aren't fully robust to adversarial examples."
   },
