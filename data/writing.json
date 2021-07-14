@@ -8,7 +8,8 @@
       }],
       "date": "2020-04-13",
       "id": "corona-logistic-growth-plots",
-      "description": "A distinct way to view Coronavirus growth."
+      "description": "A distinct way to view Coronavirus growth.",
+      "featured": true
     },
     {
       "title": "'Live' Logistic Coronavirus Death Counter",
@@ -19,7 +20,8 @@
       }],
       "date": "2020-03-27",
       "id": "live-corona-death-counter",
-      "description": "An approximate 'live' corona death counter."
+      "description": "An approximate 'live' corona death counter.",
+      "featured": true
     },
     {
       "title": "Can I compute the mass of a coin based on the sound of its fall?",
@@ -30,7 +32,8 @@
       }],
       "date": "2014-06-26",
       "id": "mass-of-coin",
-      "description": "Using the sound of coins dropping to predict their values."
+      "description": "Using the sound of coins dropping to predict their values.",
+      "featured": true
     },
     {
       "title": "How effective is speeding?",
@@ -41,7 +44,8 @@
       }],
       "date": "2014-07-09",
       "id": "effectiveness-of-speeding",
-      "description": "A simple model looking at how effective speeding is at saving time and money."
+      "description": "A simple model looking at how effective speeding is at saving time and money.",
+      "featured": true
     },
     {
       "title": "Physics of the weird boing sound on racquetball courts.",
@@ -52,7 +56,8 @@
       }],
       "date": "2014-07-21",
       "id": "racquetball-boing",
-      "description": "A model that recreates the boing sound."
+      "description": "A model that recreates the boing sound.",
+      "featured": true
     },
     {
       "title": "The Linear Theory of Battleship",
@@ -63,7 +68,8 @@
       }],
       "date": "2011-10-03",
       "id": "linear-battleship",
-      "description": "Winning at battleship with a dirt simple model."
+      "description": "Winning at battleship with a dirt simple model.",
+      "featured": true
     },
     {
       "title": "A tweet is worth at least 140 words",
@@ -74,7 +80,8 @@
       }],
       "date": "2011-08-30",
       "id": "twitter-compression",
-      "description": "Greedy twitter compression scheme."
+      "description": "Greedy twitter compression scheme.",
+      "featured": true
     },
     {
       "title": "How Long Can you Balance A (Quantum) Pencil",
@@ -85,7 +92,8 @@
       }],
       "date": "2010-06-16",
       "id": "quantum-pencil",
-      "description": "Simple and probably wrong calculation for the ultimate length of time a pencil can balance."
+      "description": "Simple and probably wrong calculation for the ultimate length of time a pencil can balance.",
+      "featured": true
     },
     {
       "title": "I was born on Wednesday",
@@ -96,6 +104,7 @@
       }],
       "date": "2010-05-26",
       "id": "born-wednesday",
-      "description": "A classic logic puzzle explained."
+      "description": "A classic logic puzzle explained.",
+      "featured": true
     }
 ]
