@@ -75,14 +75,19 @@ def main():
         process_template(template_file, data, ROOT / Path('..'))
 
 
+def render_post(src):
+    input_path = (ROOT / Path('../blog') / Path(src)).resolve()
+    with open(input_path, 'r') as fin:
+        with MathJaxRenderer() as renderer:
+            content = renderer.render(Document(fin))
+    return content
+
 def process_post(template_file, post):
     logging.debug(f"Compiling {post['title']}")
     src = post['src']
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     output_path = input_path.with_suffix('.mj.html')
-    with open(input_path, 'r') as fin:
-        with MathJaxRenderer() as renderer:
-            post['content'] = renderer.render(Document(fin))
+    post['content'] = render_post(src)
     compile_template(
             template_file,
             post,
