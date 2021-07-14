@@ -7,7 +7,7 @@ import logging
 import datetime
 import os
 from feedgen.feed import FeedGenerator
-from compile import augment_post
+from compile import augment_post, render_post
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -92,7 +92,7 @@ def add_talk(fe, talk):
           isSummary=True)
   return fe
 
-def add_post(fe, post):
+def add_post(fe, post, content=None):
   fe.title(post["title"])
   href = None
   for link in post.get('links', []):
@@ -106,6 +106,8 @@ def add_post(fe, post):
   fe.description(
           f"{post.get('description', '')}",
           isSummary=True)
+  if content is not None:
+      fe.content(content)
   return fe
 
 
@@ -139,7 +141,8 @@ def main():
       for post in data:
         if not post.get('hidden', False):
             fe = fg.add_entry()
-            add_post(fe, post)
+            content = render_post(post['src'])
+            add_post(fe, post, content)
 
   with open(os.path.join(ROOT, DATA_PATH, "writing.json"), 'r') as f:
       data = json.load(f)
@@ -170,7 +173,8 @@ def blog():
         if not post.get('hidden', False):
             fe = fg.add_entry()
             post = augment_post(post)
-            add_post(fe, post)
+            content = render_post(post['src'])
+            add_post(fe, post, content)
 
   outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
