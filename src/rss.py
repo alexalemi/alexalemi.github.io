@@ -78,13 +78,18 @@ def add_publication(fe, pub):
 
 def add_talk(fe, talk):
   fe.title(talk["title"])
+  canonical_target = None
   for link in talk.get('links', []):
     target = link["href"]
+    if link.get("canonical"):
+        canonical_target = target
     fe.link(href=target, rel="alternate")
+  if canonical_target is None:
+      canonical_target = target
   href = os.path.join(TALK_SCHEME, talk["id"] + ".html")
   fe.guid(href, permalink=True)
   with open(os.path.join(ROOT, TALKS_PATH, talk["id"] + ".html"), "w") as f:
-      f.write(REDIRECT_TEMPLATE.format(href=target))
+      f.write(REDIRECT_TEMPLATE.format(href=canonical_target))
   fe.published(convert_date(talk["date"]))
   fe.category(term="talks", scheme=TALK_SCHEME, label="talks")
   fe.description(
