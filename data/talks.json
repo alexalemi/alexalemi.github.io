@@ -1,5 +1,23 @@
 [
     {
+      "title": "Machine Learning and Thermodynamics",
+      "links": [{
+        "href": "https://youtu.be/C5E91rsiKU0",
+        "text": "[video]",
+        "canonical": true
+      }, {
+        "href": "https://www.cmu.edu/aced/sciML.html",
+        "text": "[SciML series]"
+      }, {
+        "href": "https://docs.google.com/presentation/d/1tIGTRRE0gKjBIySrQOUO-qlIDlj1nXhDybamG0YP3YI/edit?usp=sharing",
+        "text": "[slides]"
+      }],
+      "date": "2021-07",
+      "venue": "Scientific Machine Learning Mini-Course (SciML) @ CMU",
+      "id": "sciml-thermo",
+      "description": "Another version of the relationship between thermodynamics and machine learning."
+    },
+    {
       "title": "VIB is Half Bayes",
       "links": [{
         "href": "https://youtu.be/GVMmou2-zdk",
@@ -18,11 +36,11 @@
       "title": "Machine Learning and Thermodynamics",
       "links": [{
         "href": "https://umd.zoom.us/rec/play/HzmmQWvPH60zxHaOCHAy6Uwt3UUJWfZYB-YA007p6KHTOY56BXYpCtP-EZAosMIaVgVyja9DXsdpf39w.RV77En0w92lneh-v?continueMode=true&_x_zm_rtaid=uqeY5cMmQbe7o5ux5nhmdw.1605629917876.6f991d113b88c5fff5356c5d0db95d7f&_x_zm_rhtaid=693",
-        "text": "[video]"
+        "text": "[video]",
+        "canonical": true
       }, { 
         "href": "https://docs.google.com/presentation/d/1zG0pU33e6SnIhyYR926Y6JNhBdP4kqM3-vMz1vNdTQk/present",
-        "text": "[slides]",
-        "canonical": true
+        "text": "[slides]"
       }],
       "date": "2020-06",
       "venue": "University of Maryland - Informal Statistical Physics Seminar",
@@ -33,11 +51,11 @@
       "title": "TherML",
       "links": [{
         "href": "https://www.youtube.com/watch?v=jG4pqVqUCdw",
-        "text": "[video]"
+        "text": "[video]",
+        "canonical": true
       }, { 
         "href": "https://docs.google.com/presentation/d/1LiovZcyZfh-P6mluB9fnyGFkOz4FJ7Y6V_hOuUx_j0A/present",
-        "text": "[slides]",
-        "canonical": true
+        "text": "[slides]"
       }],
       "date": "2020-06",
       "venue": "American Physical Society Topical Group on Data Science",
@@ -59,12 +77,12 @@
     {
       "title": "A Case for Compression",
       "links": [{
-        "href": "https://slideslive.com/38921970",
-        "text": "[video starts @ 25:30]"
+        "href": "https://slideslive.com/38922762/invited-talk-a-case-for-compressed-representations",
+        "text": "[video]",
+        "canonical": true
       },{
         "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
-        "text": "[slides]",
-        "canonical": true
+        "text": "[slides]"
       }],
       "date": "2019-12",
       "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
