@@ -1,5 +1,23 @@
 [
     {
+      "title": "Machine Learning and Thermodynamics",
+      "links": [{
+        "href": "https://youtu.be/C5E91rsiKU0",
+        "text": "[video]",
+        "canonical": true
+      }, {
+        "href": "https://www.cmu.edu/aced/sciML.html",
+        "text": "[SciML series]"
+      }, {
+        "href": "https://docs.google.com/presentation/d/1tIGTRRE0gKjBIySrQOUO-qlIDlj1nXhDybamG0YP3YI/edit?usp=sharing",
+        "text": "[slides]"
+      }],
+      "date": "2021-07",
+      "venue": "Scientific Machine Learning Mini-Course (SciML) @ CMU",
+      "id": "sciml-thermo",
+      "description": "Another version of the relationship between thermodynamics and machine learning. Login information: <spoiler>username: scimlenthusiast, password: !diffeqsintoNNs1</spoiler>."
+    },
+    {
       "title": "VIB is Half Bayes",
       "links": [{
         "href": "https://youtu.be/GVMmou2-zdk",
@@ -59,12 +77,12 @@
     {
       "title": "A Case for Compression",
       "links": [{
-        "href": "https://slideslive.com/38921970",
-        "text": "[video starts @ 25:30]"
+        "href": "https://slideslive.com/38922762/invited-talk-a-case-for-compressed-representations",
+        "text": "[video]",
+        "canonical": true
       },{
         "href": "https://docs.google.com/presentation/d/1rAZToLv1dfCXfzlzgTiYXBxf563qv0esx_i7y9vYt5c/present",
-        "text": "[slides]",
-        "canonical": true
+        "text": "[slides]"
       }],
       "date": "2019-12",
       "venue": "NeurIPS 2019 Workshop on Information Theory and Machine Learning",
