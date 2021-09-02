@@ -1,0 +1,454 @@
+<DOCTYPE html>
+<head>
+<!-- saved from url=(0095)https://web.archive.org/web/20201107224221/http://pages.physics.cornell.edu/~aalemi/battleship/ -->
+
+<script type="text/javascript" src="data.js"></script>
+
+
+</head>
+
+
+<body>
+
+
+<h2> The Linear Theory of Battleship </h2>
+	<p> The above shows the data I collected in my investigation of the linear theory of battleship.  
+	Use the checkboxes to select which Matrices you want to look at, where B is the base probabilities and W is the information matrix. 
+	Use the radio buttons to select which probability field you want to look at, A: All, C: Carrier, B: Battleship, S: Sub, D: Destroyer, P: Patrol Boat. 
+        Click on the square array to set the information.  
+	Left clicking will cycle through [None, O: Miss, X: Hit], 
+	while shift-left clicking will cycle through [C: Carrier hit, B: Battleship hit, S: Sub hit, D: Destroyer hit, P: Patrol boat hit, X: Unknown ship hit ].  </p>
+
+<p> For reference, I'm referring to a game where the Carrier is length 5, Battleship is length 4, Sub and Destoyer are length 3 and the Patrol Boat is length 2. </p>
+
+
+
+
+
+
+<br>
+<center>
+<form name="turnonoff">
+Matrices to use: <br>
+<input type="checkbox" name="B" checked="True" onclick="update_graph()">B
+<input type="checkbox" name="W" checked="True" onclick="update_graph()">W
+</form>
+
+<form name="outForm">
+	Probability to show: <br>
+<input type="radio" name="out" value="-1" checked="True" onclick="update_graph()">A
+<input type="radio" name="out" value="0" onclick="update_graph()">C
+<input type="radio" name="out" value="1" onclick="update_graph()">B
+<input type="radio" name="out" value="2" onclick="update_graph()">S
+<input type="radio" name="out" value="3" onclick="update_graph()">D
+<input type="radio" name="out" value="4" onclick="update_graph()">P
+<input type="button" value="Clear Info" submit="" onclick="clear_info()">
+</form>
+
+<br>
+
+<div>
+<canvas id="mat" width="522" height="522" style="border: 1px solid; background-color:black;">
+This is where the data goes, you don't seem to have support of the canvas tag.
+</canvas>
+</div>
+<div>
+	Scale (percents) <br>
+	<canvas id="scale" width="550" height="50">
+	This is where the scale would have been
+	</canvas>
+</div>
+</center>
+
+<script type="text/javascript">
+
+
+// INITIALIZE DATA AND GRAB CANVASES
+data = new Array(100);
+for (var i = 0; i <100; i++) { data[i] = 0; }
+
+info = new Array(100);
+for (var i = 0; i <100; i++) { info[i] = 0; }
+
+size = 50;
+bord = 2;
+var canvas = document.getElementById('mat');
+var ctx = canvas.getContext("2d");
+
+var scale = document.getElementById('scale');
+var scale_ctx = scale.getContext("2d");
+
+//DRAW GRADIENT SCALE
+for (var j=0; j<100; j++) {
+	percent = j/100.0;
+	
+	scale_ctx.fillStyle = color(percent,1,0);
+	scale_ctx.fillRect(25+5*j,0,5,30);
+}
+
+//FUNCTION TO DRAW SCALE
+function draw_scale(minimum,maximum) {
+	scale_ctx.clearRect(0,30,550,20);
+	scale_ctx.font = "bold 10px monospace";
+	scale_ctx.fillStyle = "black";
+
+
+	for (var i=0; i<6; i++) {
+		num = (100* ( minimum + (0.2*i)*(maximum-minimum) ) ).toFixed(0)
+		scale_ctx.fillText( num, 15+100*i, 45);
+	}	
+};
+
+
+
+// bind click event
+canvas.addEventListener("click",boxClicked, false);
+
+
+//color function
+function color(num,maximum,minimum) {
+    scale = 1/(maximum-minimum);
+    num = (num-minimum)*scale;
+    var power = 0.5;
+
+    return 'hsl(' + Math.floor( (160*Math.pow(num,power)+240)%360 ) + ',100%,' + Math.floor(65*Math.pow(num,power)+10) + '%)'
+    // return 'hsl(' + Math.floor( (160*num+240)%360 ) + ',100%,' + Math.floor(65*(num)+10) + '%)'
+};
+
+
+
+
+
+function color_BuRd(num,maximum,minimum) {
+    scale = 1/(maximum-minimum);
+    num = (num-minimum)*scale;
+    return 'rgb(' + Math.floor(num*255) + ',50,' + Math.floor((1-num)*255) + ')';
+}
+
+
+function color_BGR(num,maximum,minimum) {
+    scale = 1/(maximum-minimum);
+    num = (num-minimum)*scale;
+    if (num < 0.5) {
+        return 'rgb(0,' + Math.floor(num*510) + ',' + Math.floor((0.5-num)*510) + ')'
+    }
+    else {
+        return 'rgb(' + Math.floor((num-0.5)*510) + ',' + Math.floor((1-num)*510) + ', 0 )'
+    }
+};
+
+function color_old(num,maximum,minimum) {
+    scale = 1/scale;
+    if (num > 0) {
+        return 'rgb(' + Math.floor(num*255*scale) + ',0, 0 )'
+    }
+    else {
+        return 'rgb( 0, 0,' + Math.floor(-num*510*scale) + ')'
+    }
+};
+
+
+//helper math functions
+function Mod(X, Y) { return X - Math.floor(X/Y)*Y };
+
+function Div(X, Y) { return Math.floor(X/Y)  };
+
+// helper array functions
+Array.max = function( array ){
+    return Math.max.apply(Math, array);
+};
+Array.min = function( array ){
+    return Math.min.apply( Math, array );
+};
+
+
+function draw_coord( i , j , val, scale, minimum ) {
+    // draw inside the array at i,j, val with max and min
+    ctx.fillStyle = color(val, scale, minimum);
+    
+    topLeftCornerX = (size+bord)*i+bord;
+    topLeftCornerY = (size+bord)*j+bord;
+    
+    ctx.fillRect(topLeftCornerX,topLeftCornerY,size,size);
+
+};
+
+
+function text_ind( ind, text ) {
+    // put text at ind ind
+    i = Div(ind,10);
+    j = Mod(ind,10);
+    offset = 10;
+    topLeftCornerX = (size+bord)*i+bord + offset;
+    topLeftCornerY = (size+bord)*j+bord;
+    
+    ctx.fillStyle = '#fff';
+    ctx.font = "bold 50px Courier";
+    ctx.textBaseline = "top";
+    ctx.fillText(text, topLeftCornerX,topLeftCornerY);
+};
+
+
+info_letter = ['','O','C','B','S','D','P','X']
+
+function draw_info(info) {
+    // draw information on array    
+    for (var i=0; i<100; i++) {
+        text_ind(i,info_letter[info[i]]);
+    }
+}
+
+
+function draw_data( data ) {
+    // draw the data array - heat map
+    maximum = Array.max(data);
+    minimum = Array.min(data);
+    draw_scale(minimum,maximum);
+    for (var k = 0; k < 100; k++ ) {
+        i = Div(k,10);
+        j = Mod(k,10);
+        draw_coord(i,j,data[k],maximum,minimum);        
+    };
+}
+
+
+
+function getCursorPosition(e) {
+    var x;
+    var y;
+    if (e.pageX != undefined && e.pageY != undefined) {
+        x = e.pageX;
+        y = e.pageY;
+    }
+    else {
+        x = e.clickX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        y = e.clickY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+    
+    x -= canvas.offsetLeft;
+    y -= canvas.offsetTop;
+    
+    var ind = Div(y-bord,bord+size) + 10*Div(x-bord,bord+size)
+    
+    return ind
+}
+
+
+function cycle_cell(cell) {
+	if (window.info[cell] == 7){
+		window.info[cell] = 1;
+	}	
+	window.info[cell] = (window.info[cell] + 1)%8
+    
+}
+
+function left_cycle_cell(cell){
+   if (window.info[cell] == 0) {
+	window.info[cell] = 1;
+   }
+   else if (window.info[cell] >= 1 && window.info[cell] < 7) {
+	   window.info[cell] = 7;
+   }
+   else {
+	window.info[cell] = 0;
+   }
+}
+
+
+function boxClicked(e) {
+    var cell = getCursorPosition(e);
+
+    if (e.shiftKey){
+	    cycle_cell(cell);
+    }
+    else {
+	    left_cycle_cell(cell);
+    }
+    update_graph();
+}
+
+
+function clear_info() {
+	for (var i=0; i<100; i++) {
+		window.info[i] = 0;
+	}
+	update_graph();
+}
+
+
+
+
+
+
+function get_out() {
+    len = document.outForm.out.length;
+    chosen = -1;
+    for (var i=0; i< len; i++ ){
+        if (document.outForm.out[i].checked) {
+            chosen = document.outForm.out[i].value;
+            
+        }
+    }
+    return chosen;
+}
+
+function fill_data_B(ind) {
+    Bdata = new Array(100);
+    for (var i=0; i<100; i++){
+        Bdata[i] = 0;
+    }
+    if (ind < 0) {
+        for (var k=0; k<5; k++ ){
+            for (var i=0; i<100; i++) {
+                Bdata[i] = Bdata[i] +  B[k][i];
+            }
+        }
+    }
+    else {
+        Bdata = B[ind];
+    }
+    return Bdata
+};
+
+
+
+function fill_data_W(info,ind) {
+    Wdata = new Array(100);
+    for (var i =0; i<100; i++) {
+        Wdata[i] = 0;
+    }
+    
+    for (var i=0; i<100; i++) {
+        if (info[i] == 7) {
+            if (ind<0) {
+                for (var s = 0; s < 5; s++) {
+                    for (var k=0; k<100; k++) {
+                        for (var m=0; m<5; m++) {
+                            Wdata[k] = Wdata[k] + W[s+1][i][m][k];
+                        }
+                    }
+                }
+            }
+            else {
+                for (var s = 0; s < 5; s++) {
+                    for (var k=0; k<100; k++) {
+                        Wdata[k] = Wdata[k] + W[s+1][i][ind][k];
+                    }
+                }
+	    }
+        }
+        else if (info[i] > 0) {
+            if (ind<0) {
+                for (var k =0; k<100; k++) {
+		    for (var m=0; m<5; m++) {
+			if (info[i]-2 != m) { //So that ship info doesn't count as hit
+                            Wdata[k] = Wdata[k] + W[info[i]-1][i][m][k];
+			}
+                    }
+		}
+            }
+            else {
+                for (var k =0; k<100; k++) {
+                    Wdata[k] = Wdata[k] + W[info[i]-1][i][ind][k];
+                }
+            }
+        }
+    }
+    return Wdata;
+}
+
+
+function fill_data(info,ind) {
+    data = new Array(100);
+    for (var i =0; i<100; i++) {
+        data[i] = 0;
+    }
+    
+    if (document.turnonoff.B.checked){
+        Bdata = fill_data_B(ind);
+        for (var i=0; i<100; i++) {
+            data[i] = data[i] + Bdata[i];
+        }
+    }
+    
+    if (document.turnonoff.W.checked){
+	Wdata = fill_data_W(info,ind);
+	
+        for (var i=0; i<100; i++) {
+            data[i] = data[i] + Wdata[i];
+        }
+    }
+
+    
+
+    return data;
+}
+
+function update_graph() {
+    data = fill_data(info,get_out());
+
+    draw_data(data);
+    draw_info(info);
+};
+
+
+</script>
+
+
+<script type="text/javascript">
+/*
+for (var i=0; i<100; i++){
+    data[i] = 2*Math.random() - 1;
+}
+*/
+
+//info[55] = 1;
+//info[44] = 2;
+
+data = fill_data(info,-1);
+
+update_graph();
+
+//draw_data(W[0][55][0]);
+
+
+</script>
+
+Brought to you by <a href="https://web.archive.org/web/20201107224221/http://thevirtuosi.blogspot.com/">TheVirtuosi</a>.
+ <a href="https://web.archive.org/web/20201107224221/http://thevirtuosi.blogspot.com/2011/10/linear-theory-of-battleship.html">Relevant Post</a>
+<!--
+TODO:
+
+    need to make the scale on the side.  Should be done?  
+    
+    INFO:
+        0 - Nothing
+        1 - Miss
+        2 - 6 : C B S D P 
+        7: HIT
+
+-->
+
+
+<!--
+     FILE ARCHIVED ON 22:42:21 Nov 07, 2020 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 02:25:14 Sep 02, 2021.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 127.557
+  exclusion.robots: 0.17
+  exclusion.robots.policy: 0.164
+  RedisCDXSource: 3.372
+  esindex: 0.008
+  LoadShardBlock: 102.849 (3)
+  PetaboxLoader3.datanode: 90.286 (5)
+  CDXLines.iter: 16.357 (3)
+  load_resource: 145.853
+  PetaboxLoader3.resolve: 47.843
+  loaddict: 65.6
+--></body></html>
