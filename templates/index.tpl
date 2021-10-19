@@ -428,8 +428,7 @@
         was a blog I ran with some friends from graduate school.
         </p>
 
-        <li><p><a href="http://pages.physics.cornell.edu/~aalemi/">My Old Homepage</a> 
-        at Cornell University has some random things.
+        <li><p><a href="https://cornell.alexalemi.com">A Mirror of My Old Homepage</a> at Cornell University has some random things.
         </p>
 
         </ul>
