@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Lispeto</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.css">
+<style>
+#code {
+  position: relative;
+  height: 500px;
+}
+/* The console container element */
+#console {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-color:black;
+}
+/* The inner console element. */
+.jqconsole {
+  padding: 10px;
+}
+/* The cursor. */
+.jqconsole-cursor {
+  background-color: gray;
+}
+/* The cursor color when the console looses focus. */
+.jqconsole-blurred .jqconsole-cursor {
+  background-color: #666;
+}
+/* The current prompt text color */
+.jqconsole-prompt {
+  color: #0d0;
+}
+/* The command history */
+.jqconsole-old-prompt {
+  color: #0b0;
+  font-weight: normal;
+}
+/* The text color when in input mode. */
+.jqconsole-input {
+  color: #dd0;
+}
+/* Previously entered input. */
+.jqconsole-old-input {
+  color: #bb0;
+  font-weight: normal;
+}
+/* The text color of the output. */
+.jqconsole-output {
+  color: white;
+}
+</style>
+
+  </head>
+  <body>
+      <h1>Lispeto</h1>
+
+      <p>This is a demo of my own implementation of <a href="https://github.com/kanaka/mal">MAL</a>.
+
+
+<script src="lispeto.js"></script>
+
+
+<h2>Console</h2>
+<div id="console"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jq-console/2.7.7/jqconsole.min.js" charset="utf-8"></script>
+<script>
+  var jqconsole = $('#console').jqconsole('Lispeto, a MAL by alexalemi.\n', 'user> ');
+  var startPrompt = function () {
+      // Start the prompt with history enabled.
+      jqconsole.Prompt(true, function (input) {
+          // Output input with the class jqconsole-output.
+          jqconsole.Write(lispeto(input) + '\n', 'jqconsole-output');
+          // Restart the prompt.
+          startPrompt();
+        });
+    };
+  startPrompt();
+</script>
+
+
+<h2>Script</h2>
+<button onclick="runScript();">Run</button>
+<button onclick="resetButton();">Reset</button>
+<div>
+<form><textarea id="code" name="code">
+; The Hello World of functional programming, fibonnacci numbers
+;   here with tail call optimization!
+(def! fib (fn* (n)
+  (let* [inner (fn* [i lst] (if (= i n) (apply + lst) (inner (+ i 1) (vector (nth lst 1) (apply + lst)))))]
+         (inner 3 [1 1]))))
+
+(println "(fib 30) =>" (fib 30))
+</textarea></form>
+</div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/keymap/vim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/mode/clojure/clojure.min.js"></script>
+      <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                  lineNumbers: true,
+                  keyMap: "vim",
+                  matchBrackets: true,
+                  autoCloseBrackets: true,
+                  mode: 'text/x-clojure',
+                  showCursorWhenSelecting: true
+                });
+      </script>
+
+<script>
+  function runScript() {
+    // jqconsole.Reset();
+    // resetEnv();
+    let input = editor.getValue();
+    jqconsole.Write(lispeto('(do ' + input + ')') + '\n', 'jqconsole-output');
+    startPrompt();
+  }
+  function resetButton() {
+    jqconsole.Reset();
+    resetEnv();
+    startPrompt();
+  }
+</script>
+
+<script>
+// Highjack console.log
+cl = console.log;
+console.log = function(){
+    let args = [...arguments];
+    jqconsole.Write(args.join(' ') + '\n', 'jqconsole-output');
+    cl.apply(this, arguments)
+  }
+</script>
+
+  </body>
+</html>
