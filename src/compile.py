@@ -2,6 +2,7 @@ import sys
 import jinja2
 import json
 import logging
+import subprocess
 from mistletoe import Document
 from mathjax import MathJaxRenderer
 import os
@@ -82,6 +83,19 @@ def render_post(src):
             content = renderer.render(Document(fin))
     return content
 
+
+def convert_mj(path):
+    """Precompile the mathjax."""
+    # TODO: apparantely we can do this natively in Mathjax v3, look into that.
+    # Right now uses `mjpage` installed with `npm install -g mathjax-node-page`
+    logging.info(f"Converting {path} to html.")
+    assert path.suffixes == ['.mj', '.html'], f"Doesn't end with correct suffix! {path}"
+    newpath = path.with_suffix('').with_suffix('.html')
+    # Use `mjpage --dollars < input.html > output.html` to generate a page with precompiled mathjax.
+    with open(path, 'r') as fin, open(newpath, 'w') as fout:
+        result = subprocess.run(['mjpage', '--dollars'], stdin=fin, stdout=fout, shell=True, check=True)
+
+
 def process_post(template_file, post):
     logging.debug(f"Compiling {post['title']}")
     src = post['src']
@@ -92,6 +106,7 @@ def process_post(template_file, post):
             template_file,
             post,
             output_path)
+    convert_mj(output_path)
 
 def blog():
     logging.debug("Compiling Blog..")
