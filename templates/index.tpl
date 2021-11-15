@@ -324,6 +324,7 @@
     <!--- Writings section --->
     <section id="writing">
         <h2><a href="#writing">Writing</a></h2>
+        <p>For more writing, see my <a href="https://blog.alexalemi.com">blog</a>.</p>
 
         <ul>
         {% for a in writing %}
