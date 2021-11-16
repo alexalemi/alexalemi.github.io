@@ -97,10 +97,18 @@ def convert_mj(path):
 
 
 def process_post(template_file, post):
-    logging.debug(f"Compiling {post['title']}")
     src = post['src']
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     output_path = input_path.with_suffix('.mj.html')
+
+    # try to decide if necessary
+    if os.path.getmtime(input_path) < os.path.getmtime(output_path):
+        # appears to not have been updated, skip
+        logging.debug(f"Skipping {post['title']}")
+        return
+    else:
+        logging.debug(f"Compiling {post['title']}")
+
     post['content'] = render_post(src)
     compile_template(
             template_file,

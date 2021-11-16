@@ -328,7 +328,7 @@
 
         <ul>
         {% for a in writing %}
-          {% if not a.hidden and a.featured %}
+          {% if not a.hidden and a.featured and not a.draft %}
             <li>
              <cite>{{ a.title }}</cite>
              {% for link in a.links %}
