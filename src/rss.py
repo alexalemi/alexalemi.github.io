@@ -144,7 +144,8 @@ def main():
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
       for post in data:
-        if not post.get('hidden', False):
+        # only include featured not hidden and not draft
+        if post.get('featured', False) and not post.get('hidden', False) and not post.get('draft', False):
             fe = fg.add_entry()
             content = render_post(post['src'])
             add_post(fe, post, content)
@@ -175,7 +176,7 @@ def blog():
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
       for post in data:
-        if not post.get('hidden', False):
+        if not post.get('hidden', False) and not post.get('draft', False):
             fe = fg.add_entry()
             post = augment_post(post)
             content = render_post(post['src'])
