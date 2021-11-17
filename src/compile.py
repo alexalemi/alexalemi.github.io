@@ -102,7 +102,7 @@ def process_post(template_file, post):
     output_path = input_path.with_suffix('.mj.html')
 
     # try to decide if necessary
-    if os.path.getmtime(input_path) < os.path.getmtime(output_path):
+    if os.path.exists(output_path) and (os.path.getmtime(input_path) < os.path.getmtime(output_path)):
         # appears to not have been updated, skip
         logging.debug(f"Skipping {post['title']}")
         return
