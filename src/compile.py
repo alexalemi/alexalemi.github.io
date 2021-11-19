@@ -96,13 +96,13 @@ def convert_mj(path):
         result = subprocess.run(['mjpage', '--dollars'], stdin=fin, stdout=fout, shell=True, check=True)
 
 
-def process_post(template_file, post):
+def process_post(template_file, post, force=False):
     src = post['src']
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     output_path = input_path.with_suffix('.mj.html')
 
     # try to decide if necessary
-    if os.path.exists(output_path) and (os.path.getmtime(input_path) < os.path.getmtime(output_path)):
+    if not force and os.path.exists(output_path) and (os.path.getmtime(input_path) < os.path.getmtime(output_path)):
         # appears to not have been updated, skip
         logging.debug(f"Skipping {post['title']}")
         return
@@ -116,7 +116,7 @@ def process_post(template_file, post):
             output_path)
     convert_mj(output_path)
 
-def blog():
+def blog(force=False):
     logging.debug("Compiling Blog..")
     blog_files = list((ROOT / Path('../blog/data/')).resolve().glob('*.json'))
     blog_data = load_data(blog_files)
@@ -127,7 +127,7 @@ def blog():
         process_template(template_file, blog_data, ROOT / Path('../blog'))
 
     for post in blog_data['posts']:
-        process_post(ROOT / Path('../blog/templates/post.tpl'), post)
+        process_post(ROOT / Path('../blog/templates/post.tpl'), post, force=force)
 
 if __name__ == '__main__':
     if sys.argv[1] == 'main':
@@ -135,5 +135,8 @@ if __name__ == '__main__':
       main()
     elif sys.argv[1] == 'blog':
       logging.info("Generating Blog RSS Feed.")
-      blog()
+      if sys.argv[2] == 'force':
+          blog(force=True)
+      else:
+          blog()
 
