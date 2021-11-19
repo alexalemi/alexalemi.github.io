@@ -135,7 +135,7 @@ if __name__ == '__main__':
       main()
     elif sys.argv[1] == 'blog':
       logging.info("Generating Blog RSS Feed.")
-      if sys.argv[2] == 'force':
+      if len(sys.argv) > 2 and sys.argv[2] == 'force':
           blog(force=True)
       else:
           blog()
