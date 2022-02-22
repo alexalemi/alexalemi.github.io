@@ -22,6 +22,7 @@
     "file": "distillation.pdf",
     "authors": "S Stanton, P Izmailov, P Kirichenko, AA Alemi, AG Wilson",
     "date": "2021-06",
+    "venue": "NeurIPS2021",
     "arxiv": "2106.05945",
     "description": "Knowledge distillation doesn't seem to work as well as people assume it does."
   },
