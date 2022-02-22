@@ -1,4 +1,11 @@
 [
+  {"title": "Bayesian Imitation Learning for End-to-End Mobile Manipulation",
+    "file": "endtoend.pdf",
+    "authors": "Y Du, D Ho, AA Alemi, E Jang, M Khansari",
+    "date": "2022-02",
+    "arxiv": "2202.07600",
+    "description": "Using VIB to help robots open doors."
+  },
   { "title": "A Closer Look at the Adversarial Robustness of Information Bottleneck Models",
     "file": "robustness.pdf",
     "authors": "I Korshunova, D Stutz, AA Alemi, O Wiles, S Gowal",
@@ -30,6 +37,7 @@
     "file": "pacm.pdf",
     "authors": "WR Morningstar, AA Alemi, JV Dillon",
     "date": "2020-10",
+    "venue": "AISTATS2022",
     "arxiv": "2010.09629",
     "description": "Multisample bound that does better than Bayes at prediction for misspecified models."
   },
