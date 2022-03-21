@@ -28,6 +28,13 @@
   },
   { "title": "VIB is Half Bayes",
     "file": "pacvib.pdf",
+    "links": [{
+      "href": "https://youtu.be/GVMmou2-zdk",
+      "text": "[poster-talk]"
+    }, { 
+      "href": "https://youtu.be/JGDAZ4joUX8",
+      "text": "[talk]"
+    }],
     "authors": "AA Alemi, WR Morningstar, B Poole, I Fischer, JV Dillon",
     "date": "2020-11",
     "venue": "AABI 2021 Oral",
@@ -38,6 +45,10 @@
     "file": "pacm.pdf",
     "authors": "WR Morningstar, AA Alemi, JV Dillon",
     "date": "2020-10",
+    "links": [{
+       "href": "https://youtu.be/HHu7fclYlVg",
+       "text": "[video]"
+    }],
     "venue": "AISTATS2022",
     "arxiv": "2010.09629",
     "description": "Multisample bound that does better than Bayes at prediction for misspecified models."
@@ -196,6 +207,10 @@
     "file": "therml.pdf",
     "authors": "AA Alemi, I Fisher",
     "date": "2018-07",
+    "links": [{
+      "href": "https://www.alexalemi.com/talks/sciml-thermo.html",
+      "text": "[video]"
+    }],
     "venue": "ICML2018 TFADGM Workshop",
     "description": "Modern variational latent variable modelling looks a lot like Thermodynamics."
   },
@@ -205,6 +220,10 @@
     "file": "uncert_vib.pdf",
     "authors": "AA Alemi, I Fischer, JV Dillon",
     "date": "2018-07",
+    "links": [{
+      "href": "https://www.alexalemi.com/talks/uaivib.html",
+      "text": "[slides]"
+    }],
     "venue": "UAI UDL Workshop",
     "description": "VIB builds robust classifiers which are aware of what they don't know."
   },
@@ -230,6 +249,10 @@
     "title": "Fixing a Broken ELBO",
     "arxiv": "1711.00464",
     "file": "broken_elbo.pdf",
+    "links": [{
+      "href": "https://www.alexalemi.com/talks/fixing-broken-elbo.html",
+      "text": "[slides]"
+    }],
     "authors": "AA Alemi, B Poole, I Fischer, JV Dillon, RA Saurous, K Murphy",
     "date": "2018-05",
     "venue": "ICML",

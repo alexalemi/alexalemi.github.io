@@ -1,4 +1,16 @@
 [
+   {
+     "title": "PACm Bayes - Your Model is Wrong Workshop",
+     "links": [{
+       "href": "https://youtu.be/HHu7fclYlVg",
+       "text": "[video]",
+       "canonical": true
+     }],
+     "date": "2021-11",
+     "venue": "Your Model is Wrong Workshop - NeurIPS 2021",
+     "id": "pacm-talk",
+     "description": "Bayesian inference doesn't optimize for prediction in mispecified models."
+   },
     {
       "title": "Machine Learning and Thermodynamics",
       "links": [{
