@@ -1,4 +1,19 @@
 [
+  {
+    "title": "Probabilistic Machine Learning: An Introduction",
+    "links": [{
+      "href": "https://probml.github.io/pml-book/book1.html",
+      "text": "[book page]",
+      "canonical": true
+    }, {
+     "href": "https://github.com/probml/pml-book/releases/latest/download/book1.pdf",
+     "text": "[pdf]"
+    }],
+    "date": "2022-02-08",
+    "id": "pml-book",
+    "description": "Co-wrote the Information Theory Chapter for the book.",
+    "featured": true
+  },
     {
       "title": "Coronavirus Logistic Growth Plots",
       "links": [{
