@@ -4,6 +4,7 @@
     "authors": "Y Du, D Ho, AA Alemi, E Jang, M Khansari",
     "date": "2022-02",
     "arxiv": "2202.07600",
+    "venue": "ICML 2022",
     "description": "Using VIB to help robots open doors."
   },
   { "title": "A Closer Look at the Adversarial Robustness of Information Bottleneck Models",
