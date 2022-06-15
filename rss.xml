@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>AlexAlemi.com</title><link>https://alexalemi.com/rss.xml</link><description>Follow my publications and talks.</description><atom:link href="https://alexalemi.com/rss.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>http://alexalemi.com/favicon.ico</url><title>AlexAlemi.com</title><link>https://alexalemi.com/rss.xml</link></image><language>en</language><lastBuildDate>Mon, 23 May 2022 17:41:47 +0000</lastBuildDate><item><title>I was born on Wednesday</title><link>https://thephysicsvirtuosi.com/posts/old/i-was-born-on-wednesday/</link><description>A classic logic puzzle explained.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/i-was-born-on-wednesday/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Wed, 26 May 2010 00:00:00 -0400</pubDate></item><item><title>How Long Can you Balance A (Quantum) Pencil</title><link>https://thephysicsvirtuosi.com/posts/old/how-long-can-you-balance-a-quantum-pencil/</link><description>Simple and probably wrong calculation for the ultimate length of time a pencil can balance.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/how-long-can-you-balance-a-quantum-pencil/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Wed, 16 Jun 2010 00:00:00 -0400</pubDate></item><item><title>A tweet is worth at least 140 words</title><link>https://thephysicsvirtuosi.com/posts/old/a-tweet-is-worth-at-least-140-words/</link><description>Greedy twitter compression scheme.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/a-tweet-is-worth-at-least-140-words/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Tue, 30 Aug 2011 00:00:00 -0400</pubDate></item><item><title>The Linear Theory of Battleship</title><link>https://thephysicsvirtuosi.com/posts/old/the-linear-theory-of-battleship/</link><description>Winning at battleship with a dirt simple model.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/the-linear-theory-of-battleship/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Mon, 03 Oct 2011 00:00:00 -0400</pubDate></item><item><title>Physics of the weird boing sound on racquetball courts.</title><link>https://physics.stackexchange.com/questions/127282/physics-of-weird-boing-sound-in-racquetball-courts/127447#127447</link><description>A model that recreates the boing sound.</description><guid isPermaLink="true">https://physics.stackexchange.com/questions/127282/physics-of-weird-boing-sound-in-racquetball-courts/127447#127447</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Mon, 21 Jul 2014 00:00:00 -0400</pubDate></item><item><title>How effective is speeding?</title><link>https://physics.stackexchange.com/questions/123753/how-effective-is-speeding/123760#123760</link><description>A simple model looking at how effective speeding is at saving time and money.</description><guid isPermaLink="true">https://physics.stackexchange.com/questions/123753/how-effective-is-speeding/123760#123760</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Wed, 09 Jul 2014 00:00:00 -0400</pubDate></item><item><title>Can I compute the mass of a coin based on the sound of its fall?</title><link>https://physics.stackexchange.com/questions/121879/can-i-compute-the-mass-of-a-coin-based-on-the-sound-of-its-fall/121932#121932</link><description>Using the sound of coins dropping to predict their values.</description><guid isPermaLink="true">https://physics.stackexchange.com/questions/121879/can-i-compute-the-mass-of-a-coin-based-on-the-sound-of-its-fall/121932#121932</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Thu, 26 Jun 2014 00:00:00 -0400</pubDate></item><item><title>'Live' Logistic Coronavirus Death Counter</title><link>https://observablehq.com/@alemi/live-corona-death-counter</link><description>An approximate 'live' corona death counter.</description><guid isPermaLink="true">https://observablehq.com/@alemi/live-corona-death-counter</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Fri, 27 Mar 2020 00:00:00 -0400</pubDate></item><item><title>Coronavirus Logistic Growth Plots</title><link>https://observablehq.com/@alemi/logistic-growth-plots</link><description>A distinct way to view Coronavirus growth.</description><guid isPermaLink="true">https://observablehq.com/@alemi/logistic-growth-plots</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Mon, 13 Apr 2020 00:00:00 -0400</pubDate></item><item><title>Probabilistic Machine Learning: An Introduction</title><link>https://github.com/probml/pml-book/releases/latest/download/book1.pdf</link><description>Co-wrote the Information Theory Chapter for the book.</description><guid isPermaLink="true">https://probml.github.io/pml-book/book1.html</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Tue, 08 Feb 2022 00:00:00 -0500</pubDate></item><item><title>Why KL?</title><description>Why is the KL divergence so special?</description><content:encoded>&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"&gt;Kullback-Liebler
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>AlexAlemi.com</title><link>https://alexalemi.com/rss.xml</link><description>Follow my publications and talks.</description><atom:link href="https://alexalemi.com/rss.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>http://alexalemi.com/favicon.ico</url><title>AlexAlemi.com</title><link>https://alexalemi.com/rss.xml</link></image><language>en</language><lastBuildDate>Wed, 15 Jun 2022 16:00:01 +0000</lastBuildDate><item><title>I was born on Wednesday</title><link>https://thephysicsvirtuosi.com/posts/old/i-was-born-on-wednesday/</link><description>A classic logic puzzle explained.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/i-was-born-on-wednesday/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Wed, 26 May 2010 00:00:00 -0400</pubDate></item><item><title>How Long Can you Balance A (Quantum) Pencil</title><link>https://thephysicsvirtuosi.com/posts/old/how-long-can-you-balance-a-quantum-pencil/</link><description>Simple and probably wrong calculation for the ultimate length of time a pencil can balance.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/how-long-can-you-balance-a-quantum-pencil/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Wed, 16 Jun 2010 00:00:00 -0400</pubDate></item><item><title>A tweet is worth at least 140 words</title><link>https://thephysicsvirtuosi.com/posts/old/a-tweet-is-worth-at-least-140-words/</link><description>Greedy twitter compression scheme.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/a-tweet-is-worth-at-least-140-words/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Tue, 30 Aug 2011 00:00:00 -0400</pubDate></item><item><title>The Linear Theory of Battleship</title><link>https://thephysicsvirtuosi.com/posts/old/the-linear-theory-of-battleship/</link><description>Winning at battleship with a dirt simple model.</description><guid isPermaLink="true">https://thephysicsvirtuosi.com/posts/old/the-linear-theory-of-battleship/</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Mon, 03 Oct 2011 00:00:00 -0400</pubDate></item><item><title>Physics of the weird boing sound on racquetball courts.</title><link>https://physics.stackexchange.com/questions/127282/physics-of-weird-boing-sound-in-racquetball-courts/127447#127447</link><description>A model that recreates the boing sound.</description><guid isPermaLink="true">https://physics.stackexchange.com/questions/127282/physics-of-weird-boing-sound-in-racquetball-courts/127447#127447</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Mon, 21 Jul 2014 00:00:00 -0400</pubDate></item><item><title>How effective is speeding?</title><link>https://physics.stackexchange.com/questions/123753/how-effective-is-speeding/123760#123760</link><description>A simple model looking at how effective speeding is at saving time and money.</description><guid isPermaLink="true">https://physics.stackexchange.com/questions/123753/how-effective-is-speeding/123760#123760</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Wed, 09 Jul 2014 00:00:00 -0400</pubDate></item><item><title>Can I compute the mass of a coin based on the sound of its fall?</title><link>https://physics.stackexchange.com/questions/121879/can-i-compute-the-mass-of-a-coin-based-on-the-sound-of-its-fall/121932#121932</link><description>Using the sound of coins dropping to predict their values.</description><guid isPermaLink="true">https://physics.stackexchange.com/questions/121879/can-i-compute-the-mass-of-a-coin-based-on-the-sound-of-its-fall/121932#121932</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Thu, 26 Jun 2014 00:00:00 -0400</pubDate></item><item><title>'Live' Logistic Coronavirus Death Counter</title><link>https://observablehq.com/@alemi/live-corona-death-counter</link><description>An approximate 'live' corona death counter.</description><guid isPermaLink="true">https://observablehq.com/@alemi/live-corona-death-counter</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Fri, 27 Mar 2020 00:00:00 -0400</pubDate></item><item><title>Coronavirus Logistic Growth Plots</title><link>https://observablehq.com/@alemi/logistic-growth-plots</link><description>A distinct way to view Coronavirus growth.</description><guid isPermaLink="true">https://observablehq.com/@alemi/logistic-growth-plots</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Mon, 13 Apr 2020 00:00:00 -0400</pubDate></item><item><title>Probabilistic Machine Learning: An Introduction</title><link>https://github.com/probml/pml-book/releases/latest/download/book1.pdf</link><description>Co-wrote the Information Theory Chapter for the book.</description><guid isPermaLink="true">https://probml.github.io/pml-book/book1.html</guid><category domain="https://alexalemi.com/posts/">posts</category><pubDate>Tue, 08 Feb 2022 00:00:00 -0500</pubDate></item><item><title>Why KL?</title><description>Why is the KL divergence so special?</description><content:encoded>&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"&gt;Kullback-Liebler
 divergence&lt;/a&gt;,
 or KL divergence, or relative entropy, or relative information, or information
 gain, or expected weight of evidence, or information divergence
@@ -10,7 +10,7 @@ all of the core concepts in information theory, such as mutual information.&lt;/
 &lt;p&gt;Why is the relative information so special and where does it come from?
 How should you interpret it? What is a nat anyway?  In this
 note, I'll try to give a better understanding and set of intuitions about
-what KL is, why it's interesting, where it comes from and what its good for.&lt;/p&gt;
+what KL is, why it's interesting, where it comes from and what it's good for.&lt;/p&gt;
 &lt;h2&gt;Information Gain&lt;/h2&gt;
 &lt;p&gt;Let's see if we can motivate the form of the KL axiomatically.&lt;/p&gt;
 &lt;p&gt;Imagine we have some prior set of beliefs summarized as a probability distribution $q$.
@@ -32,8 +32,8 @@ call this amount of update the &lt;em&gt;information gain&lt;/em&gt; when we mov
 &lt;li&gt;It's &lt;strong&gt;continuous&lt;/strong&gt;.  A small change in the distributions makes a small change in the amount of information in the move.&lt;/li&gt;
 &lt;li&gt;It's permutation or &lt;strong&gt;reparameterization independent&lt;/strong&gt;.  It doesn't matter if we change the units we've specified our distributions in or if we relabel the sides of our dice, the answer shouldn't change.&lt;/li&gt;
 &lt;li&gt;We want it to be &lt;strong&gt;non-negative&lt;/strong&gt; and have the value $I = 0$ if and only if $p = q$.  If $p=q$ we haven't updated our beliefs and so have no information gain.&lt;/li&gt;
-&lt;li&gt;We want it to be &lt;strong&gt;monotonic&lt;/strong&gt; in a natural sense.  If we, for instance start with some uniform distribution over the 24 people in a game of &lt;a href="https://en.wikipedia.org/wiki/Guess_Who%3F"&gt;Guess Who?&lt;/a&gt; and then update to only 5 remaining suspects, $I$ should be larger than if there were still 12 remaining suspects.&lt;/li&gt;
-&lt;li&gt;Finally we want our information function to &lt;strong&gt;decompose&lt;/strong&gt; in a natural and &lt;strong&gt;linear&lt;/strong&gt; way.&lt;sup&gt;&lt;a href="#renyi"&gt;2&lt;/a&gt;&lt;/sup&gt; In particular, we want to be able to relate the information between two joint distributions in terms of the information between their marginal and conditional distributions.&lt;/li&gt;
+&lt;li&gt;We want it to be &lt;strong&gt;monotonic&lt;/strong&gt; in a natural sense.  If we, for instance, start with some uniform distribution over the 24 people in a game of &lt;a href="https://en.wikipedia.org/wiki/Guess_Who%3F"&gt;Guess Who?&lt;/a&gt; and then update to only 5 remaining suspects, $I$ should be larger than if there were still 12 remaining suspects.&lt;/li&gt;
+&lt;li&gt;Finally, we want our information function to &lt;strong&gt;decompose&lt;/strong&gt; in a natural and &lt;strong&gt;linear&lt;/strong&gt; way.&lt;sup&gt;&lt;a href="#renyi"&gt;2&lt;/a&gt;&lt;/sup&gt; In particular, we want to be able to relate the information between two joint distributions in terms of the information between their marginal and conditional distributions.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;aside&gt; &lt;sup id="renyi"&gt;2&lt;/sup&gt;
   If one relaxes the requirement for linear decomposition and instead just requires that our information
@@ -82,7 +82,7 @@ same test is 95.6% $(q(\overline T | \overline D) = 0.956)$. &lt;sup&gt;&lt;a hr
   &lt;/center&gt;
 &lt;/figure&gt;
 We've just specified our prior beliefs with 3 numbers, imagining our process as having two steps,
-first we either had the disease or not $(q(\mathcal{D}))$ and then, conditioned on that
+first, we either had the disease or not $(q(\mathcal{D}))$ and then, conditioned on that
 we get the result of our test $(q(\mathcal{T}|\mathcal{D}))$.  
 Equivalently, we could have just given the joint probability distribution, as shown in Figure 1.
 &lt;p&gt;The point now is that if we were to update our beliefs, in the diagram on the right there is just a single
@@ -111,7 +111,7 @@ our information function manifestly asymmetric.  Here our $p$ distribution
 becomes distinguished over our $q$ as it is the one we use to weight the child
 contributions.  This makes sense if we imagine or if $p$ is the actual
 distribution that events are drawn from, for it means that this will correspond
-to the informations we would observe in expectation.&lt;/p&gt;
+to the information we would observe in expectation.&lt;/p&gt;
 &lt;p&gt;The interesting thing is that if you want your information function to satisfy
 all of these seemingly reasonable properties, that is enough to determine it
 &lt;em&gt;uniquely&lt;/em&gt;.  The only function satisfying all of these properties is the
@@ -177,7 +177,7 @@ $$ I[p;q] = \int \mathrm dx\, p(x) \log \frac{p(x)}{q(x)} = -\int \mathrm dx \, 
 &lt;h2&gt;Bayes Rule&lt;/h2&gt;
 &lt;aside&gt; &lt;sup id="caticha2"&gt;7&lt;/sup&gt;
   I first saw this form of motivation for Bayes Rule in
-  &lt;i&gt;Lectures on Probability, Entropy and Statistcal Physics&lt;/i&gt; by
+  &lt;i&gt;Lectures on Probability, Entropy and Statistical Physics&lt;/i&gt; by
   Ariel Caticha. &lt;a href="https://arxiv.org/abs/0808.0012"&gt;arXiv:0808.0012&lt;/a&gt;
 &lt;/aside&gt;
 Having identified the right way to measure how much information is gained when we update a distribution
@@ -190,9 +190,9 @@ What should your new distribution of beliefs be? Well, first off if we've observ
 we should probably have our updated beliefs reflect the observation we made, making it consistent with our
 observation, setting $p(T) = 1$, but this doesn't fully specify $p$; we need two more numbers.  How should
 we set those?&lt;/p&gt;
-&lt;p&gt;Why don't we aim to be conservative and try to find the new set of beliefs
+&lt;p&gt;Why don't we aim to be conservative and try to find a new set of beliefs
 that are as close as possible to our prior beliefs while still being consistent with the
-observation that we've made.&lt;br /&gt;
+observation that we've made?&lt;br /&gt;
 Namely, let's look now for a joint distribution $p(\mathcal T, \mathcal D)$
 that is as close as possible to $q(\mathcal T, \mathcal D)$ but for which we have that $p(T)=1$.
 $$ \DeclareMathOperator{\argmin}{arg\,min} $$
@@ -245,7 +245,7 @@ or precisely what you probably thought it should have been anyway if you've hear
 of Bayesian inference.&lt;/p&gt;
 &lt;p&gt;Although, if you stop to think about it, even though many of us know of and have
 used &lt;a href="https://en.wikipedia.org/wiki/Bayes%27_theorem"&gt;Bayes Theorem&lt;/a&gt;
-for a long time, the way its normally presented, it is just a trivial statement
+for a long time, the way it's normally presented, it is just a trivial statement
 about how joint distributions factor.
 $$ q(\theta, D) = q(\theta) q(D|\theta) = q(D) q(\theta|D)  \implies
 q(\theta|D) = \frac{q(D|\theta) q(\theta)}{q(D)}. $$
@@ -255,7 +255,7 @@ beliefs in light of observations.  However, the previous argument demonstrates
 that if you want to set your updated beliefs such that they are as close
 as possible to your prior beliefs while being consistent with your
 observations, you should set your updated beliefs according to
-Bayes rule run on the prior beliefs.&lt;/p&gt;
+Bayes' rule run on the prior beliefs.&lt;/p&gt;
 &lt;h2&gt;Expected Weight of Evidence&lt;/h2&gt;
 &lt;p&gt;Traditionally, KL is interpreted from a coding perspective, a view I've included in an appendix below,
 but here I offer a different perspective from the viewpoint of model selection.&lt;/p&gt;
@@ -265,14 +265,14 @@ with our observations.  This guides us towards forming better belief distributio
 just have two different belief distributions and wish to decide between them?&lt;/p&gt;
 &lt;p&gt;Really what we want to know is what is the probability that our beliefs are correct in light of evidence?
 Symbolically you might write this as $p(P|E)$ where $P$ is some belief distribution and $E$ is some
-evidence, data or observations. If we run Bayes Theorem we can see that:
+evidence, data, or observations. If we run Bayes Theorem we can see that:
 $$ p(P|E) = \frac{p(E|P) p(P)}{p(E)}. $$
 We can update our belief in our beliefs being correct by setting our updated
 weight in the belief $p(P|E)$ to be proportional to our initial weight $p(P)$ times
 the &lt;em&gt;likelihood&lt;/em&gt; that the evidence we observed would have been generated if our belief was true $(p(E|P))$.  The probability of the evidence given the belief $P$ is just the likelihood $P(E)$.
 Proportional because we would need to know how likely the evidence would be $p(E)$ amongst all possible
-beliefs.  This last part, the &lt;a href="https://en.wikipedia.org/wiki/Marginal_likelihood"&gt;&lt;i&gt;marginal likelihood&lt;/i&gt;&lt;/a&gt;
-is notoriously difficult to compute. In principle it is asking us to evaluate how likely
+beliefs. This last part, the &lt;a href="https://en.wikipedia.org/wiki/Marginal_likelihood"&gt;&lt;i&gt;marginal likelihood&lt;/i&gt;&lt;/a&gt;
+is notoriously difficult to compute. In principle, it is asking us to evaluate how likely
 the evidence would be from all possible models.&lt;/p&gt;
 &lt;p&gt;However, we can make further progress if we content ourselves to not necessarily knowing the
 absolute probability our model or beliefs are correct, but instead just its probability relative
@@ -290,7 +290,7 @@ $$ w[x; p,q] =  \log \frac{p(x)}{q(x)}. $$
 The log ratio of two probability distributions measures by how much you should update your prior log odds between the two distributions being
 correct.  The KL divergence is just then the expected weight of evidence if we draw samples from $p(x)$ itself:
 $$ I[p;q] = \mathbb{E}_p\left[ \log \frac{p(x)}{q(x)} \right] = \mathbb{E}_p \left[ w[x; p,q] \right]$$&lt;/p&gt;
-&lt;p&gt;So, one way to interpret the relative entropy is that if our data was actually coming from distribution $p$ and we had some other
+&lt;p&gt;So, one way to interpret the relative entropy is that if our data was actually coming from the distribution $p$ and we had some other
 hypothesis $q$, the $I[p;q]$ measures on average how much we should believe $p$ over $q$ on each observation.  In order to make that
 statement more precise, we need a better language to talk about the magnitudes of these quantities.&lt;/p&gt;
 &lt;h2&gt;How loud is the Evidence?&lt;/h2&gt;
@@ -314,12 +314,12 @@ we use ten times the base-10 logarithm.&lt;/p&gt;
 $$ I[p;q] = 10 \int \mathrm dx\, p(x) \log_{10} \frac{p(x)}{q(x)}\, \textrm{dB} $$
 &lt;p&gt;The nice thing about measuring information in decibans or &lt;a href="https://en.wikipedia.org/wiki/Decibel"&gt;decibels&lt;/a&gt;
 is the people already have some familiarity with the unit, such as for measuring the &lt;em&gt;loudness&lt;/em&gt; of sounds.
-Its always a comparative measurement, for sound taking $10 \log_{10} \frac{P}{P_0}$ of the power
+It's always a comparative measurement, for sound taking $10 \log_{10} \frac{P}{P_0}$ of the power
 to some reference or baseline power.  In the same way we could besides just measuring the KL between two distributions,
 measure the comparative difference between any two probabilities on the log scale:
 $$ 10 \log_{10} \frac{p(x)}{q(x)} \textrm{ dB}. $$&lt;/p&gt;
 &lt;p&gt;In particular, we could get some feeling for these quantities by comparing the probability something happens to the
-probability it doesn't.  Consider a simple binary outcome and taking $q=1-p$, in this case the weight of evidence
+probability it doesn't.  Consider a simple binary outcome and taking $q=1-p$, in this case, the weight of evidence
 that the thing happens versus it doesn't upon observing it happen once is:
 $$ 10 \log_{10} \frac{p}{1-p} \text{ dB}. $$
 This essentially gives us a new scale to measure probabilities on.
@@ -398,15 +398,15 @@ taking us below 20 to 1 against if we started with even odds.&lt;/p&gt;
 $$ 1 \textrm{ nat} = \frac{10}{\log 10} \textrm{ dB} = 4.34 \textrm{ dB} $$
 $$ 1 \textrm{ bit} = \frac{10}{\log_2 10} \textrm{ dB} = 3.01 \textrm{ dB} $$&lt;/p&gt;
 &lt;h2&gt;Examples and Magnitudes&lt;/h2&gt;
-&lt;h3&gt;Double headed Coin&lt;/h3&gt;
-&lt;p&gt;Let's say I have two coins in my pocket, the first is an ordinary unbiased coin, the second is doubled headed.
+&lt;h3&gt;Double-headed Coin&lt;/h3&gt;
+&lt;p&gt;Let's say I have two coins in my pocket, the first is an ordinary unbiased coin, and the second is doubled-headed.
 I give you one of them and you start flipping the coin.  You get a heads, then another heads, then another.  How many
-heads would you need to see in a row until you're sure you've been given the doubled headed coin?  Let's
+heads would you need to see in a row until you're sure you've been given the doubled-headed coin?  Let's
 work out the relative entropy between these two distributions.  On the one hand we have $p(H)=1, p(\overline H) =0$,
 and the other $q(H) = q(\overline H)= 0.5$.&lt;/p&gt;
 &lt;p&gt;$$ I[p;q] = 10 \sum_i p_i \log_{10} \frac{p_i}{q_i} = -10 \log_{10} 2 = 3.01 \text{ dB} $$&lt;/p&gt;
 &lt;p&gt;The relative entropy of a sure thing and a coin flip is 3 decibels.  This means that if we want to be more sure than 20 to 1
-that we have the doubled headed coin we'd need to observe 5 heads in a row, giving us 15 dB of evidence.&lt;/p&gt;
+that we have the doubled-headed coin we'd need to observe 5 heads in a row, giving us 15 dB of evidence.&lt;/p&gt;
 &lt;h3&gt;Births&lt;/h3&gt;
 &lt;p&gt;Perhaps the first hypothesis test to be resolved with modern statistics was the question of whether more male or female
 babies are born.  Using data from 1745 to 1770, Laplace found that in those 26 years, 251,527 boys and 241,945 girls were born.
@@ -424,22 +424,21 @@ total weight of evidence in this case is:&lt;/p&gt;
 &lt;p&gt;$$ 2515270 \log_{10} \frac{0.51}{0.50} + 2419450 \log_{10} \frac{0.49}{0.50} = 404 \text{ dB} $$
 a whopping 400 decibels of evidence for males being born 51% of the time rather than 50%.&lt;br /&gt;
 At the same time, I'm not sure most people are aware that males are born with a higher proportion and it doesn't
-seem to effect most people's lives.  Why is that?  Well, let's evaluate the relative entropy between
+seem to affect most people's lives.  Why is that?  Well, let's evaluate the relative entropy between
 a 51% Bernoulli and a 50% Bernoulli:
 $$ I = 5.1 \log_{10}\frac{0.51}{0.50} + 4.9 \log_{10} \frac{0.49}{0.50} = 8.7 \times 10^{-4} \text{ dB}. $$
 Notice that the relative entropy is quite small.  On average, if the true distribution was 51%, the evidence
 we accumulate on each observed birth is less than 8 &lt;em&gt;microbels&lt;/em&gt;.  This means that on average in order to be reasonably
 sure that the 51% hypothesis is true, we'd have to observe $\sim \frac{13}{8.7 \times 10^{-4}} \sim 15,000$ births.
 This makes clear how with enough data we could both be very sure that males are born with a higher frequency
-than females, but at the same time this could have very little impact on our individual lives.&lt;/p&gt;
+than females, but at the same time, this could have very little impact on our individual lives.&lt;/p&gt;
 &lt;h3&gt;Likelihoods and Learning&lt;/h3&gt;
 &lt;p&gt;What we would really like to do is learn a model of some real life distribution.  If the true distribution of data is $p(x)$,
 and we have some kind of parametric model $q(x;\theta)$, we would like to set our model parameters $\theta$ so that
 we get as close as possible to the true distribution.  In other words, we want to minimize the relative entropy from
 the &lt;em&gt;real world&lt;/em&gt; to our &lt;em&gt;model&lt;/em&gt;:
 $$\min I[p;q] = \int \mathrm dx\, p(x) \log \frac{p(x)}{q(x;\theta)}. $$
-The biggest complication is that we don't actually know what the true distribution of the data is. We can however,
-sample data.  Luckily for us, as far as this as an objective for $\theta$ goes, we can treat the entropy of $p(x)$ as
+The biggest complication is that we don't actually know what the true distribution of the data is. We can, however, sample data.  Luckily for us, as far as this as an objective for $\theta$ goes, we can treat the entropy of $p(x)$ as
 a constant.  This motivates the traditional maximum likelihood objective:
 $$ \max \int \mathrm dx \, \log q(x;\theta). $$&lt;/p&gt;
 &lt;aside id="gpt3"&gt;&lt;sup&gt;10&lt;/sup&gt;
@@ -496,7 +495,7 @@ in centimeters you get 5.4 bits.  If you instead measure the entropy
 of the same distribution in feet you get 0.43 bits.  If you instead
 were to measure heights in meters it would be -1.3 bits! &lt;sup&gt;&lt;a href="#negative"&gt;14&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 &lt;aside&gt; &lt;sup id="negative"&gt;14&lt;/sup&gt;
-  It seems strange to have a negative entropy, but in this case it is basically
+  It seems strange to have a negative entropy, but in this case, it is basically
   reflecting the fact that in terms of meters, the human height distribution doesn't
   span a whole meter in breadth, so it actually takes fewer *relative* bits
   to specify a human height in meters than it would take to specify any
