@@ -17,11 +17,11 @@
   {
     "title": "Probabilistic Machine Learning: An Introduction",
     "links": [{
-      "href": "https://probml.github.io/pml-book/book1.html",
+      "href": "https://probml.github.io/pml-book/book2.html",
       "text": "[book page]",
       "canonical": true
     }, {
-     "href": "https://github.com/probml/pml-book/releases/latest/download/book1.pdf",
+     "href": "https://github.com/probml/pml2-book/releases/latest",
      "text": "[pdf]"
     }],
     "date": "2022-02-08",
