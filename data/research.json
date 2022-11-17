@@ -1,4 +1,26 @@
 [
+  {"title": "Weighted Ensemble Self-Supervised Learning",
+    "file": "weighted-ssl.pdf",
+    "authors": "Y Ruan, S Singh, WR Morningstar, AA Alemi, S Ioffe, I Fischer, JV Dillon",
+    "date": "2022-11",
+    "links": [{
+      "href": "https://openreview.net/forum?id=CL-sVR9pvF",
+      "text": "[openreview]"
+    }],
+    "venue": "ICLR 2023 Submission",
+    "description": "Ensembling the heads of SSL methods gives nice gains."
+  },
+  {"title": "Trajectory ensembling for fine tuning - performance gains without modifying training",
+    "file": "traj-ensemble.pdf",
+    "authors": "L Anderson-Conway, V Birodkar, S Singh, H Mobahi, AA Alemi",
+    "date": "2022-09",
+    "links": [{
+      "href": "https://openreview.net/forum?id=R0u9dYN6Q5",
+      "text": "[openreview]"
+    }],
+    "venue": "HITY Workshop NeurIPS 2022",
+    "description": "Ensembling within a trajectory gives some simple gains."
+  },
   {"title": "Bayesian Imitation Learning for End-to-End Mobile Manipulation",
     "file": "endtoend.pdf",
     "authors": "Y Du, D Ho, AA Alemi, E Jang, M Khansari",
