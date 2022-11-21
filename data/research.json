@@ -2,6 +2,7 @@
   {"title": "Weighted Ensemble Self-Supervised Learning",
     "file": "weighted-ssl.pdf",
     "authors": "Y Ruan, S Singh, WR Morningstar, AA Alemi, S Ioffe, I Fischer, JV Dillon",
+		"arxiv": "2211.09981",
     "date": "2022-11",
     "links": [{
       "href": "https://openreview.net/forum?id=CL-sVR9pvF",
