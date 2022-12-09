@@ -18,7 +18,10 @@
     "links": [{
       "href": "https://openreview.net/forum?id=R0u9dYN6Q5",
       "text": "[openreview]"
-    }],
+		},{
+		  "href": "https://youtu.be/GgF1350zFZI",
+			"text": "[video]"
+		}],
     "venue": "HITY Workshop NeurIPS 2022",
     "description": "Ensembling within a trajectory gives some simple gains."
   },
