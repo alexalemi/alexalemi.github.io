@@ -15,6 +15,14 @@
     gtag('config', 'UA-153903138-1');
     </script>
 
+		<!-- favicon stuff -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="AlexAlemi.com" href="https://alexalemi.com/rss.xml" />
 
@@ -382,6 +390,9 @@
 
         <p><a href="https://texpad.alexalemi.com">texpad.alexalemi.com</a> is a simple
         static MathJAX formula as copyable image generator.
+        </p>
+        <p><a href="https://github.com/alexalemi/advent">alexalemi/advent</a> are my solutions to 
+				<a href="https://adventofcode.com">Advent of Code</a>.
         </p>
         
 
