@@ -8,7 +8,7 @@
       "href": "https://openreview.net/forum?id=CL-sVR9pvF",
       "text": "[openreview]"
     }],
-    "venue": "ICLR 2023 Submission",
+    "venue": "ICLR 2023",
     "description": "Ensembling the heads of SSL methods gives nice gains."
   },
   {"title": "Trajectory ensembling for fine tuning - performance gains without modifying training",
