@@ -1,4 +1,11 @@
 [
+  {"title": "Variational Prediction",
+    "file": "variational-prediction.pdf",
+    "authors": "AA Alemi, B Poole",
+    "date": "2022-05",
+    "venue": "TBD",
+    "description": "Targetting the predictive distribution directly with a variational method."
+  },
   {"title": "Weighted Ensemble Self-Supervised Learning",
     "file": "weighted-ssl.pdf",
     "authors": "Y Ruan, S Singh, WR Morningstar, AA Alemi, S Ioffe, I Fischer, JV Dillon",
