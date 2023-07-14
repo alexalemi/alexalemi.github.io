@@ -3,7 +3,7 @@
     "file": "variational-prediction.pdf",
     "authors": "AA Alemi, B Poole",
     "date": "2022-05",
-    "venue": "TBD",
+    "venue": "AABI2023",
     "description": "Targetting the predictive distribution directly with a variational method."
   },
   {"title": "Weighted Ensemble Self-Supervised Learning",
