@@ -3,6 +3,7 @@
     "file": "variational-prediction.pdf",
     "authors": "AA Alemi, B Poole",
     "date": "2022-05",
+		"arxiv": "2307.07568",
     "venue": "AABI2023",
     "description": "Targetting the predictive distribution directly with a variational method."
   },
