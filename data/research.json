@@ -1,9 +1,44 @@
 [
+  {"title": "Variational Prediction",
+    "file": "variational-prediction.pdf",
+    "authors": "AA Alemi, B Poole",
+    "date": "2022-05",
+		"arxiv": "2307.07568",
+    "venue": "AABI2023",
+    "description": "Targetting the predictive distribution directly with a variational method."
+  },
+  {"title": "Weighted Ensemble Self-Supervised Learning",
+    "file": "weighted-ssl.pdf",
+    "authors": "Y Ruan, S Singh, WR Morningstar, AA Alemi, S Ioffe, I Fischer, JV Dillon",
+		"arxiv": "2211.09981",
+    "date": "2022-11",
+    "links": [{
+      "href": "https://openreview.net/forum?id=CL-sVR9pvF",
+      "text": "[openreview]"
+    }],
+    "venue": "ICLR 2023",
+    "description": "Ensembling the heads of SSL methods gives nice gains."
+  },
+  {"title": "Trajectory ensembling for fine tuning - performance gains without modifying training",
+    "file": "traj-ensemble.pdf",
+    "authors": "L Anderson-Conway, V Birodkar, S Singh, H Mobahi, AA Alemi",
+    "date": "2022-09",
+    "links": [{
+      "href": "https://openreview.net/forum?id=R0u9dYN6Q5",
+      "text": "[openreview]"
+		},{
+		  "href": "https://youtu.be/GgF1350zFZI",
+			"text": "[video]"
+		}],
+    "venue": "HITY Workshop NeurIPS 2022",
+    "description": "Ensembling within a trajectory gives some simple gains."
+  },
   {"title": "Bayesian Imitation Learning for End-to-End Mobile Manipulation",
     "file": "endtoend.pdf",
     "authors": "Y Du, D Ho, AA Alemi, E Jang, M Khansari",
     "date": "2022-02",
     "arxiv": "2202.07600",
+    "venue": "ICML 2022",
     "description": "Using VIB to help robots open doors."
   },
   { "title": "A Closer Look at the Adversarial Robustness of Information Bottleneck Models",
@@ -102,7 +137,7 @@
     "title": "Information in Infinite Ensembles of Infinitely-Wide Networks",
     "file": "infiniteinfo.pdf",
     "authors": "R Shwartz-Ziv, AA Alemi",
-    "venue": "AABI",
+    "venue": "AABI 2019 - PMLR",
     "arxiv": "1911.09189",
     "date": "2019-10",
     "description": "While they seem complex, infinite ensembles of infinitely-wide networks are simple enough to enable tractable calculations of many information theoretic quantities."

@@ -1,5 +1,32 @@
 [
    {
+     "title": "A Tale of Two Worlds: The Variational Approach to Machine Learning",
+     "links": [{
+       "href": "https://youtu.be/OAHsR02dUc0",
+       "text": "[video]",
+       "canonical": true
+		 },{
+       "href": "https://docs.google.com/presentation/d/1cuBk28v94wwCVTjIRIuP_3Dgvf3L2jCcu2Xiaxxj8nU/present?usp=sharing",
+       "text": "[slides]"
+     }],
+     "date": "2023-05",
+			"venue": "UCF CRCV",
+     "id": "tale-of-two-worlds",
+     "description": "The variational approach to machine learning."
+   },
+   {
+     "title": "Inferential Engines",
+     "links": [{
+       "href": "https://docs.google.com/presentation/d/1WjyaZxYD6jf_bkK4QIhgM73MuO8nXiLZqt0P8s726VQ/present?usp=share_link&resourcekey=0-IuSicQOQrSCn-kQsu3NyQQ",
+       "text": "[slides]",
+       "canonical": true
+     }],
+     "date": "2023-02",
+			"venue": "Theoretical Physics for Machine Learning - Aspen",
+     "id": "inferential-engines",
+     "description": "Viewing VAEs as four stroke engines."
+   },
+   {
      "title": "PACm Bayes - Your Model is Wrong Workshop",
      "links": [{
        "href": "https://youtu.be/HHu7fclYlVg",
