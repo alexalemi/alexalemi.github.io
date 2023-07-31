@@ -1,12 +1,27 @@
 [
   {
+    "title": "Simple Diffusion Colab",
+    "links": [{
+      "href": "https://colab.sandbox.google.com/github/google-research/vdm/blob/main/colab/SimpleDiffusionColab.ipynb",
+      "text": "[colab]",
+      "canonical": true
+    }, {
+     "href": "https://github.com/google-research/vdm/blob/main/colab/SimpleDiffusionColab.ipynb",
+     "text": "[github]"
+    }],
+    "date": "2022-09-15",
+    "id": "simple-diffusion-colab",
+    "description": "A simple self-contained Colab introducing latent diffusion.",
+    "featured": true
+  },
+  {
     "title": "Probabilistic Machine Learning: An Introduction",
     "links": [{
-      "href": "https://probml.github.io/pml-book/book1.html",
+      "href": "https://probml.github.io/pml-book/book2.html",
       "text": "[book page]",
       "canonical": true
     }, {
-     "href": "https://github.com/probml/pml-book/releases/latest/download/book1.pdf",
+     "href": "https://github.com/probml/pml2-book/releases/latest",
      "text": "[pdf]"
     }],
     "date": "2022-02-08",

@@ -124,6 +124,9 @@ html {
   svg path {
     fill: var(--accent-color);
   }
+  svg path.white {
+    fill: var(--bg-color);
+  }
 
   section ul {
     list-style: none;
