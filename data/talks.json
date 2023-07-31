@@ -1,5 +1,20 @@
 [
    {
+     "title": "Variational Prediction",
+     "links": [{
+       "href": "https://docs.google.com/presentation/d/1JvURPCZ8H1yXRGpN-vGn0b-ecCqjTMo6LlwGm5XgRAQ/present?usp=sharing",
+       "text": "[slides]",
+       "canonical": true
+		 },{
+       "href": "talks/vp-poster.pdf",
+       "text": "[poster]"
+     }],
+     "date": "2023-07",
+			"venue": "AABI2023",
+     "id": "variational-prediction",
+     "description": "A variational way to directly target the posterior predictive."
+   },
+   {
      "title": "A Tale of Two Worlds: The Variational Approach to Machine Learning",
      "links": [{
        "href": "https://youtu.be/OAHsR02dUc0",
