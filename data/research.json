@@ -1,4 +1,11 @@
 [
+  {"title": "Small-scale proxies for large-scale Transformer training instabilities",
+    "file": "instabilities.pdf",
+    "authors": "M Wortsman, PJ Liu, L Xiao, K Everett, A Alemi, B Adlam, JD Co-Reyes, I Gur, A Kumar, R Novak, J Pennington, J Schol-dickstein, K Xu, J Lee, J Gilmer, S Kornblith",
+    "date": "2023-09",
+		"arxiv": "2309.14322",
+    "description": "Studying problems of large scale models in the small."
+  },
   {"title": "Speed Limits for Deep Learning",
     "file": "speedlimits.pdf",
     "authors": "I Seroussi, AA Alemi, M Helias, Z Ringel",
