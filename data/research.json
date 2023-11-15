@@ -1,4 +1,11 @@
 [
+  {"title": "Frontier Language Models are not Robust to Adversarial Arithmetic, or \"What do I need to say so you agree 2+2=5?\"",
+    "file": "adversarial-arithmetic.pdf",
+    "authors": "CF Freeman, L Culp, A Parisi, ML Bileschi, GF Elsayed, A Rizkowsky, I Simpson, A Alemi, A Nova, B Adlam, B Bohnet, G Mishra, H Sedghi, I Mordatch, I Gur, J Lee, JD Co-Reyes, J Pennington, K Xu, K Swersky, K Mahajan, L Xiao, R Liu, S Kornblith, N Constant, PJ Liu, R Novak, S Vikram, Y Qian, N Fiedel, J Sohl-Dickstein",
+    "date": "2023-11",
+		"arxiv": "2311.07587",
+    "description": "It's easy to get models to perform arithmetic incorrectly, if you just ask nicely."
+  },
   {"title": "Small-scale proxies for large-scale Transformer training instabilities",
     "file": "instabilities.pdf",
     "authors": "M Wortsman, PJ Liu, L Xiao, K Everett, A Alemi, B Adlam, JD Co-Reyes, I Gur, A Kumar, R Novak, J Pennington, J Schol-dickstein, K Xu, J Lee, J Gilmer, S Kornblith",
