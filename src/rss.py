@@ -115,6 +115,24 @@ def add_post(fe, post, content=None):
       fe.content(content)
   return fe
 
+def add_obtude(fe, post, content=None):
+  fe.title(post["title"])
+  href = None
+  for link in post.get('links', []):
+    target = link["href"]
+    fe.link(href=target, rel="alternate")
+    if link.get("canonical"):
+        href = target
+  fe.guid(href, permalink=True)
+  fe.published(convert_date_full(post["date"]))
+  fe.category(term="obtudes", scheme=POST_SCHEME, label="obtudes")
+  fe.description(
+          f"{post.get('description', '')}",
+          isSummary=True)
+  if content is not None:
+      fe.content(content)
+  return fe
+
 
 def main():
   # Main Feed
@@ -149,6 +167,14 @@ def main():
             fe = fg.add_entry()
             content = render_post(post['src'])
             add_post(fe, post, content)
+
+  with open(os.path.join(ROOT, BLOG_DATA_PATH, "obtudes.json"), 'r') as f:
+      data = json.load(f)
+      for post in data:
+        # only include featured not hidden and not draft
+        if post.get('featured', False) and not post.get('hidden', False) and not post.get('draft', False):
+            fe = fg.add_entry()
+            add_obtude(fe, post)
 
   with open(os.path.join(ROOT, DATA_PATH, "writing.json"), 'r') as f:
       data = json.load(f)
