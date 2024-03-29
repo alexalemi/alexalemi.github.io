@@ -25,6 +25,16 @@ def augment_post(post):
             })
     return post
 
+def augment_obtude(post):
+    post['links'] = post.get('links', []) 
+    post['links'].append(
+            {
+                "href": f"https://obtudes.alexalemi.com/{post['src']}",
+                "text": "[Obtude]",
+                "canonical": True
+            })
+    return post
+
 def load_data(data_files):
     logging.info(f"Loading data from {[x.stem for x in data_files]}.")
     data = {}
@@ -33,8 +43,10 @@ def load_data(data_files):
         filename = data_file.stem
         with open(data_file, 'r') as f:
             data[filename] = json.load(f)
-        if filename == 'posts':
+        if filename in 'posts':
             data['posts'] = [augment_post(x) for x in data['posts']]
+        elif filename in 'obtudes':
+            data['obtudes'] = [augment_obtude(x) for x in data['obtudes']]
     return data
 
 
@@ -69,7 +81,10 @@ def main():
     blog_data = load_data(blog_files)
 
     # weave writing and posts
-    data['writing'] = blog_data.get('posts', []) + data['writing']
+    data['writing'] = sorted(
+            blog_data.get('posts', []) + data['writing'] + blog_data.get('obtudes', []),
+            key=lambda x: x.get('date'),
+            reverse=True)
 
     # Render the templated pages
     templates = [ROOT / Path('../templates/index.tpl')]
@@ -121,6 +136,8 @@ def blog(force=False):
     logging.debug("Compiling Blog..")
     blog_files = list((ROOT / Path('../blog/data/')).resolve().glob('*.json'))
     blog_data = load_data(blog_files)
+
+    blog_data['index'] = sorted(blog_data['posts'] + blog_data['obtudes'], key=lambda x: x['date'], reverse=True)
 
     # Render the templated pages
     templates = [ROOT / Path('../blog/templates/index.tpl')]
