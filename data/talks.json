@@ -1,5 +1,35 @@
 [
    {
+     "title": "Information Theory for Representation Learning",
+     "links": [{
+       "href": "https://slideslive.com/39014672/information-theory-for-representation-learning?ref=search-presentations",
+       "text": "[video]",
+			 "canonical": true
+		 },{
+       "href": "https://docs.google.com/presentation/d/1YwgRzjWATHVX60Me6qOEOxQIiFjxdqO0_9jdAWXFx74/present?usp=sharing&resourcekey=0-T4ume8tMl__GoYZnKgHMEg",
+       "text": "[slides]"
+     }],
+     "date": "2023-12",
+			"venue": "InfoCog Workshop @ NeurIPS2023",
+     "id": "information-theory-for-representation-learning",
+     "description": "Everything is KL divergence minimization."
+   },
+   {
+     "title": "What's Missing? A Speculative Sketch of the Future of Machine Learning and Science",
+     "links": [{
+       "href": "https://slideslive.com/39014637/whats-missing-a-speculative-sketch-of-the-future-of-machine-learning-and-science?ref=search-presentations",
+       "text": "[video]",
+			 "canonical": true
+		 },{
+       "href": "https://docs.google.com/presentation/d/1kemUtTS_qjQEuLXiO7j68_csERqkb0B_qP6xrGkfkFw/present?usp=sharing",
+       "text": "[slides]"
+     }],
+     "date": "2023-12",
+			"venue": "ML and the Physical Sciences Workshop @ NeurIPS2023",
+     "id": "whats-missing",
+     "description": "Thinking about the future of science and machine learning."
+   },
+   {
      "title": "Variational Prediction",
      "links": [{
        "href": "https://docs.google.com/presentation/d/1JvURPCZ8H1yXRGpN-vGn0b-ecCqjTMo6LlwGm5XgRAQ/present?usp=sharing",
