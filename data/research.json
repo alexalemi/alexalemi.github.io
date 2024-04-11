@@ -1,4 +1,11 @@
 [
+  {"title": "Training LLMs over Neurally Compressed Text",
+    "file": "llm-compression.pdf",
+    "authors": "B Lester, J Lee, AA Alemi, J Pennington, A Roberts, J Sohl-Dickstein, N Constant",
+    "date": "2024-04",
+		"arxiv": "2404.03626",
+    "description": "Trying to train transformers on top of transformers with arithmetic compression."
+  },
   {"title": "Beyond Human Data: Scaling Self-Training for Problem-Solving with Language Models",
     "file": "self-training.pdf",
     "authors": "PAGI",
