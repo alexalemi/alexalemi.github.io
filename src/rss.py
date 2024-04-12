@@ -8,7 +8,7 @@ import datetime
 import urllib.parse
 import os
 from feedgen.feed import FeedGenerator
-from compile import augment_post, render_post
+from compile import augment_post, render_post, augment_obtude
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -220,6 +220,14 @@ def blog():
             post = augment_post(post)
             content = render_post(post['src'])
             add_post(fe, post, content)
+
+  with open(os.path.join(ROOT, BLOG_DATA_PATH, "obtudes.json"), 'r') as f:
+      data = json.load(f)
+      for post in data:
+        if not post.get('hidden', False) and not post.get('draft', False):
+            fe = fg.add_entry()
+            post = augment_obtude(post)
+            add_post(fe, post)
 
   outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
