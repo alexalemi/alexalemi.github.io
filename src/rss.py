@@ -5,6 +5,7 @@ import sys
 import json
 import logging
 import datetime
+import urllib.parse
 import os
 from feedgen.feed import FeedGenerator
 from compile import augment_post, render_post
@@ -22,6 +23,9 @@ TALKS_PATH = "../talks/"
 PDF_SCHEME = "https://alexalemi.com/publications/"
 TALK_SCHEME = "https://alexalemi.com/talks/"
 POST_SCHEME = "https://alexalemi.com/posts/"
+MAIN_ROOT = "https://alexalemi.com"
+BLOG_ROOT = "https://blog.alexalemi.com"
+OBTUDE_ROOT = "https://obtudes.alexalemi.com"
 
 REDIRECT_TEMPLATE = """<!DOCTYPE html>
 <head>
@@ -47,6 +51,9 @@ def convert_date(s):
 def convert_date_full(s):
   return datetime.datetime.strptime(s, "%Y-%m-%d").astimezone()
 
+def urljoin(part1, part2):
+    return urllib.parse.urljoin(part1, part2)
+
 def add_publication(fe, pub):
   fe.title(pub["title"])
   fe.published(convert_date(pub["date"]))
@@ -55,13 +62,13 @@ def add_publication(fe, pub):
   if pub.get('file'):
     pdf_path = os.path.join(PDF_SCHEME, pub["file"])
     fe.guid(pdf_path, permalink=True)
-    fe.link(href=pdf_path)
+    fe.link(href=urljoin(MAIN_ROOT, pdf_path))
     size = os.path.getsize(os.path.join(ROOT, PDF_PATH, pub["file"]))
     fe.enclosure(pdf_path, str(size), "application/pdf")
   elif pub.get('links'):
     for link in pub.get('links', []):
       href = link["href"]
-      fe.link(href=href)
+      fe.link(href=urljoin(MAIN_ROOT, href))
     if pub.get("id"):
       fe.guid(os.path.join(PDF_SCHEME, pub["id"] + ".html"), permalink=True)
       with open(os.path.join(ROOT, PDF_PATH, pub["id"] + ".html"), "w") as f:
@@ -83,7 +90,7 @@ def add_talk(fe, talk):
     target = link["href"]
     if link.get("canonical"):
         canonical_target = target
-    fe.link(href=target, rel="alternate")
+    fe.link(href=urljoin(MAIN_ROOT, target), rel="alternate")
   if canonical_target is None:
       canonical_target = target
   href = os.path.join(TALK_SCHEME, talk["id"] + ".html")
@@ -102,10 +109,16 @@ def add_post(fe, post, content=None):
   href = None
   for link in post.get('links', []):
     target = link["href"]
-    fe.link(href=target, rel="alternate")
+    fe.link(href=urljoin(BLOG_ROOT, target), rel="alternate")
+    if href is None:
+        href = target
     if link.get("canonical"):
         href = target
-  fe.guid(href, permalink=True)
+  if href is not None:
+      fe.guid(urljoin(BLOG_ROOT, href), permalink=True)
+  else:
+      href = urljoin(BLOG_ROOT, f"{post['id']}.html")
+      fe.guid(href, permalink=True)
   fe.published(convert_date_full(post["date"]))
   fe.category(term="posts", scheme=POST_SCHEME, label="posts")
   fe.description(
@@ -120,10 +133,10 @@ def add_obtude(fe, post, content=None):
   href = None
   for link in post.get('links', []):
     target = link["href"]
-    fe.link(href=target, rel="alternate")
+    fe.link(href=urljoin(OBTUDE_ROOT, target), rel="alternate")
     if link.get("canonical"):
         href = target
-  fe.guid(href, permalink=True)
+  fe.guid(urljoin(OBTUDE_ROOT, href), permalink=True)
   fe.published(convert_date_full(post["date"]))
   fe.category(term="obtudes", scheme=POST_SCHEME, label="obtudes")
   fe.description(
