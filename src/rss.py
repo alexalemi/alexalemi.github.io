@@ -7,6 +7,7 @@ import logging
 import datetime
 import urllib.parse
 import os
+import pathlib
 from feedgen.feed import FeedGenerator
 from compile import augment_post, render_post, augment_obtude
 
@@ -104,6 +105,11 @@ def add_talk(fe, talk):
           isSummary=True)
   return fe
 
+
+def blog_url(post):
+    output_path = pathlib.Path(post['src']).with_suffix(".html")
+    return urljoin(BLOG_ROOT, str(output_path))
+
 def add_post(fe, post, content=None):
   fe.title(post["title"])
   href = None
@@ -117,7 +123,7 @@ def add_post(fe, post, content=None):
   if href is not None:
       fe.guid(urljoin(BLOG_ROOT, href), permalink=True)
   else:
-      href = urljoin(BLOG_ROOT, f"{post['id']}.html")
+      fe.guid(blog_url(post), permalink=True)
       fe.guid(href, permalink=True)
   fe.published(convert_date_full(post["date"]))
   fe.category(term="posts", scheme=POST_SCHEME, label="posts")
