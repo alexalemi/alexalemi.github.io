@@ -142,6 +142,8 @@ def add_obtude(fe, post, content=None):
     fe.link(href=urljoin(OBTUDE_ROOT, target), rel="alternate")
     if link.get("canonical"):
         href = target
+  if href is None:
+      href = post['src']
   fe.guid(urljoin(OBTUDE_ROOT, href), permalink=True)
   fe.published(convert_date_full(post["date"]))
   fe.category(term="obtudes", scheme=POST_SCHEME, label="obtudes")
