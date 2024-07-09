@@ -167,5 +167,5 @@ websocket-client @ file:///work/ci_py311/websocket-client_1676824890004/work
 widgetsnbextension @ file:///croot/widgetsnbextension_1679313860248/work
 y-py @ file:///croot/y-py_1683555143488/work
 ypy-websocket @ file:///croot/ypy-websocket_1684171737040/work
-zipp==3.17.0
+zipp==3.19.1
 zstandard @ file:///work/ci_py311_2/zstandard_1679339489613/work
