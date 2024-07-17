@@ -292,7 +292,7 @@
     <main>
 
         <p>
-            I am a Senior Research Scientist at <a href="https://ai.google/research/people/104980/">Google Deepmind</a>. My current focus is the intersection of Information Theory and Deep Learning.
+            I am a Research Scientist at <a href="https://ai.google/research/people/104980/">Google Deepmind</a>. My current focus is the intersection of Information Theory and Deep Learning.
             I got my Ph.D. in Theoretical Condensed Matter Physics at Cornell University,
             supervised by <a href="http://sethna.lassp.cornell.edu/">Jim Sethna</a>.
             I got my B.S. at Caltech, where I majored in Physics.
