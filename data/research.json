@@ -1,4 +1,11 @@
 [
+  {"title": "Scaling Exponents Across Parameterizations and Optimizers",
+    "file": "scaling-parameterizations.pdf",
+    "authors": "K Everett, L Xiao, M Wortsman, AA Alemi, R Novak, PJ Liu, I Gur, J Sohl-Dickstein, LP Kaelbling, J Lee, J Pennington",
+    "date": "2024-07",
+		"arxiv": "2407.05872",
+    "description": "Understanding parameterizations and how to scale them."
+  },
   {"title": "Training LLMs over Neurally Compressed Text",
     "file": "llm-compression.pdf",
     "authors": "B Lester, J Lee, AA Alemi, J Pennington, A Roberts, J Sohl-Dickstein, N Constant",
