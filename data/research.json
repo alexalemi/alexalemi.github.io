@@ -4,6 +4,7 @@
     "authors": "K Everett, L Xiao, M Wortsman, AA Alemi, R Novak, PJ Liu, I Gur, J Sohl-Dickstein, LP Kaelbling, J Lee, J Pennington",
     "date": "2024-07",
 		"arxiv": "2407.05872",
+		"venue": "ICML 2024",
     "description": "Understanding parameterizations and how to scale them."
   },
   {"title": "Training LLMs over Neurally Compressed Text",
@@ -18,6 +19,7 @@
     "authors": "PAGI",
     "date": "2023-12",
 		"arxiv": "2312.06585",
+		"venue": "TMLR",
     "description": "Squeezing more performance out of models by fine-tuning on filtered generated responses."
   },
   {"title": "Frontier Language Models are not Robust to Adversarial Arithmetic, or \"What do I need to say so you agree 2+2=5?\"",
@@ -32,6 +34,7 @@
     "authors": "M Wortsman & PAGI",
     "date": "2023-09",
 		"arxiv": "2309.14322",
+		"venue": "ICLR 2024",
     "description": "Studying problems of large scale models in the small."
   },
   {"title": "Speed Limits for Deep Learning",
