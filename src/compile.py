@@ -95,7 +95,7 @@ def main():
 
 def replace_counters(text):
     """Find all xx\w\d+ patterns, group them by the \w and number them consecutively."""
-    patts = re.findall("xx\w[_\-a-zA-Z0-9]+", text)
+    patts = re.findall("xx[a-z][_\-a-zA-Z0-9]+", text)
     groups = set(x[2] for x in patts)
     for group in groups:
         logging.debug(f"Replacing counters in group {group}")
@@ -104,12 +104,25 @@ def replace_counters(text):
             text = text.replace(instance, str(i+1))
     return text
 
+def replace_letters(text):
+    """Find all xx\w\d+ patterns, group them by the \w and number them consecutively."""
+    patts = re.findall("xx[A-Z][_\-a-zA-Z0-9]+", text)
+    groups = set(x[2] for x in patts)
+    letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for group in groups:
+        logging.debug(f"Replacing counters in group {group}")
+        instances = { x: None for x in patts if x[2] == group }
+        for i, instance in enumerate(instances):
+            text = text.replace(instance, str(letters[i+1]))
+    return text
+
 def render_post(src):
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     with open(input_path, 'r') as fin:
         with MathJaxRenderer() as renderer:
             content = renderer.render(Document(fin))
     content = replace_counters(content)
+    content = replace_letters(content)
     return content
 
 
