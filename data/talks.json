@@ -1,5 +1,74 @@
 [
    {
+     "title": "Introduction to Statistics through Randomization",
+     "links": [{
+       "href": "https://youtu.be/7gIZXB1lY7Y",
+       "text": "[video]",
+			 "canonical": true
+		 },{
+       "href": "https://docs.google.com/presentation/d/1w4mXeTA3b_SoYMmh2DY7fthyPYAhJ8UJ45jY_YXr0Qo/present?usp=sharing&resourcekey=0-rvSbjWzyp3VYdtvK00HRkw",
+       "text": "[slides]"
+		 },{
+       "href": "https://drive.google.com/file/d/1SS_xBteNnw8T_O7CSgLxY2rEgmARAatv/view?usp=sharing",
+       "text": "[problem set]"
+     }],
+     "date": "2023-03",
+			"venue": "Google Course",
+     "id": "intro-to-statistics",
+     "description": "Introduction to Statistical Thinking through Randomization."
+   },
+   {
+     "title": "Order of Magnitude Physics",
+     "links": [{
+       "href": "https://youtu.be/ynygWbcXuLI",
+       "text": "[part I]",
+			 "canonical": true
+		 },{
+       "href": "https://youtu.be/ZIw9WPn7zws",
+       "text": "[part II]"
+		 },{
+       "href": "https://docs.google.com/presentation/d/1yNaGGgQk0wv2jDxaNGoDGPfhtplRZRyK1K9Ju-3E-kA/present?usp=sharing",
+       "text": "[slides]"
+		 },{
+       "href": "https://drive.google.com/file/d/1sQ9qIEKpu0qgLlTChOYBLtxe1UXfiqU1/view?usp=sharing",
+       "text": "[problem set]"
+		 },{
+       "href": "https://drive.google.com/file/d/1kU2UAAG3rLSOEW9gXtpINuj2AZyNGwHV/view?usp=sharing",
+       "text": "[solutions]"
+     }],
+     "date": "2021-08",
+			"venue": "Google Course",
+     "id": "order-of-magnitude-physics",
+     "description": "Dimensional analysis and basic order of magnitude physics."
+   },
+   {
+     "title": "Basics of Information Theory",
+     "links": [{
+       "href": "https://youtu.be/WsLsEc-p3ww",
+       "text": "[part I]",
+			 "canonical": true
+		 },{
+       "href": "https://youtu.be/hwZU-O0_12g",
+       "text": "[part II]"
+		 },{
+       "href": "https://youtu.be/NYcJwXhVhuI",
+       "text": "[part III]"
+		 },{
+       "href": "https://docs.google.com/presentation/d/1oSgexQc4hckbb4eWuMQCTplhR-OPRpK-bquW9_G3pbI/present?usp=sharing",
+       "text": "[slides]"
+		 },{
+       "href": "https://drive.google.com/file/d/1VdFc41xtayn6YY-ZsHlbOBSCEabmNRXs/view?usp=sharing",
+       "text": "[problem set]"
+		 },{
+       "href": "https://drive.google.com/file/d/1jPUhUS5T2rgyx5Dlt74g4_MwX8vrBi2I/view?usp=sharing",
+       "text": "[solutions]"
+     }],
+     "date": "2021-01",
+			"venue": "Google Course",
+     "id": "basics-of-infotheory",
+     "description": "An overview of information theory for machine learning."
+   },
+   {
      "title": "Information Theory for Representation Learning",
      "links": [{
        "href": "https://slideslive.com/39014672/information-theory-for-representation-learning?ref=search-presentations",
