@@ -1,5 +1,17 @@
 [
    {
+     "title": "How to Think About AI",
+     "links": [{
+       "href": "https://docs.google.com/presentation/d/1VhJm6Kcq0I5d-2VtpFxm0QoVwn64pqEEwTuWIyiSIrg/present?usp=sharing",
+       "text": "[slides]",
+			 "canonical": true
+     }],
+     "date": "2023-10",
+			"venue": "Osceola Neovates",
+     "id": "how-to-think-about-ai",
+     "description": "A popular overview of LLMs and how to think about AI."
+   },
+   {
      "title": "Introduction to Statistics through Randomization",
      "links": [{
        "href": "https://youtu.be/7gIZXB1lY7Y",
