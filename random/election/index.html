@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 Election Path Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="./Meter.js" type="module"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        probability-meter {
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
+        }
+        probability-meter.h-32 {
+            max-width: 200px;
+            height: 128px;
+        }
+        #state-grid probability-meter {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto p-4 space-y-6">
+        <h1 class="text-3xl font-bold text-center mb-8">2024 Election Path Analysis</h1>
+        
+        <!-- Win Probability Section -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold text-center mb-4">Win Probability</h2>
+            <div class="flex flex-col items-center space-y-4">
+                <probability-meter id="probability-meter"></probability-meter>
+                <div class="flex justify-between w-full max-w-md px-8">
+                    <div class="text-center">
+                        <div class="text-lg font-semibold text-blue-600">Harris</div>
+                        <div id="harris-prob" class="text-2xl font-bold">0.0%</div>
+                        <div class="text-sm text-gray-500">probability</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg font-semibold text-red-600">Trump</div>
+                        <div id="trump-prob" class="text-2xl font-bold">0.0%</div>
+                        <div class="text-sm text-gray-500">probability</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Electoral Vote Counter -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="text-center flex-1">
+                    <div class="text-lg font-semibold text-blue-600">Harris</div>
+                    <div id="harris-ev" class="text-3xl font-bold">219</div>
+                    <div class="text-sm text-gray-500">Electoral Votes</div>
+                </div>
+                <div class="text-2xl font-bold px-4">vs</div>
+                <div class="text-center flex-1">
+                    <div class="text-lg font-semibold text-red-600">Trump</div>
+                    <div id="trump-ev" class="text-3xl font-bold">319</div>
+                    <div class="text-sm text-gray-500">Electoral Votes</div>
+                </div>
+            </div>
+            <div class="h-2 bg-gray-200 rounded-full overflow-hidden relative">
+                <div id="ev-progress-harris" class="absolute left-0 h-full bg-blue-500 transition-all duration-300" style="width: 40.7%"></div>
+                <div id="ev-progress-trump" class="absolute right-0 h-full bg-red-500 transition-all duration-300" style="width: 40.7%"></div>
+            </div>
+            <div id="ev-needed" class="text-center mt-2 text-sm text-gray-500">51 more needed for Harris victory</div>
+        </div>
+
+        <!-- State Selection -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Swing States</h2>
+            <div id="state-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- States will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Scenarios Table -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Most Likely Scenarios</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="p-2 border text-center font-bold">AZ</th>
+                            <th class="p-2 border text-center font-bold">GA</th>
+                            <th class="p-2 border text-center font-bold">MI</th>
+                            <th class="p-2 border text-center font-bold">NC</th>
+                            <th class="p-2 border text-center font-bold">NV</th>
+                            <th class="p-2 border text-center font-bold">PA</th>
+                            <th class="p-2 border text-center font-bold">WI</th>
+                            <th class="p-2 border text-right font-bold">EVs</th>
+                            <th class="p-2 border text-right font-bold">Probability</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scenarios-body">
+                        <!-- Scenarios will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STATE_EVS = {
+            MI: 15,
+            PA: 19,
+            WI: 10,
+            GA: 16,
+            NC: 16,
+            AZ: 11,
+            NV: 6
+        };
+
+        const BASELINE_EVS_HARRIS = 219;
+        const BASELINE_EVS_TRUMP = 226; // 538 - 219 - 93 swing state EVs
+        const TOTAL_EVS = 538;
+        const NEEDED_TO_WIN = 270;
+
+        let scenarios = [];
+        let stateSelections = {
+            MI: null,
+            PA: null,
+            WI: null,
+            GA: null,
+            NC: null,
+            AZ: null,
+            NV: null
+        };
+
+        // Initialize state grid
+        function initStateGrid() {
+            const grid = document.getElementById('state-grid');
+            Object.entries(STATE_EVS).forEach(([state, evs]) => {
+                const stateDiv = document.createElement('div');
+                stateDiv.className = 'border rounded-lg p-4 relative';
+                stateDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xl font-bold">${state}</span>
+                        <span class="text-sm font-semibold bg-gray-100 px-2 py-1 rounded">
+                            ${evs} EV
+                        </span>
+                    </div>
+                    <probability-meter 
+                        id="state-meter-${state}"
+                        class="mb-2 h-32"
+                    ></probability-meter>
+                    <div class="flex justify-between mb-2 text-sm">
+                        <span class="text-blue-600" id="state-prob-d-${state}">0.0%</span>
+                        <span class="text-red-600" id="state-prob-r-${state}">0.0%</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            class="flex-1 py-2 px-4 rounded bg-blue-100 hover:bg-blue-200 state-btn-d"
+                            data-state="${state}"
+                            data-party="D"
+                        >
+                            Harris
+                        </button>
+                        <button
+                            class="flex-1 py-2 px-4 rounded bg-red-100 hover:bg-red-200 state-btn-r"
+                            data-state="${state}"
+                            data-party="R"
+                        >
+                            Trump
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(stateDiv);
+            });
+
+            // Add event listeners
+            document.querySelectorAll('[data-state]').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const state = e.target.dataset.state;
+                    const party = e.target.dataset.party;
+                    toggleState(state, party);
+                });
+            });
+        }
+
+        // Update button styles
+        function updateButtonStyles() {
+            Object.entries(stateSelections).forEach(([state, selection]) => {
+                const dBtn = document.querySelector(`[data-state="${state}"][data-party="D"]`);
+                const rBtn = document.querySelector(`[data-state="${state}"][data-party="R"]`);
+                
+                if (dBtn && rBtn) {
+                    dBtn.className = `flex-1 py-2 px-4 rounded ${
+                        selection === 'D' 
+                            ? 'bg-blue-500 text-white' 
+                            : 'bg-blue-100 hover:bg-blue-200'
+                    }`;
+                    
+                    rBtn.className = `flex-1 py-2 px-4 rounded ${
+                        selection === 'R' 
+                            ? 'bg-red-500 text-white' 
+                            : 'bg-red-100 hover:bg-red-200'
+                    }`;
+                }
+            });
+        }
+
+        // Toggle state selection
+        function toggleState(state, party) {
+            stateSelections[state] = stateSelections[state] === party ? null : party;
+            updateButtonStyles();
+            updateProbabilities();
+            updateElectoralVotes();
+            updateScenarios();
+        }
+
+        // Calculate EVs
+        function calculateEVs() {
+            let democratEVs = BASELINE_EVS_HARRIS;
+            let republicanEVs = BASELINE_EVS_TRUMP;
+            
+            Object.entries(stateSelections).forEach(([state, selection]) => {
+                if (selection === 'D') {
+                    democratEVs += STATE_EVS[state];
+                } else if (selection === 'R') {
+                    republicanEVs += STATE_EVS[state];
+                }
+            });
+
+            return { democratEVs, republicanEVs };
+        }
+
+        // Update electoral vote display
+        function updateElectoralVotes() {
+            const { democratEVs, republicanEVs } = calculateEVs();
+            document.getElementById('harris-ev').textContent = democratEVs;
+            document.getElementById('trump-ev').textContent = republicanEVs;
+            
+            const totalAssigned = democratEVs + republicanEVs - TOTAL_EVS;
+            const harrisProgress = document.getElementById('ev-progress-harris');
+            const trumpProgress = document.getElementById('ev-progress-trump');
+            
+            harrisProgress.style.width = `${(democratEVs / TOTAL_EVS) * 100}%`;
+            trumpProgress.style.width = `${(republicanEVs / TOTAL_EVS) * 100}%`;
+
+            const evNeeded = document.getElementById('ev-needed');
+            if (democratEVs >= NEEDED_TO_WIN) {
+                evNeeded.textContent = 'Harris victory';
+            } else {
+                evNeeded.textContent = `${NEEDED_TO_WIN - democratEVs} more needed for Harris victory`;
+            }
+        }
+
+        // Filter scenarios and calculate probabilities
+        function getFilteredScenarios() {
+            let filtered = scenarios;
+            Object.entries(stateSelections).forEach(([state, value]) => {
+                if (value !== null) {
+                    filtered = filtered.filter(scenario => scenario[state] === value);
+                }
+            });
+            return filtered;
+        }
+
+        function calculateProbabilities(filteredScenarios) {
+            const totalProb = filteredScenarios.reduce((sum, scenario) => sum + scenario.prob, 0);
+            if (totalProb === 0) return { harris: 0, trump: 0, totalProb: 0 };
+
+            const harrisWinProb = filteredScenarios.reduce((sum, scenario) => {
+                return sum + (scenario.prob * scenario.winner_inc / 100);
+            }, 0);
+
+            const trumpWinProb = filteredScenarios.reduce((sum, scenario) => {
+                return sum + (scenario.prob * (100 - scenario.winner_inc) / 100);
+            }, 0);
+
+            return {
+                harris: (harrisWinProb / totalProb) * 100,
+                trump: (trumpWinProb / totalProb) * 100,
+                totalProb
+            };
+        }
+
+        // Calculate state probabilities from filtered scenarios
+        function calculateStateProbabilities(filteredScenarios) {
+            const stateProbabilities = {};
+            
+            Object.keys(STATE_EVS).forEach(state => {
+                if (stateSelections[state] !== null) {
+                    // If state is selected, probability is 100% for selected party
+                    stateProbabilities[state] = {
+                        harris: stateSelections[state] === 'D' ? 100 : 0,
+                        trump: stateSelections[state] === 'R' ? 100 : 0
+                    };
+                    return;
+                }
+
+                const totalProb = filteredScenarios.reduce((sum, scenario) => sum + scenario.prob, 0);
+                if (totalProb === 0) {
+                    stateProbabilities[state] = { harris: 0, trump: 0 };
+                    return;
+                }
+
+                const demoProb = filteredScenarios
+                    .filter(scenario => scenario[state] === 'D')
+                    .reduce((sum, scenario) => sum + scenario.prob, 0);
+
+                stateProbabilities[state] = {
+                    harris: (demoProb / totalProb) * 100,
+                    trump: ((totalProb - demoProb) / totalProb) * 100
+                };
+            });
+
+            return stateProbabilities;
+        }
+
+        // Update probability displays
+        function updateProbabilities() {
+            const filteredScenarios = getFilteredScenarios();
+            const probabilities = calculateProbabilities(filteredScenarios);
+            const stateProbabilities = calculateStateProbabilities(filteredScenarios);
+            
+            // Update overall probabilities
+            document.getElementById('harris-prob').textContent = `${probabilities.harris.toFixed(1)}%`;
+            document.getElementById('trump-prob').textContent = `${probabilities.trump.toFixed(1)}%`;
+            
+            const meter = document.getElementById('probability-meter');
+            meter.setAttribute('probability', 1 - probabilities.harris / 100);
+            // meter.setAttribute('labels', JSON.stringify({
+            //    angles: ["0", "45", "90"],
+            //    labels: ["Trump", "50/50", "Harris"],
+            //    props: {
+            //        "font-size": "14px"
+            //    }
+            //}));
+
+            // Update state probabilities
+            Object.entries(stateProbabilities).forEach(([state, prob]) => {
+                const stateMeter = document.getElementById(`state-meter-${state}`);
+                const demoProbElem = document.getElementById(`state-prob-d-${state}`);
+                const repProbElem = document.getElementById(`state-prob-r-${state}`);
+
+                if (stateMeter && demoProbElem && repProbElem) {
+                    stateMeter.setAttribute('probability', 1 - prob.harris / 100);
+                    stateMeter.setAttribute('labels', JSON.stringify({
+                        angles: [],
+                        labels: []
+                    }));
+
+                    demoProbElem.textContent = `${prob.harris.toFixed(1)}%`;
+                    repProbElem.textContent = `${prob.trump.toFixed(1)}%`;
+                }
+            });
+        }
+
+        // Update scenarios table
+        function updateScenarios() {
+            const filteredScenarios = getFilteredScenarios();
+            const tbody = document.getElementById('scenarios-body');
+            tbody.innerHTML = '';
+
+            filteredScenarios.forEach(scenario => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                
+                ['AZ', 'GA', 'MI', 'NC', 'NV', 'PA', 'WI'].forEach(state => {
+                    const td = document.createElement('td');
+                    td.className = `p-2 border text-center ${
+                        scenario[state] === 'D' ? 'bg-blue-100' : 'bg-red-100'
+                    }`;
+                    td.textContent = scenario[state];
+                    row.appendChild(td);
+                });
+
+                // EVs
+                const evCell = document.createElement('td');
+                evCell.className = 'p-2 border text-right';
+                evCell.textContent = scenario.default_ev_inc;
+                row.appendChild(evCell);
+
+                // Probability
+                const probCell = document.createElement('td');
+                probCell.className = 'p-2 border text-right';
+                probCell.textContent = `${scenario.prob.toFixed(1)}%`;
+                row.appendChild(probCell);
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Load data and initialize
+        async function initialize() {
+            try {
+                const response = await fetch('./Election_Paths.json');
+                scenarios = await response.json();
+                
+                initStateGrid();
+                updateProbabilities();
+                updateElectoralVotes();
+                updateScenarios();
+            } catch (error) {
+                console.error('Error loading election data:', error);
+            }
+        }
+
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
