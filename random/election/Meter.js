@@ -94,7 +94,7 @@ class Meter extends HTMLElement {
 		// Get the probability
 		let probability = this.get('probability', 0.5);
 		let needleElement = svgElem("path", 
-			{stroke: red, "stroke-width": 5, fill: "none",
+			{stroke: red, "stroke-width": 6, fill: "none",
 			 "stroke-linecap": "round",
 		});
 		this.needleElement = needleElement;
