@@ -67,7 +67,7 @@
                 <div id="ev-progress-harris" class="absolute left-0 h-full bg-blue-500 transition-all duration-300" style="width: 40.7%"></div>
                 <div id="ev-progress-trump" class="absolute right-0 h-full bg-red-500 transition-all duration-300" style="width: 40.7%"></div>
             </div>
-            <div id="ev-needed" class="text-center mt-2 text-sm text-gray-500">51 more needed for Harris victory</div>
+            <div id="ev-needed" class="text-center mt-2 text-sm text-gray-500">51 more needed for Harris victory, 44 more needed for a Trump victory</div>
         </div>
 
         <!-- State Selection -->
@@ -245,8 +245,10 @@
             const evNeeded = document.getElementById('ev-needed');
             if (democratEVs >= NEEDED_TO_WIN) {
                 evNeeded.textContent = 'Harris victory';
-            } else {
-                evNeeded.textContent = `${NEEDED_TO_WIN - democratEVs} more needed for Harris victory`;
+						} else if (republicanEVs >= NEEDED_TO_WIN) {
+							evNeeded.textContent = 'Trump victory';
+					  } else {
+							evNeeded.textContent = `${NEEDED_TO_WIN - democratEVs} more needed for Harris victory, ${NEEDED_TO_WIN - republicanEVs} more needed for Trump victory.`;
             }
         }
 
