@@ -54,6 +54,18 @@
       "featured": true
     },
     {
+      "title": "Simple Population Geiger Counter",
+      "links": [{
+        "href": "https://observablehq.com/@alemi/simple-live-population-counter",
+        "text": "[Observable]",
+        "canonical": true
+      }],
+      "date": "2022-06-22",
+      "id": "population-geiger-counter",
+      "description": "More 'realistic' live population counter.",
+      "featured": true
+    },
+    {
       "title": "Can I compute the mass of a coin based on the sound of its fall?",
       "links": [{
         "href": "https://physics.stackexchange.com/questions/121879/can-i-compute-the-mass-of-a-coin-based-on-the-sound-of-its-fall/121932#121932",
