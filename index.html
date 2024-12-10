@@ -307,6 +307,8 @@
             I got my B.S. at Caltech, where I majored in Physics.
         </p>
 
+				<p>Below you'll find a list of my publications and other writings, for my recent writing, see my <a href="https://blog.alexalemi.com">blog</a>.</p>
+
     </main>
 
     <!-- Section navigation using anchors -->
