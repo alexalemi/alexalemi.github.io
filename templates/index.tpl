@@ -224,6 +224,12 @@
         section ul li cite {
           font-style: normal;
         }
+
+        footer {
+          color: var(--alt-color);
+          font-size: 0.8em;
+          text-align: center;
+        }
     </style>
 
 
@@ -470,6 +476,10 @@
         </ul>
 
     </section>
+
+		<footer>
+			<small><center><p>An <a type="application/rss+xml" title="AlexAlemi.com" href="https://alexalemi.com/rss.xml" />RSS Feed</a> is available for all of my content.</p></center></small>
+	  </footer>
 
     <!-- MathJax -->
     <!-- 
