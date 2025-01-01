@@ -14,6 +14,7 @@ from compile import augment_post, render_post, augment_obtude
 logging.basicConfig(level=logging.DEBUG)
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
+STYLE = "assets/stylesheets/rss.xls"
 RSS_FILENAME = "rss.xml"
 BLOG_RSS_FILENAME = "blog/rss.xml"
 DATA_PATH = "../data"
@@ -241,13 +242,27 @@ def blog():
   logging.info(f"Writing to {outpath}")
   rssfeed = fg.rss_file(outpath)
 
+def insert_second_line(flname, path="assets/stylesheets/rss.xsl"):
+    with open(flname, 'r') as f:
+        lines = f.readlines()
+    with open(flname, 'w') as f:
+        f.write(lines[0])
+        f.write(f'<?xml-stylesheet type="text/xsl" href="{path}"?>\n')
+        f.writelines(lines[1:])
+
+
+
 if __name__ == "__main__":
     if sys.argv[1] == 'main':
       logging.info("Generating RSS Feed.")
       main()
+      outpath = os.path.join(ROOT, BUILD_PATH, RSS_FILENAME)
+      insert_second_line(outpath, 'assets/stylesheets/rss.xsl')
     elif sys.argv[1] == 'blog':
       logging.info("Generating Blog RSS Feed.")
       blog()
+      outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
+      insert_second_line(outpath, 'assets/rss.xsl')
 
 
 
