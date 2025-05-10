@@ -562,16 +562,6 @@ function drawClock(){ //create all the clock elements
     .attr('y1',-radius)
     .attr('y2',-radius + originTickLength)
     .attr('transform', d => rotateInner(d, innerPosition));
-	face.selectAll('.origin-label')
-		.data(innerScaleDefault.tickDensity.origin)
-			.enter()
-			.append('text')
-			.attr('class', 'label origin-label')
-			.attr('text-anchor','left')
-			.text(function(d){ return d; })
-      .attr('x', 2)
-      .attr('y', -innerOriginLabelRadius)
-      .attr('transform', d => rotateInner(d, innerPosition));
 
 
   // Major Ticks
@@ -713,16 +703,6 @@ function drawClock(){ //create all the clock elements
     .attr('y1',-radius)
     .attr('y2',-radius - ringOriginTickLength)
     .attr('transform', d => rotateOuter(d, 0));
-	ring.selectAll('.origin-label')
-		.data(outerScale.tickDensity.origin)
-			.enter()
-			.append('text')
-			.attr('class', 'label origin-label')
-			.attr('text-anchor','left')
-			.text(function(d){ return d; })
-      .attr('x', 2)
-      .attr('y', -ringOriginLabelRadius)
-      .attr('transform', d => rotateOuter(d, 0));
   // Major Ticks
   ring.selectAll('.major-tick')
     .data(outerScale.tickDensity.major).enter()
