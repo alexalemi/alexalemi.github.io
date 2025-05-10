@@ -296,7 +296,7 @@ function drawClock(){ //create all the clock elements
 
   // HAND
   var hand = rule.append('g').attr('id', 'hand').attr('class', 'animate')
-    
+
   hand.append('line')
     .attr('class', 'hand')
     .attr('x1', 0)
@@ -311,17 +311,36 @@ function drawClock(){ //create all the clock elements
     .attr('y1', handBack)
     .attr('y2', 0);
 
-	rule.append('g').attr('id','hand-overlay')
+  rule.append('g').attr('id','hand-overlay')
     .append('circle')
     .attr('class', 'hand hand-overlay')
     .attr('x', 0)
     .attr('y', 0)
     .attr('r', handOverlayRadius);
 
-  return [face,hand];
+  // History position markers
+  var handHistoryMarker = rule.append('g')
+    .attr('id', 'hand-history-marker')
+    .attr('class', 'history-marker')
+    .style('opacity', 0); // Initially hidden
+
+  handHistoryMarker.append('path')
+    .attr('d', 'M-5,-' + (radius-20) + ' L0,-' + (radius-10) + ' L5,-' + (radius-20))
+    .attr('class', 'history-chevron hand-history-chevron');
+
+  var faceHistoryMarker = rule.append('g')
+    .attr('id', 'face-history-marker')
+    .attr('class', 'history-marker')
+    .style('opacity', 0); // Initially hidden
+
+  faceHistoryMarker.append('path')
+    .attr('d', 'M-5,-' + (radius+20) + ' L0,-' + (radius+10) + ' L5,-' + (radius+20))
+    .attr('class', 'history-chevron face-history-chevron');
+
+  return [face, hand, handHistoryMarker, faceHistoryMarker];
 }
 
-var [face,hand] = drawClock();
+var [face, hand, handHistoryMarker, faceHistoryMarker] = drawClock();
 
 function isDescendant(parent, child) {
      var node = child.parentNode;
@@ -377,6 +396,39 @@ function saveFacePosition(position) {
   }
 }
 
+// Functions to update history markers
+function updateHandHistoryMarker() {
+  if (centerClickState === 1 && handPositionHistory.length > 0) {
+    // Show and position the hand history marker
+    handHistoryMarker
+      .style('opacity', 0.5)
+      .attr('transform', 'rotate(' + handPositionHistory[0] + ')');
+  } else {
+    // Hide the marker
+    handHistoryMarker.style('opacity', 0);
+  }
+}
+
+function updateFaceHistoryMarker() {
+  if (outerClickState > 0 && facePositionHistory.length > 0) {
+    // Show and position the face history marker
+    faceHistoryMarker
+      .style('opacity', 0.5)
+      .attr('transform', 'rotate(' + facePositionHistory[0] + ')');
+  } else {
+    // Hide the marker
+    faceHistoryMarker.style('opacity', 0);
+  }
+}
+
+// Reset both history states
+function resetHistoryStates() {
+  centerClickState = 0;
+  outerClickState = 0;
+  updateHandHistoryMarker();
+  updateFaceHistoryMarker();
+}
+
 function setFace(position) {
   innerPosition = optimalMove(innerPosition, position);
   face.attr('transform', 'rotate(' + innerPosition + ')');
@@ -396,6 +448,9 @@ var faceElement = document.getElementById('slide-face');
 
 dial.onwheel = (evt) => {
   evt.preventDefault();
+  // Reset both history states when wheel is used on either component
+  resetHistoryStates();
+
   if (isDescendant(faceElement, evt.target)) {
     setFace(innerPosition + wheelDistance(evt));
   } else {
@@ -471,10 +526,13 @@ function handleMove(evt) {
       ongoingTouch.prevX = touches[i].pageX;
       ongoingTouch.speed = speed;
 
+      // Reset both history states when touch is used on either component
+      resetHistoryStates();
+
       if (isDescendant(faceElement, ongoingTouch.target)) {
         ongoingTouch.innerPosition += delta;
         setFace(ongoingTouch.innerPosition);
-      } else { 
+      } else {
         ongoingTouch.handPosition += delta;
         setHand(ongoingTouch.handPosition);
       }
@@ -543,12 +601,14 @@ function reset(evt) {
       saveHandPosition(handPosition);
       resetHand(); // Reset to align with dial's 1 mark
       centerClickState = 1;
+      updateHandHistoryMarker(); // Show the history marker
     } else {
       // Restore previous position
       if (handPositionHistory.length > 0) {
         setHand(handPositionHistory[0]); // Use most recent saved position
       }
       centerClickState = 0;
+      updateHandHistoryMarker(); // Hide the history marker
     }
   } else {
     // Outer area click - cycle through three states
@@ -559,12 +619,14 @@ function reset(evt) {
         // Reset to align with needle
         setFace(handPosition);
         outerClickState = 1;
+        updateFaceHistoryMarker(); // Show the history marker
         break;
 
       case 1:
         // Align with outer index (0 position)
         setFace(0);
         outerClickState = 2;
+        updateFaceHistoryMarker(); // Update the history marker
         break;
 
       case 2:
@@ -573,6 +635,7 @@ function reset(evt) {
           setFace(facePositionHistory[0]); // Use most recent saved position
         }
         outerClickState = 0;
+        updateFaceHistoryMarker(); // Hide the history marker
         break;
     }
   }

@@ -209,3 +209,14 @@ svg{
   color: #333;
 }
 
+.history-chevron {
+  stroke: #777;
+  stroke-width: 2;
+  fill: none;
+}
+
+.history-marker {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
