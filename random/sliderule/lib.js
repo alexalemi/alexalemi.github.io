@@ -431,6 +431,49 @@ const scales = {
       }
     },
     unit: ""
+  },
+  "ST": {
+    key: "ST",
+    name: "ST Small Angle",
+    domain: [0, 6],
+    tickFunction: degrees => {
+      // For small angles, sin(θ) ≈ tan(θ) ≈ θ (in radians)
+      const radians = degrees * Math.PI / 180;
+      // We'll use sine for all calculations in this range
+      const sinValue = Math.sin(radians);
+      if (sinValue <= 0) return 0;
+      return innerScale(sinValue);
+    },
+    valueFunction: x => {
+      const value = innerScale.invert(x);
+      // Use asin for the calculation as we're using sine values
+      return Math.asin(value) * 180 / Math.PI;
+    },
+    specialMarks: [Math.PI/180, 1], // Special marks for 1 radian ≈ 0.01745 and 1 degree
+    specialLabels: ["1 rad", "1°"],
+    tickDensity: {
+      origin: [6],
+      major: [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5],
+      half: [1.2, 1.4, 1.6, 1.8, 2.2, 2.4, 2.6, 2.8],
+      medium: d3.range(0.7, 6, 0.1),
+      minor: d3.range(0.62, 3, 0.02).concat(d3.range(3.05, 6, 0.05)),
+      tiny: []
+    },
+    labelDensity: {
+      origin: {
+        values: [6],
+        format: (d) => d.toString() + "°"
+      },
+      major: {
+        values: [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5],
+        format: (d) => d.toString() + "°"
+      },
+      half: {
+        values: [],
+        format: (d) => d.toString() + "°"
+      }
+    },
+    unit: "°"
   }
 };
 
