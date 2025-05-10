@@ -129,8 +129,10 @@ body {
 .reading-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 5px;
   flex: 1;
+  min-width: 80px;
 }
 
 .reading-label {
@@ -139,6 +141,7 @@ body {
   text-align: center;
   margin-bottom: 5px;
   color: var(--red);
+  width: 100%;
 }
 
 .reading {
@@ -272,12 +275,17 @@ button.power {
 
   .reading-container {
     width: 100%;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .reading-label {
+    margin-bottom: 8px;
   }
 
   .reading {
     width: 100%;
-    max-width: none;
+    max-width: 200px;
   }
 
   .power-group {
@@ -298,7 +306,13 @@ button.power {
 
   button.power {
     min-width: 45px;
-    margin: 3px;
+    margin: 4px;
+  }
+
+  .power-group {
+    width: auto;
+    margin: 0 auto;
+    max-width: 280px;
   }
 }
 
@@ -316,21 +330,60 @@ button.power {
   }
 
   .reading-group,
-  .control-group,
+  .control-group {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
   .power-group {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .power-group button.power {
+    min-width: 36px;
+    margin: 0 3px;
+  }
+
+  #power {
+    margin: 0 6px;
+    width: 50px;
+  }
+
+  .reading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 5px;
+    flex: 1;
   }
 
   .reading {
-    min-width: 60px;
-    max-width: 80px;
+    min-width: 70px;
+    max-width: 100px;
+    width: 100%;
   }
 
   button {
     min-width: auto;
     padding: 8px 10px;
+    margin: 0 8px;
+  }
+
+  button#setHand, button#setFace {
+    margin: 0 5px;
+    flex: 0 1 auto;
+  }
+
+  button#fineToggle {
+    min-width: 140px;
+    margin: 0 auto;
   }
 }
 
@@ -357,16 +410,29 @@ button.power {
 
   .reading-group {
     justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .reading-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   button {
     flex: 0 1 auto;
+    margin: 0 10px;
+  }
+
+  button#setHand, button#setFace {
+    min-width: 100px;
   }
 
   .reading {
     min-width: 80px;
-    max-width: none;
-    flex: 0 1 auto;
+    max-width: 120px;
+    width: 100%;
   }
 }
 
