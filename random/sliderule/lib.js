@@ -1,21 +1,67 @@
 
 const powerMeter = document.getElementById("power");
 
-// Mode state variables
-var fineMode = false;
-var dragMode = false;
+// Persistence keys
+const STORAGE_KEY_PREFIX = 'sliderule_';
+const STORAGE_KEYS = {
+  FINE_MODE: STORAGE_KEY_PREFIX + 'fine_mode',
+  DRAG_MODE: STORAGE_KEY_PREFIX + 'drag_mode',
+  SCALE: STORAGE_KEY_PREFIX + 'scale',
+  HAND_POSITION: STORAGE_KEY_PREFIX + 'hand_position',
+  INNER_POSITION: STORAGE_KEY_PREFIX + 'inner_position',
+  POWER: STORAGE_KEY_PREFIX + 'power'
+};
+
+// Mode state variables (with localStorage loading)
+var fineMode = loadFromStorage(STORAGE_KEYS.FINE_MODE, false);
+var dragMode = loadFromStorage(STORAGE_KEYS.DRAG_MODE, false);
 var shiftKeyPressed = false;
 var fineToggleButton = null;
 var dragToggleButton = null;
 
+// Function to load values from localStorage with default fallback
+function loadFromStorage(key, defaultValue) {
+  try {
+    const storedValue = localStorage.getItem(key);
+    if (storedValue === null) return defaultValue;
+
+    // Parse the stored value based on type
+    if (typeof defaultValue === 'boolean') {
+      return storedValue === 'true';
+    } else if (typeof defaultValue === 'number') {
+      return parseFloat(storedValue);
+    } else {
+      return storedValue;
+    }
+  } catch (e) {
+    console.warn('Failed to load from localStorage:', e);
+    return defaultValue;
+  }
+}
+
+// Function to save values to localStorage
+function saveToStorage(key, value) {
+  try {
+    localStorage.setItem(key, value.toString());
+  } catch (e) {
+    console.warn('Failed to save to localStorage:', e);
+  }
+}
+
 function addPower(increment) {
-  powerMeter.valueAsNumber = powerMeter.valueAsNumber + increment
+  powerMeter.valueAsNumber = powerMeter.valueAsNumber + increment;
+
+  // Save the power value
+  saveToStorage(STORAGE_KEYS.POWER, powerMeter.valueAsNumber);
 }
 
 // Function to toggle fine mode
 function toggleFineMode() {
   fineMode = !fineMode;
   updateModesVisual();
+
+  // Save the preference
+  saveToStorage(STORAGE_KEYS.FINE_MODE, fineMode);
 }
 
 // Function to toggle drag mode
@@ -32,6 +78,9 @@ function toggleDragMode() {
       dialElement.classList.remove('drag-mode');
     }
   }
+
+  // Save the preference
+  saveToStorage(STORAGE_KEYS.DRAG_MODE, dragMode);
 }
 
 // Update mode buttons visual state
@@ -83,6 +132,9 @@ function changeScale(scaleKey) {
     outerScale = scales[scaleKey];
     currentScale = outerScale; // For backward compatibility
     innerScaleDefault = scales["C/D"]; // Always keep inner as C/D
+
+    // Save scale preference
+    saveToStorage(STORAGE_KEYS.SCALE, scaleKey);
 
     // Redraw the slide rule with the new scale
     redrawSlideRule();
@@ -511,12 +563,17 @@ const scales = {
   }
 };
 
+// Load saved scale from localStorage or use default
+const savedScaleKey = loadFromStorage(STORAGE_KEYS.SCALE, "C/D");
+
 // Set default scales
-var currentScale = scales["C/D"]; // For backward compatibility
-var outerScale = scales["C/D"];   // Scale for the outer ring only
+var currentScale = scales[savedScaleKey] || scales["C/D"]; // For backward compatibility
+var outerScale = scales[savedScaleKey] || scales["C/D"];   // Scale for the outer ring only
 var innerScaleDefault = scales["C/D"];   // Inner scale default, always remains C/D
-var innerPosition = 0.0;
-var handPosition = 0.0;
+
+// Load saved positions or use defaults
+var innerPosition = loadFromStorage(STORAGE_KEYS.INNER_POSITION, 0.0);
+var handPosition = loadFromStorage(STORAGE_KEYS.HAND_POSITION, 0.0);
 
 // History stacks for positions
 var handPositionHistory = []; // History stack for needle positions
@@ -1111,12 +1168,18 @@ function setFace(position) {
   innerPosition = optimalMove(innerPosition, position);
   face.attr('transform', 'rotate(' + innerPosition + ')');
   updateReadings();
+
+  // Save inner dial position
+  saveToStorage(STORAGE_KEYS.INNER_POSITION, innerPosition);
 }
 
 function setHand(position) {
   handPosition = optimalMove(handPosition, position);
   hand.attr('transform', 'rotate(' + handPosition + ')');
   updateReadings();
+
+  // Save hand position
+  saveToStorage(STORAGE_KEYS.HAND_POSITION, handPosition);
 }
 
 var page = document.getElementById('page');
@@ -1458,14 +1521,34 @@ window.addEventListener("load", function() {
 
   // Initialize dial class based on drag mode state
   const dialElement = document.getElementById('dial');
-  if (dialElement && dragMode) {
-    dialElement.classList.add('drag-mode');
+  if (dialElement) {
+    if (dragMode) {
+      dialElement.classList.add('drag-mode');
+    } else {
+      dialElement.classList.remove('drag-mode');
+    }
   }
 
-  // Initialize scale selector to match the default scale
+  // Update readings to reflect loaded values
+  updateReadings();
+
+  // Initialize scale selector to match the saved or default scale
   const scaleSelect = document.getElementById('scaleSelect');
   if (scaleSelect) {
     scaleSelect.value = currentScale.key;
+  }
+
+  // Initialize power meter value from localStorage
+  const savedPower = loadFromStorage(STORAGE_KEYS.POWER, 0);
+  if (powerMeter && savedPower !== 0) {
+    powerMeter.valueAsNumber = savedPower;
+  }
+
+  // Add change event listener to save power value when changed manually
+  if (powerMeter) {
+    powerMeter.addEventListener('change', function() {
+      saveToStorage(STORAGE_KEYS.POWER, powerMeter.valueAsNumber);
+    });
   }
 
   // Prevent text selection on the dial
