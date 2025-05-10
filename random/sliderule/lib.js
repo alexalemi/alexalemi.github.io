@@ -720,8 +720,19 @@ dial.addEventListener("touchmove", handleMove, false);
 
 // No extra button listeners needed
 
-// Initialize fine toggle button when page loads
+// Initialize fine toggle button and disable text selection when page loads
 window.addEventListener("load", function() {
   fineToggleButton = document.getElementById('fineToggle');
   updateFineModeVisual();
+
+  // Prevent text selection on the dial
+  const dialElement = document.getElementById('dial');
+  if (dialElement) {
+    dialElement.addEventListener('mousedown', function(e) {
+      // Prevent default mousedown behavior which includes text selection
+      if (e.detail > 1) { // Check if it's a double-click
+        e.preventDefault();
+      }
+    });
+  }
 });
