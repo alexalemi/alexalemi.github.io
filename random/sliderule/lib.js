@@ -42,6 +42,15 @@ const innerScale = d3.scaleLog()
 var innerPosition = 0.0;
 var handPosition = 0.0;
 
+// History stacks for positions
+var handPositionHistory = []; // History stack for needle positions
+var facePositionHistory = []; // History stack for dial positions
+var maxHistoryLength = 20;    // Maximum number of positions to remember
+
+// State tracking for clicks
+var centerClickState = 0;     // 0: normal, 1: reset to 1 mark
+var outerClickState = 0;      // 0: normal, 1: align with needle, 2: align with index
+
 function rotate(d, offset) {
   let angle = innerScale(d) + offset;
   return 'rotate(' + angle + ')';
@@ -353,6 +362,21 @@ function optimalMove(frm, to) {
 const faceReading = document.getElementById('faceReading');
 const handReading = document.getElementById('handReading');
 
+// Functions to manage position history
+function saveHandPosition(position) {
+  handPositionHistory.unshift(position); // Add to start of array
+  if (handPositionHistory.length > maxHistoryLength) {
+    handPositionHistory.pop(); // Remove oldest item
+  }
+}
+
+function saveFacePosition(position) {
+  facePositionHistory.unshift(position); // Add to start of array
+  if (facePositionHistory.length > maxHistoryLength) {
+    facePositionHistory.pop(); // Remove oldest item
+  }
+}
+
 function setFace(position) {
   innerPosition = optimalMove(innerPosition, position);
   face.attr('transform', 'rotate(' + innerPosition + ')');
@@ -496,24 +520,61 @@ function handleCancel(evt) {
 
 
 function resetHand() {
+  // Original functionality (reset to align with inner dial's 1 mark)
   setHand(innerPosition);
 }
 
 function resetFace() {
- if ((innerPosition - handPosition).mod(360) === 0) {
-  setFace(0);
- } else {
-  setFace(handPosition);
- }
+  // Original toggling behavior between needle alignment and index
+  if ((innerPosition - handPosition).mod(360) === 0) {
+    setFace(0);
+  } else {
+    setFace(handPosition);
+  }
 }
 
 function reset(evt) {
   evt.preventDefault();
-  console.log(evt);
+
   if (isDescendant(faceElement, evt.target)) {
-    resetHand();
+    // Center circle click - toggle between reset and previous
+    if (centerClickState === 0) {
+      // Save current position before resetting
+      saveHandPosition(handPosition);
+      resetHand(); // Reset to align with dial's 1 mark
+      centerClickState = 1;
+    } else {
+      // Restore previous position
+      if (handPositionHistory.length > 0) {
+        setHand(handPositionHistory[0]); // Use most recent saved position
+      }
+      centerClickState = 0;
+    }
   } else {
-    resetFace();
+    // Outer area click - cycle through three states
+    switch (outerClickState) {
+      case 0:
+        // Save current position before resetting
+        saveFacePosition(innerPosition);
+        // Reset to align with needle
+        setFace(handPosition);
+        outerClickState = 1;
+        break;
+
+      case 1:
+        // Align with outer index (0 position)
+        setFace(0);
+        outerClickState = 2;
+        break;
+
+      case 2:
+        // Restore previous position
+        if (facePositionHistory.length > 0) {
+          setFace(facePositionHistory[0]); // Use most recent saved position
+        }
+        outerClickState = 0;
+        break;
+    }
   }
 }
 
