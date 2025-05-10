@@ -45,6 +45,18 @@
         <div class="section controls">
           <div class="control-group">
             <button id="fineToggle" class="fine-toggle" onClick="toggleFineMode();">Fine Mode</button>
+            <div class="scale-selector">
+              <label for="scaleSelect">Scale:</label>
+              <select id="scaleSelect" onChange="changeScale(this.value);">
+                <option value="C/D">C/D Standard</option>
+                <option value="A/B">A/B Square</option>
+                <option value="K">K Cube</option>
+                <option value="L">L Logarithm</option>
+                <option value="S">S Sine</option>
+                <option value="T">T Tangent</option>
+                <option value="CI">CI Reciprocal</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -60,7 +72,7 @@
 
         <div class="section text">
   <p>
-  This is a simple circular slide rule simulator. Use the mouse wheel while
+  This is a circular slide rule simulator. Use the mouse wheel while
   you have your mouse outside of the face to move the hand (needle). Using the wheel inside the face moves the dial.
   </p>
   <p>
@@ -69,6 +81,18 @@
   Click inside the face to align the needle with the dial's index. Touch on mobile works the same way.
   </p>
   <p>
+  Different scales are available through the dropdown menu in the controls section:
+  </p>
+  <ul>
+    <li><strong>C/D Standard</strong>: Basic logarithmic scale for multiplication and division</li>
+    <li><strong>A/B Square</strong>: Squared values (x²) for squares, square roots, and area calculations</li>
+    <li><strong>K Cube</strong>: Cubed values (x³) for volumes and cube roots</li>
+    <li><strong>L Logarithm</strong>: Directly shows base-10 logarithms</li>
+    <li><strong>S Sine</strong>: Logarithmic sine function (range 0°-90°)</li>
+    <li><strong>T Tangent</strong>: Logarithmic tangent function (range 0°-45°)</li>
+    <li><strong>CI Reciprocal</strong>: Reciprocal values (1/x) for division and reciprocals</li>
+  </ul>
+  <p>
   The gauge marks are as follows:
   <strong>π</strong> ~ 3.1416,
   <strong>e</strong> ~ 2.71828,
@@ -76,6 +100,7 @@
   <strong>L</strong> marks ln(10) ~ 2.3026,
   <strong>r</strong> ~ 57.3 is degrees in a radian, and
   <strong>Q</strong> ~ 0.01745 is radians in a degree.
+  (Special marks vary depending on the selected scale.)
   </p>
         </div>
       </div>

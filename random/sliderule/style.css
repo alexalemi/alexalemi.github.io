@@ -237,6 +237,44 @@ button.fine-toggle.active::before {
   opacity: 1;
 }
 
+/* Scale selector styling */
+.scale-selector {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.scale-selector label {
+  margin-right: 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: var(--charcoal);
+}
+
+#scaleSelect {
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: var(--parchment);
+  border: 1px solid var(--border-grey);
+  color: var(--charcoal);
+  font-size: 0.9em;
+  font-family: "Merriweather", serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px var(--shadow);
+  min-width: 140px;
+}
+
+#scaleSelect:hover {
+  background-color: var(--light-grey);
+  border-color: var(--grey);
+}
+
+#scaleSelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--grey);
+}
+
 /* Power group and buttons */
 .power-group {
   display: flex;
@@ -314,6 +352,23 @@ button.power {
     margin: 0 auto;
     max-width: 280px;
   }
+
+  .control-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .scale-selector {
+    margin-left: 0;
+    margin-top: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  #scaleSelect {
+    flex: 1;
+    max-width: 200px;
+  }
 }
 
 /* tablet styles */
@@ -382,8 +437,16 @@ button.power {
   }
 
   button#fineToggle {
-    min-width: 140px;
-    margin: 0 auto;
+    min-width: 120px;
+  }
+
+  .scale-selector {
+    margin-left: 15px;
+  }
+
+  #scaleSelect {
+    min-width: 120px;
+    padding: 8px;
   }
 }
 
@@ -463,13 +526,13 @@ svg {
   user-select: none;
 }
 
-.minor-label {
+.minor-label, .half-label, .decimal-minor-label, .teen-minor-label {
   font-size: 10px;
   fill: var(--charcoal);
 }
 
 .origin-label {
-  font-size: 25px;
+  font-size: 30px;
   fill: var(--charcoal);
   font-weight: 400;
 }
@@ -550,6 +613,17 @@ svg {
   margin-bottom: 10px;
   line-height: 1.5;
   color: var(--charcoal);
+}
+
+.text ul {
+  margin-bottom: 10px;
+  margin-left: 20px;
+  line-height: 1.5;
+  color: var(--charcoal);
+}
+
+.text li {
+  margin-bottom: 5px;
 }
 
 .text strong {
