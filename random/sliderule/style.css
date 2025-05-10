@@ -543,6 +543,13 @@ svg {
   font-weight: bold;
 }
 
+/* Special styling for the transition point on ST scale */
+.transition-mark {
+  stroke: var(--red);
+  stroke-width: 2;
+  stroke-dasharray: 2,2;
+}
+
 .edge {
   stroke-width: 1;
   stroke: var(--charcoal);
