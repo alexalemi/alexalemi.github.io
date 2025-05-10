@@ -142,9 +142,11 @@ body {
 }
 
 .reading {
-  font-family: "Courier New", monospace;
+  font-family: "Merriweather", serif;
   padding: 8px;
   font-size: 1em;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums; /* Ensures fixed-width numbers for alignment */
   border-radius: 4px;
   background-color: var(--ivory);
   border: 1px solid var(--border-grey);
