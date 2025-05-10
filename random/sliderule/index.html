@@ -45,6 +45,7 @@
         <div class="section controls">
           <div class="control-group">
             <button id="fineToggle" class="fine-toggle" onClick="toggleFineMode();">Fine Mode</button>
+            <button id="dragToggle" class="drag-toggle" onClick="toggleDragMode();">Scrub Mode</button>
             <div class="scale-selector">
               <label for="scaleSelect">Scale:</label>
               <select id="scaleSelect" onChange="changeScale(this.value);">
@@ -79,7 +80,10 @@
   <p>
   For precise adjustments, use the <strong>Fine Mode</strong> toggle button or hold Shift key while moving.
   Click outside the face to align the dial with the needle, and click again to align with the index mark.
-  Click inside the face to align the needle with the dial's index. Touch on mobile works the same way.
+  Click inside the face to align the needle with the dial's index.
+  </p>
+  <p>
+  On mobile devices, you can toggle between <strong>Scrub Mode</strong> (default vertical scrolling) and <strong>Drag Mode</strong> (circular dragging). In Drag Mode, touches near the needle will move the needle, while touches elsewhere will move the dial.
   </p>
   <p>
   Different scales are available through the dropdown menu in the controls section:

@@ -208,14 +208,14 @@ button:focus {
   width: 100%;
 }
 
-button.fine-toggle {
+button.fine-toggle, button.drag-toggle {
   background-color: var(--parchment);
   border-color: var(--grey);
   position: relative;
   min-width: 120px;
 }
 
-button.fine-toggle::before {
+button.fine-toggle::before, button.drag-toggle::before {
   content: "⋯";
   position: absolute;
   right: 10px;
@@ -224,13 +224,13 @@ button.fine-toggle::before {
   opacity: 0.8;
 }
 
-button.fine-toggle.active {
+button.fine-toggle.active, button.drag-toggle.active {
   background-color: var(--light-grey);
   border-color: var(--red);
   color: var(--charcoal);
 }
 
-button.fine-toggle.active::before {
+button.fine-toggle.active::before, button.drag-toggle.active::before {
   content: "•";
   font-size: 16px;
   color: var(--red);
@@ -358,6 +358,11 @@ button.power {
     align-items: center;
   }
 
+  button.fine-toggle, button.drag-toggle {
+    min-width: 100%;
+    margin-bottom: 8px;
+  }
+
   .scale-selector {
     margin-left: 0;
     margin-top: 15px;
@@ -436,12 +441,13 @@ button.power {
     flex: 0 1 auto;
   }
 
-  button#fineToggle {
-    min-width: 120px;
+  button#fineToggle, button#dragToggle {
+    min-width: 110px;
+    margin: 0 5px;
   }
 
   .scale-selector {
-    margin-left: 15px;
+    margin-left: 10px;
   }
 
   #scaleSelect {
@@ -582,6 +588,24 @@ svg {
   fill: var(--red);
   stroke-linecap: round;
   z-order: 6;
+}
+
+/* Indicator style for drag mode */
+.drag-mode .hand {
+  stroke-width: 2;
+  filter: drop-shadow(0px 0px 2px var(--red));
+}
+
+.drag-mode .hand-overlay {
+  r: 7;
+  filter: drop-shadow(0px 0px 3px var(--red));
+}
+
+/* Additional visual cue for drag mode - highlight the outer ring */
+.drag-mode .edge {
+  stroke-dasharray: none;
+  stroke-width: 2;
+  filter: drop-shadow(0px 0px 2px var(--shadow));
 }
 
 .hand-back {
