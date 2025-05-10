@@ -30,8 +30,12 @@
         <div class="section info">
           <div class="reading" id="handReading">1.000</div>
           <button id="setHand" onClick="saveHandPosition(handPosition); resetHand(); centerClickState = 1; updateHandHistoryMarker();">Set Hand</button>
-          <button id="setFace" onClick="saveFacePosition(innerPosition); resetFace(); outerClickState = (outerClickState === 0) ? 1 : 2; updateFaceHistoryMarker();">Set Face </button>
+          <button id="setFace" onClick="saveFacePosition(innerPosition); resetFace(); outerClickState = (outerClickState === 0) ? 1 : 2; updateFaceHistoryMarker();">Set Face</button>
           <div class="reading" id="faceReading">1.000</div>
+        </div>
+
+        <div class="section controls">
+          <button id="fineToggle" class="fine-toggle" onClick="toggleFineMode();">Fine Mode</button>
         </div>
 
         <div class="section powers">
@@ -44,18 +48,22 @@
 
         <div class="section text">
   <p>
-  This is a simple circular sliderule simulator you can use.  Use the mouse wheel while 
-  you have your mouse outside of the face to move the hand.  Holding shift makes it go slower.
-  Using the wheel inside the face moves the face.  Click outside the face to register the 
-  inner face to the hand.  Click again to register to the origin. 
-  Click inside the face to set the origin to the hand. Touch on mobile
-  works as well.  The Gauge marks are as follows:
-   π  ~ 3.1416 is clear, 
-  e ~ 2.71828 as well, 
-  c ~ 1.128 marks sqrt(4/pi) the circle constant for finding areas of circles given their diameter. 
-  L marks the natural log of 10 ~ 2.3026. 
-  r ~ 57.3 is the number of degrees
-  in a radian, and Q ~ 0.01745 is the number of radians in a degree.
+  This is a simple circular slide rule simulator. Use the mouse wheel while
+  you have your mouse outside of the face to move the hand (needle). Using the wheel inside the face moves the dial.
+  </p>
+  <p>
+  For precise adjustments, use the <strong>Fine Mode</strong> toggle button or hold Shift key while moving.
+  Click outside the face to align the dial with the needle, and click again to align with the index mark.
+  Click inside the face to align the needle with the dial's index. Touch on mobile works the same way.
+  </p>
+  <p>
+  The gauge marks are as follows:
+  <strong>π</strong> ~ 3.1416,
+  <strong>e</strong> ~ 2.71828,
+  <strong>c</strong> ~ 1.128 marks sqrt(4/pi) for finding circle areas given their diameter,
+  <strong>L</strong> marks ln(10) ~ 2.3026,
+  <strong>r</strong> ~ 57.3 is degrees in a radian, and
+  <strong>Q</strong> ~ 0.01745 is radians in a degree.
   </p>
         </div>
       </div>
