@@ -19,10 +19,11 @@ html {
 
 .section {
   width: 100%;
-  height: 30px;
+  min-height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .container {
@@ -69,11 +70,68 @@ html {
 
 .reading {
   font-family: monospace;
+  padding: 8px;
+  font-size: 1em;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  margin: 0 10px;
+  min-width: 60px;
+  text-align: center;
 }
 
 #power {
   width: 3em;
   text-align: center;
+}
+
+/* Improved button styling */
+button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #333;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+  border-color: #999;
+}
+
+button:active, button.active {
+  background-color: #d0d0d0;
+  border-color: #666;
+  transform: translateY(1px);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+button.fine-toggle {
+  background-color: #eef5ff;
+  border-color: #a8c7ff;
+}
+
+button.fine-toggle.active {
+  background-color: #cce0ff;
+  border-color: #6699ff;
+  color: #004080;
+}
+
+button.power {
+  min-width: 40px;
+  padding: 5px 8px;
 }
 
 /* mobile styles */
