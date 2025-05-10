@@ -1,10 +1,12 @@
 
 const powerMeter = document.getElementById("power");
 
-// Fine mode state variables
+// Mode state variables
 var fineMode = false;
+var dragMode = false;
 var shiftKeyPressed = false;
 var fineToggleButton = null;
+var dragToggleButton = null;
 
 function addPower(increment) {
   powerMeter.valueAsNumber = powerMeter.valueAsNumber + increment
@@ -13,11 +15,28 @@ function addPower(increment) {
 // Function to toggle fine mode
 function toggleFineMode() {
   fineMode = !fineMode;
-  updateFineModeVisual();
+  updateModesVisual();
 }
 
-// Update fine mode button visual state
-function updateFineModeVisual() {
+// Function to toggle drag mode
+function toggleDragMode() {
+  dragMode = !dragMode;
+  updateModesVisual();
+
+  // Add or remove drag-mode class to the dial for visual feedback
+  const dialElement = document.getElementById('dial');
+  if (dialElement) {
+    if (dragMode) {
+      dialElement.classList.add('drag-mode');
+    } else {
+      dialElement.classList.remove('drag-mode');
+    }
+  }
+}
+
+// Update mode buttons visual state
+function updateModesVisual() {
+  // Fine mode button
   if (!fineToggleButton) {
     fineToggleButton = document.getElementById('fineToggle');
   }
@@ -29,6 +48,21 @@ function updateFineModeVisual() {
     } else {
       fineToggleButton.classList.remove('active');
       fineToggleButton.textContent = 'Fine Mode';
+    }
+  }
+
+  // Drag mode button
+  if (!dragToggleButton) {
+    dragToggleButton = document.getElementById('dragToggle');
+  }
+
+  if (dragToggleButton) {
+    if (dragMode) {
+      dragToggleButton.classList.add('active');
+      dragToggleButton.textContent = 'Drag Mode';
+    } else {
+      dragToggleButton.classList.remove('active');
+      dragToggleButton.textContent = 'Scrub Mode';
     }
   }
 }
@@ -131,14 +165,14 @@ function updateReadings() {
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Shift' && !shiftKeyPressed) {
     shiftKeyPressed = true;
-    updateFineModeVisual();
+    updateModesVisual();
   }
 });
 
 document.addEventListener('keyup', function(event) {
   if (event.key === 'Shift' && shiftKeyPressed) {
     shiftKeyPressed = false;
-    updateFineModeVisual();
+    updateModesVisual();
   }
 });
 
@@ -964,6 +998,30 @@ function isDescendant(parent, child) {
      return false;
 }
 
+// Function to check if a point is near the needle
+function isNearNeedle(x, y) {
+  // In drag mode, simply use the outer area to control the needle
+  // This is a much simpler approach that makes it easy to grab the needle
+
+  // Get the center coordinates of the dial
+  const dialRect = dial.getBoundingClientRect();
+  const centerX = dialRect.left + dialRect.width / 2;
+  const centerY = dialRect.top + dialRect.height / 2;
+
+  // Calculate the relative position of the point to the center
+  const relX = x - centerX;
+  const relY = y - centerY;
+
+  // Calculate the distance from center
+  const distance = Math.sqrt(relX * relX + relY * relY);
+
+  // Calculate the distance ratio relative to the radius
+  // If the touch is in the outer third of the dial, control the needle
+  // Use actual on-screen radius rather than the SVG radius constant
+  const dialPixelRadius = Math.min(dialRect.width, dialRect.height) / 2;
+  return distance > (dialPixelRadius * 0.7); // Outer 30% controls needle
+}
+
 function isFineMode() {
   // Return true if either shift is pressed or fine mode is toggled on
   return shiftKeyPressed || fineMode;
@@ -1080,8 +1138,34 @@ dial.onwheel = (evt) => {
 var ongoingTouches = [];
 
 function copyTouch({ identifier, pageX, pageY, target }) {
-  return { identifier, pageX, pageY, target, handPosition, innerPosition,
-    startX:pageX, startY:pageY, prevX:pageX, prevY:pageY, speed:1 };
+  // In drag mode, determine if this touch is near the needle
+  let moveHand = false;
+  if (dragMode) {
+    moveHand = isNearNeedle(pageX, pageY);
+    // Log what we're moving for debugging
+    console.log("Drag mode - Moving: " + (moveHand ? "needle" : "inner dial"));
+  } else {
+    // In scrub mode, use the traditional method (inner vs outer part)
+    moveHand = !isDescendant(faceElement, target);
+  }
+
+  return {
+    identifier,
+    pageX,
+    pageY,
+    target,
+    handPosition,
+    innerPosition,
+    startX: pageX,
+    startY: pageY,
+    prevX: pageX,
+    prevY: pageY,
+    speed: 1,
+    moveHand: moveHand,
+    startAngle: null,
+    centerX: null,
+    centerY: null
+  };
 }
 
 function ongoingTouchIndexById(idToFind) {
@@ -1100,13 +1184,39 @@ function handleStart(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
 
-  for (var i=0; i<touches.length; i++) { 
-     ongoingTouches.push(copyTouch(touches[i]));
-     if (isDescendant(faceElement, touches[i].target)) {
-      face.classed('animate', false);
-     } else {
+  // Get the center coordinates of the dial for circular drag calculations
+  const dialRect = dial.getBoundingClientRect();
+  const centerX = dialRect.left + dialRect.width / 2;
+  const centerY = dialRect.top + dialRect.height / 2;
+
+  for (var i=0; i<touches.length; i++) {
+    // Copy and process the touch
+    let touch = copyTouch(touches[i]);
+
+    // For drag mode, calculate and store the initial angle
+    if (dragMode) {
+      // Calculate the initial angle for circular dragging
+      const relX = touches[i].pageX - centerX;
+      const relY = touches[i].pageY - centerY;
+
+      // Calculate the initial angle in degrees
+      const initialAngle = Math.atan2(relY, relX) * 180 / Math.PI;
+
+      // Store the angle and center coordinates
+      touch.startAngle = initialAngle;
+      touch.centerX = centerX;
+      touch.centerY = centerY;
+    }
+
+    // Add the touch to ongoing touches
+    ongoingTouches.push(touch);
+
+    // Disable animations during touch movement
+    if (touch.moveHand) {
       hand.classed('animate', false);
-     }
+    } else {
+      face.classed('animate', false);
+    }
   }
 }
 
@@ -1128,34 +1238,77 @@ function handleEnd(evt) {
 function handleMove(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
+
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
 
     if (idx >= 0) {
       let ongoingTouch = ongoingTouches[idx];
+      let delta = 0;
 
-      let dY = touches[i].pageY - ongoingTouch.prevY;
-      let dX = touches[i].pageX - ongoingTouch.prevX;
-      let dXtotal = touches[i].pageX - ongoingTouch.startX;
-      
-      let speed = softplus(0.01 * dXtotal)
-      // Apply fine mode factor to touch movements as well
-      const fineFactor = isFineMode() || evt.shiftKey ? 20 : 1;
-      let delta = 0.5 * dY * speed / fineFactor;
-
-      ongoingTouch.prevY = touches[i].pageY;
-      ongoingTouch.prevX = touches[i].pageX;
-      ongoingTouch.speed = speed;
-
-      // Reset both history states when touch is used on either component
+      // Reset both history states when touch is used
       resetHistoryStates();
 
-      if (isDescendant(faceElement, ongoingTouch.target)) {
-        ongoingTouch.innerPosition += delta;
-        setFace(ongoingTouch.innerPosition);
+      // Handle movement differently based on mode
+      if (dragMode) {
+        // Circular drag mode - calculate the angle change
+        const currentX = touches[i].pageX;
+        const currentY = touches[i].pageY;
+
+        // Calculate the current angle relative to the center
+        const relX = currentX - ongoingTouch.centerX;
+        const relY = currentY - ongoingTouch.centerY;
+        const currentAngle = Math.atan2(relY, relX) * 180 / Math.PI;
+
+        // Calculate the angle change
+        if (ongoingTouch.prevX !== currentX || ongoingTouch.prevY !== currentY) {
+          const prevAngle = Math.atan2(
+            ongoingTouch.prevY - ongoingTouch.centerY,
+            ongoingTouch.prevX - ongoingTouch.centerX
+          ) * 180 / Math.PI;
+
+          // Calculate the angle difference
+          // For the needle, currentAngle - prevAngle works correctly (clockwise movement)
+          // For the face, we want the inner disk to follow the finger direction directly
+          if (ongoingTouch.moveHand) {
+            delta = currentAngle - prevAngle;
+          } else {
+            delta = currentAngle - prevAngle; // Same direction as needle for the inner disk
+          }
+
+          // Apply fine mode factor
+          const fineFactor = isFineMode() || evt.shiftKey ? 5 : 1;
+          delta = delta / fineFactor;
+        }
+
+        // Update previous positions
+        ongoingTouch.prevX = currentX;
+        ongoingTouch.prevY = currentY;
+
       } else {
+        // Original vertical scrub mode
+        let dY = touches[i].pageY - ongoingTouch.prevY;
+        let dX = touches[i].pageX - ongoingTouch.prevX;
+        let dXtotal = touches[i].pageX - ongoingTouch.startX;
+
+        let speed = softplus(0.01 * dXtotal);
+        // Apply fine mode factor
+        const fineFactor = isFineMode() || evt.shiftKey ? 20 : 1;
+        delta = 0.5 * dY * speed / fineFactor;
+
+        // Update previous positions
+        ongoingTouch.prevY = touches[i].pageY;
+        ongoingTouch.prevX = touches[i].pageX;
+        ongoingTouch.speed = speed;
+      }
+
+      // Move the appropriate component based on what we're dragging
+      if (ongoingTouch.moveHand) {
         ongoingTouch.handPosition += delta;
         setHand(ongoingTouch.handPosition);
+      } else {
+        ongoingTouch.innerPosition += delta;
+        setFace(ongoingTouch.innerPosition);
       }
     } else {
       console.log("Can't figure out which touch to continue.");
@@ -1171,12 +1324,16 @@ function handleEnd(evt) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
 
     if (idx >= 0) {
+      const touch = ongoingTouches[idx];
+      // Remove from active touches
       ongoingTouches.splice(idx, 1);
-       if (isDescendant(faceElement, touches[i].target)) {
-        face.classed('animate', true);
-       } else {
+
+      // Restore animation based on what was being moved
+      if (touch.moveHand) {
         hand.classed('animate', true);
-       }
+      } else {
+        face.classed('animate', true);
+      }
     } else {
       console.log("Can't figure out which touch to end.");
     }
@@ -1188,12 +1345,17 @@ function handleCancel(evt) {
 
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
-    ongoingTouches.splice(idx, 1);
-     if (isDescendant(faceElement, touches[i].target)) {
-      face.classed('animate', true);
-     } else {
-      hand.classed('animate', true);
-     }
+    if (idx >= 0) {
+      const touch = ongoingTouches[idx];
+      ongoingTouches.splice(idx, 1);
+
+      // Restore animation based on what was being moved
+      if (touch.moveHand) {
+        hand.classed('animate', true);
+      } else {
+        face.classed('animate', true);
+      }
+    }
   }
 }
 
@@ -1289,9 +1451,16 @@ dial.addEventListener("touchmove", handleMove, false);
 
 // Initialize UI elements when the page loads
 window.addEventListener("load", function() {
-  // Initialize fine mode button
+  // Initialize mode buttons
   fineToggleButton = document.getElementById('fineToggle');
-  updateFineModeVisual();
+  dragToggleButton = document.getElementById('dragToggle');
+  updateModesVisual();
+
+  // Initialize dial class based on drag mode state
+  const dialElement = document.getElementById('dial');
+  if (dialElement && dragMode) {
+    dialElement.classList.add('drag-mode');
+  }
 
   // Initialize scale selector to match the default scale
   const scaleSelect = document.getElementById('scaleSelect');
@@ -1300,7 +1469,6 @@ window.addEventListener("load", function() {
   }
 
   // Prevent text selection on the dial
-  const dialElement = document.getElementById('dial');
   if (dialElement) {
     dialElement.addEventListener('mousedown', function(e) {
       // Prevent default mousedown behavior which includes text selection
