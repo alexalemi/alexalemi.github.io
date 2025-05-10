@@ -86,6 +86,12 @@ body {
   box-shadow: 0 2px 4px var(--shadow);
   padding: 5px;
   margin-bottom: 15px;
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
 }
 
 .extra { 
@@ -365,6 +371,11 @@ svg {
   font-weight: 100;
   font-style: italic;
   fill: var(--charcoal);
+  /* Prevent text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .minor-label {
