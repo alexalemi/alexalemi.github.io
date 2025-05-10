@@ -1,9 +1,52 @@
 
 const powerMeter = document.getElementById("power");
 
+// Fine mode state variables
+var fineMode = false;
+var shiftKeyPressed = false;
+var fineToggleButton = null;
+
 function addPower(increment) {
   powerMeter.valueAsNumber = powerMeter.valueAsNumber + increment
 }
+
+// Function to toggle fine mode
+function toggleFineMode() {
+  fineMode = !fineMode;
+  updateFineModeVisual();
+}
+
+// Update fine mode button visual state
+function updateFineModeVisual() {
+  if (!fineToggleButton) {
+    fineToggleButton = document.getElementById('fineToggle');
+  }
+
+  if (fineToggleButton) {
+    if (fineMode || shiftKeyPressed) {
+      fineToggleButton.classList.add('active');
+      fineToggleButton.textContent = 'Precision Mode';
+    } else {
+      fineToggleButton.classList.remove('active');
+      fineToggleButton.textContent = 'Fine Mode';
+    }
+  }
+}
+
+// Handle shift key press and release
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Shift' && !shiftKeyPressed) {
+    shiftKeyPressed = true;
+    updateFineModeVisual();
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.key === 'Shift' && shiftKeyPressed) {
+    shiftKeyPressed = false;
+    updateFineModeVisual();
+  }
+});
 
 const radians = 2 * Math.PI / 360;
   margin = 50,
@@ -353,8 +396,15 @@ function isDescendant(parent, child) {
      return false;
 }
 
+function isFineMode() {
+  // Return true if either shift is pressed or fine mode is toggled on
+  return shiftKeyPressed || fineMode;
+}
+
 function wheelDistance(evt) {
-  return evt.deltaY / 10 / (evt.shiftKey ? 20 : 1);
+  // Use fine mode scaling (1/20) if fine mode or shift key is active
+  const fineFactor = isFineMode() ? 20 : 1;
+  return evt.deltaY / 10 / fineFactor;
 }
 
 function softplus(x) {
@@ -362,7 +412,9 @@ function softplus(x) {
 }
 
 function touchDistance(dX, dY, shiftKey) {
-  return 0.5 * dY * softplus(0.01 * dX) / (shiftKey ? 20 : 1);
+  // Use fine mode scaling (1/20) if fine mode is active or shift key is pressed
+  const fineFactor = isFineMode() || shiftKey ? 20 : 1;
+  return 0.5 * dY * softplus(0.01 * dX) / fineFactor;
 }
 
 Number.prototype.mod = function(n) {
@@ -520,7 +572,9 @@ function handleMove(evt) {
       let dXtotal = touches[i].pageX - ongoingTouch.startX;
       
       let speed = softplus(0.01 * dXtotal)
-      let delta = 0.5 * dY * speed / (evt.shiftKey ? 20 : 1);
+      // Apply fine mode factor to touch movements as well
+      const fineFactor = isFineMode() || evt.shiftKey ? 20 : 1;
+      let delta = 0.5 * dY * speed / fineFactor;
 
       ongoingTouch.prevY = touches[i].pageY;
       ongoingTouch.prevX = touches[i].pageX;
@@ -646,3 +700,9 @@ dial.addEventListener("touchstart", handleStart, false);
 dial.addEventListener("touchend", handleEnd, false);
 dial.addEventListener("touchcancel", handleCancel, false);
 dial.addEventListener("touchmove", handleMove, false);
+
+// Initialize fine toggle button when page loads
+window.addEventListener("load", function() {
+  fineToggleButton = document.getElementById('fineToggle');
+  updateFineModeVisual();
+});
