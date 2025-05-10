@@ -29,10 +29,16 @@
       <div class="container extra">
         <div class="section info">
           <div class="reading-group">
-            <div class="reading" id="handReading">1.000</div>
+            <div class="reading-container">
+              <div class="reading-label">Outer</div>
+              <div class="reading" id="handReading">1.000</div>
+            </div>
             <button id="setHand" onClick="simulateHandClick();">Set Hand</button>
             <button id="setFace" onClick="simulateFaceClick();">Set Face</button>
-            <div class="reading" id="faceReading">1.000</div>
+            <div class="reading-container">
+              <div class="reading-label">Inner</div>
+              <div class="reading" id="faceReading">1.000</div>
+            </div>
           </div>
         </div>
 
