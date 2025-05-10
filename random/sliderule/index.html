@@ -28,22 +28,28 @@
 
       <div class="container extra">
         <div class="section info">
-          <div class="reading" id="handReading">1.000</div>
-          <button id="setHand" onClick="saveHandPosition(handPosition); resetHand(); centerClickState = 1; updateHandHistoryMarker();">Set Hand</button>
-          <button id="setFace" onClick="saveFacePosition(innerPosition); resetFace(); outerClickState = (outerClickState === 0) ? 1 : 2; updateFaceHistoryMarker();">Set Face</button>
-          <div class="reading" id="faceReading">1.000</div>
+          <div class="reading-group">
+            <div class="reading" id="handReading">1.000</div>
+            <button id="setHand" onClick="saveHandPosition(handPosition); resetHand(); centerClickState = 1; updateHandHistoryMarker();">Set Hand</button>
+            <button id="setFace" onClick="saveFacePosition(innerPosition); resetFace(); outerClickState = (outerClickState === 0) ? 1 : 2; updateFaceHistoryMarker();">Set Face</button>
+            <div class="reading" id="faceReading">1.000</div>
+          </div>
         </div>
 
         <div class="section controls">
-          <button id="fineToggle" class="fine-toggle" onClick="toggleFineMode();">Fine Mode</button>
+          <div class="control-group">
+            <button id="fineToggle" class="fine-toggle" onClick="toggleFineMode();">Fine Mode</button>
+          </div>
         </div>
 
         <div class="section powers">
-          <button class="power" id="minusFive" onClick="addPower(-5);">-5</button>
-          <button class="power" id="minusOne" onClick="addPower(-1);">-1</button>
-          <input type="number" id="power" class="reading" name="power" step=1 value=0>
-          <button class="power" id="plusOne" onClick="addPower(+1);">+1</button>
-          <button class="power" id="plusFive" onClick="addPower(+5);">+5</button>
+          <div class="power-group">
+            <button class="power" id="minusFive" onClick="addPower(-5);">-5</button>
+            <button class="power" id="minusOne" onClick="addPower(-1);">-1</button>
+            <input type="number" id="power" class="reading" name="power" step=1 value=0>
+            <button class="power" id="plusOne" onClick="addPower(+1);">+1</button>
+            <button class="power" id="plusFive" onClick="addPower(+5);">+5</button>
+          </div>
         </div>
 
         <div class="section text">
