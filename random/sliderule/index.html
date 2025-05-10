@@ -30,8 +30,8 @@
         <div class="section info">
           <div class="reading-group">
             <div class="reading" id="handReading">1.000</div>
-            <button id="setHand" onClick="saveHandPosition(handPosition); resetHand(); centerClickState = 1; updateHandHistoryMarker();">Set Hand</button>
-            <button id="setFace" onClick="saveFacePosition(innerPosition); resetFace(); outerClickState = (outerClickState === 0) ? 1 : 2; updateFaceHistoryMarker();">Set Face</button>
+            <button id="setHand" onClick="simulateHandClick();">Set Hand</button>
+            <button id="setFace" onClick="simulateFaceClick();">Set Face</button>
             <div class="reading" id="faceReading">1.000</div>
           </div>
         </div>

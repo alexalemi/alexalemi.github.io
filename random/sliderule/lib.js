@@ -631,13 +631,12 @@ function handleCancel(evt) {
 }
 
 
+// Original simple reset functions
 function resetHand() {
-  // Original functionality (reset to align with inner dial's 1 mark)
   setHand(innerPosition);
 }
 
 function resetFace() {
-  // Original toggling behavior between needle alignment and index
   if ((innerPosition - handPosition).mod(360) === 0) {
     setFace(0);
   } else {
@@ -645,61 +644,81 @@ function resetFace() {
   }
 }
 
-function reset(evt) {
-  evt.preventDefault();
-
-  if (isDescendant(faceElement, evt.target)) {
-    // Center circle click - toggle between reset and previous
-    if (centerClickState === 0) {
-      // Save current position before resetting
-      saveHandPosition(handPosition);
-      resetHand(); // Reset to align with dial's 1 mark
-      centerClickState = 1;
-      updateHandHistoryMarker(); // Show the history marker
-    } else {
-      // Restore previous position
-      if (handPositionHistory.length > 0) {
-        setHand(handPositionHistory[0]); // Use most recent saved position
-      }
-      centerClickState = 0;
-      updateHandHistoryMarker(); // Hide the history marker
-    }
+// Functions that simulate direct clicks with history preservation
+function simulateHandClick() {
+  // Exactly mimic what happens in reset() for center clicks
+  if (centerClickState === 0) {
+    // Save current position before resetting
+    saveHandPosition(handPosition);
+    resetHand(); // Reset to align with dial's 1 mark
+    centerClickState = 1;
+    updateHandHistoryMarker(); // Show the history marker
   } else {
-    // Outer area click - cycle through three states
-    switch (outerClickState) {
-      case 0:
-        // Save current position before resetting
-        saveFacePosition(innerPosition);
-        // Reset to align with needle
-        setFace(handPosition);
-        outerClickState = 1;
-        updateFaceHistoryMarker(); // Show the history marker
-        break;
-
-      case 1:
-        // Align with outer index (0 position)
-        setFace(0);
-        outerClickState = 2;
-        updateFaceHistoryMarker(); // Update the history marker
-        break;
-
-      case 2:
-        // Restore previous position
-        if (facePositionHistory.length > 0) {
-          setFace(facePositionHistory[0]); // Use most recent saved position
-        }
-        outerClickState = 0;
-        updateFaceHistoryMarker(); // Hide the history marker
-        break;
+    // Restore previous position
+    if (handPositionHistory.length > 0) {
+      setHand(handPositionHistory[0]); // Use most recent saved position
     }
+    centerClickState = 0;
+    updateHandHistoryMarker(); // Hide the history marker
   }
 }
 
+function simulateFaceClick() {
+  // Exactly mimic what happens in reset() for outer clicks
+  switch (outerClickState) {
+    case 0:
+      // Save current position before resetting
+      saveFacePosition(innerPosition);
+      // Reset to align with needle
+      setFace(handPosition);
+      outerClickState = 1;
+      updateFaceHistoryMarker(); // Show the history marker
+      break;
+
+    case 1:
+      // Align with outer index (0 position)
+      setFace(0);
+      outerClickState = 2;
+      updateFaceHistoryMarker(); // Update the history marker
+      break;
+
+    case 2:
+      // Restore previous position
+      if (facePositionHistory.length > 0) {
+        setFace(facePositionHistory[0]); // Use most recent saved position
+      }
+      outerClickState = 0;
+      updateFaceHistoryMarker(); // Hide the history marker
+      break;
+  }
+}
+
+function reset(evt) {
+  evt.preventDefault();
+
+  // Don't process clicks on buttons or their children
+  if (evt.target.tagName === 'BUTTON' || evt.target.closest('button')) {
+    return;
+  }
+
+  // Reuse our simulation functions for consistency
+  if (isDescendant(faceElement, evt.target)) {
+    // Center circle click
+    simulateHandClick();
+  } else {
+    // Outer area click
+    simulateFaceClick();
+  }
+}
+
+// Add main event listeners
 dial.addEventListener("click", reset, false);
 dial.addEventListener("touchstart", handleStart, false);
 dial.addEventListener("touchend", handleEnd, false);
 dial.addEventListener("touchcancel", handleCancel, false);
 dial.addEventListener("touchmove", handleMove, false);
+
+// No extra button listeners needed
 
 // Initialize fine toggle button when page loads
 window.addEventListener("load", function() {
