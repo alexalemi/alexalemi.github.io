@@ -591,21 +591,17 @@ svg {
 }
 
 /* Indicator style for drag mode */
-.drag-mode .hand {
-  stroke-width: 2;
-  filter: drop-shadow(0px 0px 2px var(--red));
-}
+/* Keep the needle looking the same as in scrub mode */
 
+/* Make the overlay slightly larger but without glow */
 .drag-mode .hand-overlay {
-  r: 7;
-  filter: drop-shadow(0px 0px 3px var(--red));
+  r: 6;
 }
 
-/* Additional visual cue for drag mode - highlight the outer ring */
+/* Visual cue for drag mode - subtle change to the edge */
 .drag-mode .edge {
   stroke-dasharray: none;
-  stroke-width: 2;
-  filter: drop-shadow(0px 0px 2px var(--shadow));
+  stroke-width: 1.5;
 }
 
 .hand-back {
