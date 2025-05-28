@@ -12,6 +12,9 @@ const STORAGE_KEYS = {
   POWER: STORAGE_KEY_PREFIX + 'power'
 };
 
+const keyMove = 10.0;
+const shiftKeyMove = 0.1 * keyMove;
+
 // Mode state variables (with localStorage loading)
 var fineMode = loadFromStorage(STORAGE_KEYS.FINE_MODE, false);
 var dragMode = loadFromStorage(STORAGE_KEYS.DRAG_MODE, false);
@@ -128,6 +131,17 @@ function changeScale(scaleKey) {
     const savedHandPosition = handPosition;
     const savedInnerPosition = innerPosition;
 
+    // Reset click states to avoid issues with history marker positions
+    centerClickState = 0;
+    outerClickState = 0;
+
+    // Clear position histories to prevent issues after scale change
+    // but first save the current positions if we need them later
+    const savedHandHistory = [...handPositionHistory];
+    const savedFaceHistory = [...facePositionHistory];
+    handPositionHistory = [];
+    facePositionHistory = [];
+
     // Only update the outer scale, inner stays as C/D
     outerScale = scales[scaleKey];
     currentScale = outerScale; // For backward compatibility
@@ -146,8 +160,23 @@ function changeScale(scaleKey) {
         setHand(savedHandPosition);
         setFace(savedInnerPosition);
 
-        // Update readings
+        // Force reset the click states to ensure consistent behavior
+        centerClickState = 0;
+        outerClickState = 0;
+
+        // Start with fresh history after scale change
+        // (prevents unexpected behavior when changing scales)
+        handPositionHistory = [];
+        facePositionHistory = [];
+
+        // Save the current positions as history entries
+        saveHandPosition(savedHandPosition);
+        saveFacePosition(savedInnerPosition);
+
+        // Update readings and hide any history markers
         updateReadings();
+        updateHandHistoryMarker();
+        updateFaceHistoryMarker();
 
         // Re-establish event listeners for the new elements
         const dialElement = document.getElementById('dial');
@@ -219,6 +248,21 @@ document.addEventListener('keydown', function(event) {
     shiftKeyPressed = true;
     updateModesVisual();
   }
+	if (event.key === 'w') {
+		setFace(innerPosition + (isFineMode() ? shiftKeyMove : keyMove));
+  }
+	if (event.key === 's') {
+		setFace(innerPosition - (isFineMode() ? shiftKeyMove : keyMove));
+	}
+	if (event.key === 'a') {
+		setHand(handPosition - (isFineMode() ? shiftKeyMove : keyMove));
+  }
+	if (event.key === 'd') {
+		setHand(handPosition + (isFineMode() ? shiftKeyMove : keyMove));
+	}
+	if (event.key === 'r') {
+		toggleFineMode()
+	}
 });
 
 document.addEventListener('keyup', function(event) {
@@ -1430,23 +1474,25 @@ function resetHand() {
 
 function resetFace() {
   if ((innerPosition - handPosition).mod(360) === 0) {
+    // If already aligned with hand, align with origin (0)
     setFace(0);
   } else {
+    // Otherwise align with hand
     setFace(handPosition);
   }
 }
 
 // Functions that simulate direct clicks with history preservation
 function simulateHandClick() {
-  // Exactly mimic what happens in reset() for center clicks
+  // Simplified toggle: either align with inner dial or restore previous position
   if (centerClickState === 0) {
-    // Save current position before resetting
+    // First click: save current position and align with inner dial
     saveHandPosition(handPosition);
     resetHand(); // Reset to align with dial's 1 mark
     centerClickState = 1;
     updateHandHistoryMarker(); // Show the history marker
   } else {
-    // Restore previous position
+    // Second click: restore saved position
     if (handPositionHistory.length > 0) {
       setHand(handPositionHistory[0]); // Use most recent saved position
     }
@@ -1456,33 +1502,42 @@ function simulateHandClick() {
 }
 
 function simulateFaceClick() {
-  // Exactly mimic what happens in reset() for outer clicks
+  // Completely rewritten to guarantee access to the origin position
+  // We'll use a simple 3-state cycle with guaranteed positions
+
+  // First, decide what to do based on current state
   switch (outerClickState) {
-    case 0:
-      // Save current position before resetting
+    case 0: // First click - align with needle
+      console.log("Face click state 0->1: Aligning with needle");
+      // Save current position before changing
       saveFacePosition(innerPosition);
-      // Reset to align with needle
+      // Align with needle
       setFace(handPosition);
       outerClickState = 1;
-      updateFaceHistoryMarker(); // Show the history marker
       break;
 
-    case 1:
-      // Align with outer index (0 position)
+    case 1: // Second click - align with origin (0°)
+      console.log("Face click state 1->2: Setting to origin (0°)");
+      // Set to exact 0 position (12 o'clock)
       setFace(0);
       outerClickState = 2;
-      updateFaceHistoryMarker(); // Update the history marker
       break;
 
-    case 2:
-      // Restore previous position
+    case 2: // Third click - restore saved position
+      console.log("Face click state 2->0: Restoring saved position");
+      // Restore previous position if available
       if (facePositionHistory.length > 0) {
-        setFace(facePositionHistory[0]); // Use most recent saved position
+        setFace(facePositionHistory[0]);
+      } else {
+        // Fallback if history is unavailable
+        setFace(0);
       }
       outerClickState = 0;
-      updateFaceHistoryMarker(); // Hide the history marker
       break;
   }
+
+  // Always update the history marker
+  updateFaceHistoryMarker();
 }
 
 function reset(evt) {
@@ -1493,12 +1548,12 @@ function reset(evt) {
     return;
   }
 
-  // Reuse our simulation functions for consistency
+  // Use the same functions as the buttons for consistency
   if (isDescendant(faceElement, evt.target)) {
-    // Center circle click
+    // Center circle click - handle needle position
     simulateHandClick();
   } else {
-    // Outer area click
+    // Outer area click - handle face position
     simulateFaceClick();
   }
 }

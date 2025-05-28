@@ -215,26 +215,10 @@ button.fine-toggle, button.drag-toggle {
   min-width: 120px;
 }
 
-button.fine-toggle::before, button.drag-toggle::before {
-  content: "⋯";
-  position: absolute;
-  right: 10px;
-  font-size: 10px;
-  color: var(--grey);
-  opacity: 0.8;
-}
-
 button.fine-toggle.active, button.drag-toggle.active {
   background-color: var(--light-grey);
   border-color: var(--red);
   color: var(--charcoal);
-}
-
-button.fine-toggle.active::before, button.drag-toggle.active::before {
-  content: "•";
-  font-size: 16px;
-  color: var(--red);
-  opacity: 1;
 }
 
 /* Scale selector styling */
