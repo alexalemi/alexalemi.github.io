@@ -932,15 +932,6 @@ function setHand(value) {
 	hand?.attr('transform', 'rotate(' + value + ')');
 }
 
-function optimalMove(frm, to) {
-  let diff = to.mod(360) - frm.mod(360);
-  if (Math.abs(diff) < 360/2.0) {
-    return frm + diff;
-  } else {
-    return frm - Math.sign(diff) * (360 - Math.abs(diff));
-  }
-}
-
 function expDecay(a, b, dt) {
 	b = optimalMove(a, b)
 	return b + (a - b) * Math.exp(-decay * dt);

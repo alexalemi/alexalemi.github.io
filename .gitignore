@@ -60,3 +60,5 @@ target/
 
 .venv
 poetry.lock
+
+**/.claude/settings.local.json
