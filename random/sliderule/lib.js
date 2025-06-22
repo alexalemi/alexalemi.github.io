@@ -1,264 +1,118 @@
 
-const powerMeter = document.getElementById("power");
 
 // Persistence keys
-const STORAGE_KEY_PREFIX = 'sliderule_';
-const STORAGE_KEYS = {
-  FINE_MODE: STORAGE_KEY_PREFIX + 'fine_mode',
-  DRAG_MODE: STORAGE_KEY_PREFIX + 'drag_mode',
-  SCALE: STORAGE_KEY_PREFIX + 'scale',
-  HAND_POSITION: STORAGE_KEY_PREFIX + 'hand_position',
-  INNER_POSITION: STORAGE_KEY_PREFIX + 'inner_position',
-  POWER: STORAGE_KEY_PREFIX + 'power'
-};
+const STORAGE_KEY = 'sliderule_VsgJQN';
+const KEY_MOVE = 10.0;
+const SHIFT_KEY_MOVE = 0.1 * KEY_MOVE;
 
-const keyMove = 10.0;
-const shiftKeyMove = 0.1 * keyMove;
+/* Let's try to structure this program in a Elm like way,
+	* we'll have the central state, and then write
+	* logic for how to update and render that state.
+	*/
 
-// Mode state variables (with localStorage loading)
-var fineMode = loadFromStorage(STORAGE_KEYS.FINE_MODE, false);
-var dragMode = loadFromStorage(STORAGE_KEYS.DRAG_MODE, false);
-var shiftKeyPressed = false;
-var fineToggleButton = null;
-var dragToggleButton = null;
+/* For our clicking to reset, we want a little state machine type thing.
+	* When we click on the outside, or hit the set face button, we want it
+	* to alternate between (1) The needle, (2) the origin and (3) its last set
+	* position.
+	*
+	* Meanwhile for the needle, we want it to alternate between (1) the index
+	* and (2) its last known position.
+	*/
+
+const DefaultState = {
+	fineMode: false,  // Whether we have fine movements
+	dragMode: false,  // Whether we have drag or scrub mode
+	shiftKeyPressed: false, // Whether shift key is currently pressed
+	power: 0,		// State of power meter
+	scale: "C/D", // Current outer scale
+	innerPosition: 0.0, // Current inner dial position
+	needlePosition: 0.0, // Current needle position
+	prevInnerPosition: 0.0, // Stores last set inner position.
+	prevNeedlePosition: 0.0, // Stores the last needle position.
+	innerClickState: 0, // The click state 0: default -> 1: needle -> 2: origin
+	needleClickState: 0, // Sets the needle click state. 0: default -> 1: origin
+	needleCurrent: 0.0,
+	innerCurrent: 0.0,
+	lastUpdated: Date.now(),
+}
+
+var fineToggleButton;
+var dragToggleButton;
+var powerMeter;
+var dialElement;
+var faceElement;
 
 // Function to load values from localStorage with default fallback
-function loadFromStorage(key, defaultValue) {
-  try {
-    const storedValue = localStorage.getItem(key);
-    if (storedValue === null) return defaultValue;
-
-    // Parse the stored value based on type
-    if (typeof defaultValue === 'boolean') {
-      return storedValue === 'true';
-    } else if (typeof defaultValue === 'number') {
-      return parseFloat(storedValue);
-    } else {
-      return storedValue;
-    }
-  } catch (e) {
+function loadFromStorage() {
+	try {
+		const storedValue = JSON.parse(localStorage.getItem(STORAGE_KEY));
+		return {...DefaultState, ...storedValue};
+	} catch (e) {
     console.warn('Failed to load from localStorage:', e);
-    return defaultValue;
+    return {...DefaultState};
   }
 }
 
+const state = loadFromStorage();
+const keysToKeep = ['fineMode', 'dragMode', 'power', 'scale'];
+
 // Function to save values to localStorage
-function saveToStorage(key, value) {
+function saveToStorage() {
   try {
-    localStorage.setItem(key, value.toString());
+		const toSave = Object.fromEntries(Object.entries(state).filter(([key]) => keysToKeep.includes(key)));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
   } catch (e) {
     console.warn('Failed to save to localStorage:', e);
   }
 }
 
-function addPower(increment) {
-  powerMeter.valueAsNumber = powerMeter.valueAsNumber + increment;
-
-  // Save the power value
-  saveToStorage(STORAGE_KEYS.POWER, powerMeter.valueAsNumber);
+function addPower(increment = 1) {
+	state.power += increment;
+	saveToStorage()
 }
 
 // Function to toggle fine mode
 function toggleFineMode() {
-  fineMode = !fineMode;
-  updateModesVisual();
-
-  // Save the preference
-  saveToStorage(STORAGE_KEYS.FINE_MODE, fineMode);
+	state.fineMode = !state.fineMode;
+	saveToStorage();
 }
 
 // Function to toggle drag mode
 function toggleDragMode() {
-  dragMode = !dragMode;
-  updateModesVisual();
-
-  // Add or remove drag-mode class to the dial for visual feedback
-  const dialElement = document.getElementById('dial');
-  if (dialElement) {
-    if (dragMode) {
-      dialElement.classList.add('drag-mode');
-    } else {
-      dialElement.classList.remove('drag-mode');
-    }
-  }
-
-  // Save the preference
-  saveToStorage(STORAGE_KEYS.DRAG_MODE, dragMode);
+  state.dragMode = !state.dragMode;
+	saveToStorage();
 }
 
-// Update mode buttons visual state
-function updateModesVisual() {
-  // Fine mode button
-  if (!fineToggleButton) {
-    fineToggleButton = document.getElementById('fineToggle');
-  }
 
-  if (fineToggleButton) {
-    if (fineMode || shiftKeyPressed) {
-      fineToggleButton.classList.add('active');
-      fineToggleButton.textContent = 'Precision Mode';
-    } else {
-      fineToggleButton.classList.remove('active');
-      fineToggleButton.textContent = 'Fine Mode';
-    }
-  }
 
-  // Drag mode button
-  if (!dragToggleButton) {
-    dragToggleButton = document.getElementById('dragToggle');
-  }
 
-  if (dragToggleButton) {
-    if (dragMode) {
-      dragToggleButton.classList.add('active');
-      dragToggleButton.textContent = 'Drag Mode';
-    } else {
-      dragToggleButton.classList.remove('active');
-      dragToggleButton.textContent = 'Scrub Mode';
-    }
-  }
+function incrementFace(amount = 1.0) {
+	state.innerPosition += amount * (state.fineMode ? SHIFT_KEY_MOVE : KEY_MOVE)
+	state.innerClickState = 0;
 }
 
-// Function to change the active scale
-function changeScale(scaleKey) {
-  try {
-    if (!scales[scaleKey]) {
-      console.error(`Scale ${scaleKey} not found`);
-      return;
-    }
-
-    // Save current hand and inner positions to preserve them
-    const savedHandPosition = handPosition;
-    const savedInnerPosition = innerPosition;
-
-    // Reset click states to avoid issues with history marker positions
-    centerClickState = 0;
-    outerClickState = 0;
-
-    // Clear position histories to prevent issues after scale change
-    // but first save the current positions if we need them later
-    const savedHandHistory = [...handPositionHistory];
-    const savedFaceHistory = [...facePositionHistory];
-    handPositionHistory = [];
-    facePositionHistory = [];
-
-    // Only update the outer scale, inner stays as C/D
-    outerScale = scales[scaleKey];
-    currentScale = outerScale; // For backward compatibility
-    innerScaleDefault = scales["C/D"]; // Always keep inner as C/D
-
-    // Save scale preference
-    saveToStorage(STORAGE_KEYS.SCALE, scaleKey);
-
-    // Redraw the slide rule with the new scale
-    redrawSlideRule();
-
-    // Add a slight delay to ensure the DOM has been updated
-    setTimeout(() => {
-      try {
-        // Restore hand and inner dial positions to maintain their state
-        setHand(savedHandPosition);
-        setFace(savedInnerPosition);
-
-        // Force reset the click states to ensure consistent behavior
-        centerClickState = 0;
-        outerClickState = 0;
-
-        // Start with fresh history after scale change
-        // (prevents unexpected behavior when changing scales)
-        handPositionHistory = [];
-        facePositionHistory = [];
-
-        // Save the current positions as history entries
-        saveHandPosition(savedHandPosition);
-        saveFacePosition(savedInnerPosition);
-
-        // Update readings and hide any history markers
-        updateReadings();
-        updateHandHistoryMarker();
-        updateFaceHistoryMarker();
-
-        // Re-establish event listeners for the new elements
-        const dialElement = document.getElementById('dial');
-        if (dialElement) {
-          dialElement.onwheel = (evt) => {
-            evt.preventDefault();
-            resetHistoryStates();
-            if (isDescendant(faceElement, evt.target)) {
-              setFace(innerPosition + wheelDistance(evt));
-            } else {
-              setHand(handPosition + wheelDistance(evt));
-            }
-          };
-        }
-      } catch (e) {
-        console.error("Error in restoring positions after scale change:", e);
-      }
-    }, 10);
-  } catch (e) {
-    console.error("Error in changeScale:", e);
-  }
-}
-
-// Function to update readings based on current positions and scale
-function updateReadings() {
-  // Calculate outer reading based on the outer scale
-  // For outer reading, use only handPosition as the outer ring's 0 is fixed at the top
-  const outerAngle = handPosition.mod(360);
-  const outerValue = outerScale.valueFunction(outerAngle);
-
-  // Calculate inner reading based on inner scale (always C/D)
-  // For inner reading, use the relative position between hand and inner
-  const innerAngle = (handPosition - innerPosition).mod(360);
-  const innerValue = innerScaleDefault.valueFunction(innerAngle);
-
-  // Apply power exponent to the reading value
-  const powerValue = Math.pow(10, powerMeter.valueAsNumber);
-
-  // Format values based on scale type
-  let formattedOuterValue;
-  let formattedInnerValue;
-
-  // Handle special formatting for different scales - for outer
-  if (outerScale.key === "S" || outerScale.key === "T") {
-    // Trig functions - use degrees with precision
-    formattedOuterValue = outerValue.toFixed(1);
-    // Don't apply power to angular values
-  } else if (outerScale.key === "L") {
-    // Logarithm - show more decimal places
-    formattedOuterValue = (outerValue * powerValue).toFixed(4);
-  } else {
-    // Standard numeric scales
-    formattedOuterValue = (outerValue * powerValue).toFixed(3);
-  }
-
-  // Inner always uses C/D formatting (standard numeric)
-  formattedInnerValue = (innerValue * powerValue).toFixed(3);
-
-  // Add readings to the appropriate labels (without units):
-  // faceReading = inner reading (between hand and dial)
-  // handReading = outer reading (hand position on outer scale)
-  faceReading.innerHTML = formattedInnerValue;  // Inner dial reading
-  handReading.innerHTML = formattedOuterValue;  // Outer ring reading
+function incrementNeedle(amount = 1.0) {
+	state.needlePosition += amount * (state.fineMode ? SHIFT_KEY_MOVE : KEY_MOVE)
+	state.needleClickState = 0;
 }
 
 // Handle shift key press and release
 document.addEventListener('keydown', function(event) {
-  if (event.key === 'Shift' && !shiftKeyPressed) {
-    shiftKeyPressed = true;
-    updateModesVisual();
+  if (event.key === 'Shift' && !state.shiftKeyPressed) {
+    state.shiftKeyPressed = true;
+		viewButtons();
   }
 	if (event.key === 'w') {
-		setFace(innerPosition + (isFineMode() ? shiftKeyMove : keyMove));
+		incrementFace(1.0);
   }
 	if (event.key === 's') {
-		setFace(innerPosition - (isFineMode() ? shiftKeyMove : keyMove));
+		incrementFace(-1.0);
 	}
 	if (event.key === 'a') {
-		setHand(handPosition - (isFineMode() ? shiftKeyMove : keyMove));
+		incrementNeedle(1.0);
   }
 	if (event.key === 'd') {
-		setHand(handPosition + (isFineMode() ? shiftKeyMove : keyMove));
+		incrementNeedle(-1.0);
 	}
 	if (event.key === 'r') {
 		toggleFineMode()
@@ -266,11 +120,24 @@ document.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('keyup', function(event) {
-  if (event.key === 'Shift' && shiftKeyPressed) {
-    shiftKeyPressed = false;
-    updateModesVisual();
+  if (event.key === 'Shift' && state.shiftKeyPressed) {
+    state.shiftKeyPressed = false;
+    viewButtons();
   }
 });
+
+// Function to calculate rotation angle for inner dial (always C/D scale)
+function rotateInner(d, offset) {
+  let angle = innerScaleDefault.tickFunction(d) + offset;
+  return 'rotate(' + angle + ')';
+}
+
+// Function to calculate rotation angle for inner dial (always C/D scale)
+function rotateOuter(d, offset) {
+	const scale = scales[state.scale];
+  let angle = scale.tickFunction(d) + offset;
+  return 'rotate(' + angle + ')';
+}
 
 const radians = 2 * Math.PI / 360;
   margin = 50,
@@ -299,7 +166,8 @@ const radians = 2 * Math.PI / 360;
   ringMajorTickLength = majorTickLength,
   // ringMajorLabelRadius = -ringMajorTickLength - 20,
   ringMajorLabelRadius = ringOriginLabelRadius,
-  ringMinorLabelRadius = radius + minorTickLength + 10;
+  ringMinorLabelRadius = radius + minorTickLength + 10,
+	decay = 0.03;
 
     
 
@@ -373,7 +241,6 @@ const scales = {
       },
       decimal: {
         values: [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9],
-        // format: (d) => Math.round((d - 1) * 10).toString() // Only show decimal part (1,2,3...)
         format: (d) => d.toString()
       },
       teens: {
@@ -396,7 +263,6 @@ const scales = {
       major: [10, 100, 1000],
 			half: d3.range(2, 10, 1).concat(d3.range(20, 100, 10)).concat(d3.range(200, 1000, 100)),
 			medium: [],
-      //medium: [1.5, 2.5, 3.5, 4.5, 5.5, 7, 9, 15, 25, 35, 45, 55, 70, 90, 150, 250, 350, 450, 550, 700, 900],
       minor: d3.range(1.1, 2, 0.1).concat(d3.range(11, 20, 1)).concat(d3.range(110, 200, 10))
 			  .concat(d3.range(2.2, 10, 0.2))
         .concat(d3.range(12, 100, 2))
@@ -543,7 +409,6 @@ const scales = {
       half: d3.range(2.5, 10.5, 1),
       medium: d3.range(1.1, 6.0, 0.1),
       minor: d3.range(1.020, 2.0, 0.020).concat(d3.range(2.05, 6.0, 0.05)).concat(d3.range(6.1, 10.0, 0.1)),
-      // tiny: d3.range(1.01, 2.0, 0.01).concat(d3.range(2.02, 5.0, 0.02)).concat(d3.range(5.05, 10.0, 0.05))
 			tiny: []
     },
     labelDensity: {
@@ -607,90 +472,7 @@ const scales = {
   }
 };
 
-// Load saved scale from localStorage or use default
-const savedScaleKey = loadFromStorage(STORAGE_KEYS.SCALE, "C/D");
-
-// Set default scales
-var currentScale = scales[savedScaleKey] || scales["C/D"]; // For backward compatibility
-var outerScale = scales[savedScaleKey] || scales["C/D"];   // Scale for the outer ring only
-var innerScaleDefault = scales["C/D"];   // Inner scale default, always remains C/D
-
-// Load saved positions or use defaults
-var innerPosition = loadFromStorage(STORAGE_KEYS.INNER_POSITION, 0.0);
-var handPosition = loadFromStorage(STORAGE_KEYS.HAND_POSITION, 0.0);
-
-// History stacks for positions
-var handPositionHistory = []; // History stack for needle positions
-var facePositionHistory = []; // History stack for dial positions
-var maxHistoryLength = 20;    // Maximum number of positions to remember
-
-// State tracking for clicks
-var centerClickState = 0;     // 0: normal, 1: reset to 1 mark
-var outerClickState = 0;      // 0: normal, 1: align with needle, 2: align with index
-
-// Function to calculate rotation angle for inner dial (always C/D scale)
-function rotateInner(d, offset) {
-  let angle = innerScaleDefault.tickFunction(d) + offset;
-  return 'rotate(' + angle + ')';
-}
-
-// Function to calculate rotation angle for outer ring (based on selected scale)
-function rotateOuter(d, offset) {
-  // For outer ring, always use 0 offset to keep "1" at the top
-  let angle = outerScale.tickFunction(d); // No offset for outer ring
-  return 'rotate(' + angle + ')';
-}
-
-// Original rotate function for backward compatibility
-function rotate(d, offset) {
-  let angle = currentScale.tickFunction(d) + offset;
-  return 'rotate(' + angle + ')';
-}
-
-// Function to redraw the slide rule with the current scale
-function redrawSlideRule() {
-  // First completely clear the SVG
-  d3.select("#dial svg").remove();
-
-  // Remove any existing elements in the dial
-  document.getElementById('dial').innerHTML = '';
-
-  // Redraw everything from scratch
-  var [newFace, newHand, newHandHistoryMarker, newFaceHistoryMarker] = drawClock();
-
-  // Update references
-  face = newFace;
-  hand = newHand;
-  handHistoryMarker = newHandHistoryMarker;
-  faceHistoryMarker = newFaceHistoryMarker;
-
-  // Update the faceElement reference
-  faceElement = document.getElementById('slide-face');
-
-  // Re-establish event listeners
-  const dialEl = document.getElementById('dial');
-  if (dialEl) {
-    dialEl.addEventListener("click", reset, false);
-    dialEl.addEventListener("touchstart", handleStart, false);
-    dialEl.addEventListener("touchend", handleEnd, false);
-    dialEl.addEventListener("touchcancel", handleCancel, false);
-    dialEl.addEventListener("touchmove", handleMove, false);
-
-    dialEl.onwheel = (evt) => {
-      evt.preventDefault();
-      resetHistoryStates();
-      if (isDescendant(faceElement, evt.target)) {
-        setFace(innerPosition + wheelDistance(evt));
-      } else {
-        setHand(handPosition + wheelDistance(evt));
-      }
-    };
-  }
-
-  // Restore positions
-  setFace(innerPosition);
-  setHand(handPosition);
-}
+const innerScaleDefault = scales["C/D"];   // Inner scale default, always remains C/D
 
 // Generic function to render labels for both inner and outer scales
 function renderLabels(selection, labelType, values, format, params) {
@@ -706,171 +488,8 @@ function renderLabels(selection, labelType, values, format, params) {
     .attr('transform', d => params.transformFn(d, params.offset));
 }
 
-function drawClock(){ //create all the clock elements
-  const smallerDim = Math.min(window.innerWidth, window.innerHeight);
 
-  var svg = d3.select("#dial").append("svg")
-    .attr('width', "100%")
-    .attr('height', "100%")
-    .attr("viewBox", `0 0 ${width} ${height}`)
-    .attr("preserveAspectRatio", "xMidYMid meet");
-
-  var rule = svg.append('g')
-    .attr('id','slide-outer')
-    .attr('transform','translate(' + (radius + margin) + ',' + (radius + margin) + ')')
-
-  var face = rule.append('g').attr('id', 'slide-face').attr('class', 'animate');
-  var ring = rule.append('g').attr('id', 'slide-ring').attr('class', 'animate');
-
-	face.append('g').attr('id','face-overlay')
-    .append('circle')
-    .attr('class', 'edge')
-    .attr('x', 0)
-    .attr('y', 0)
-    .attr('r', radius);
-
-  // FACE TICKS and LABELS (always use innerScaleDefault = C/D)
-  // Home Tick
-  face.selectAll('.origin-tick')
-    .data(innerScaleDefault.tickDensity.origin).enter()
-    .append('line')
-    .attr('class', 'tick origin-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius + originTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-
-  // Major Ticks
-  face.selectAll('.major-tick')
-    .data(innerScaleDefault.tickDensity.major).enter()
-    .append('line')
-    .attr('class', 'tick major-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius + majorTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // Render all label types for the inner dial using the labelDensity configurations
-  if (innerScaleDefault.labelDensity) {
-    // Origin labels
-    if (innerScaleDefault.labelDensity.origin) {
-      renderLabels(face, 'origin',
-        innerScaleDefault.labelDensity.origin.values,
-        innerScaleDefault.labelDensity.origin.format,
-        {
-          anchor: 'middle',
-          x: 0,
-          y: -innerOriginLabelRadius,
-          transformFn: rotateInner,
-          offset: innerPosition
-        }
-      );
-    }
-
-    // Major labels
-    if (innerScaleDefault.labelDensity.major) {
-      renderLabels(face, 'major',
-        innerScaleDefault.labelDensity.major.values,
-        innerScaleDefault.labelDensity.major.format,
-        {
-          anchor: 'middle',
-          x: 0,
-          y: -innerMajorLabelRadius,
-          transformFn: rotateInner,
-          offset: innerPosition
-        }
-      );
-    }
-
-    // Decimal labels (1.1-1.9)
-    if (innerScaleDefault.labelDensity.decimal) {
-      renderLabels(face, 'decimal-minor',  // Use a consistent class name with outer dial
-        innerScaleDefault.labelDensity.decimal.values,
-        innerScaleDefault.labelDensity.decimal.format,
-        {
-          anchor: 'middle',
-          x: 0,
-          y: -innerMinorLabelRadius,
-          transformFn: rotateInner,
-          offset: innerPosition
-        }
-      );
-    }
-
-  }
-
-  // Half Ticks
-  face.selectAll('.half-tick')
-    .data(innerScaleDefault.tickDensity.half).enter()
-    .append('line')
-    .attr('class', 'tick half-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius + halfTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // Medium Ticks
-  face.selectAll('.med-tick')
-    .data(innerScaleDefault.tickDensity.medium).enter()
-    .append('line')
-    .attr('class', 'tick medium-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius + mediumTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // Minor Ticks
-  face.selectAll('.minor-tick')
-    .data(innerScaleDefault.tickDensity.minor).enter()
-    .append('line')
-    .attr('class', 'tick minor-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius + minorTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // Tiny ticks
-  face.selectAll('.tiny-tick')
-    .data(innerScaleDefault.tickDensity.tiny).enter()
-    .append('line')
-    .attr('class', 'tick tiny-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius + tinyTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // Minor Labels are now handled by the labelDensity.decimal configuration
-
-  // Special ticks and labels
-  face.selectAll('.special-ticks')
-    .data(innerScaleDefault.specialMarks).enter()
-    .append('line')
-    .attr('class', 'tick special-tick')
-    .attr('x1', 0)
-    .attr('x2', 0)
-    .attr('y1', -radius + mediumTickLength + specialTickPad)
-    .attr('y2', -radius + mediumTickLength + specialTickLength)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // Special Labels
-  face.selectAll('.special-labels')
-    .data(innerScaleDefault.specialMarks).enter()
-    .append('text')
-    .attr('class', 'label special-label')
-    .attr('text-anchor','middle')
-    .text(function(d, i){ return innerScaleDefault.specialLabels[i]; })
-    .attr('x', 0)
-    .attr('y', -innerSpecialLabelRadius)
-    .attr('transform', d => rotateInner(d, innerPosition));
-
-  // OUTER RING
+function renderOuterRing(ring, outerScale) {
   // Home Tick
   ring.selectAll('.origin-tick')
     .data(outerScale.tickDensity.origin).enter()
@@ -1027,6 +646,175 @@ function drawClock(){ //create all the clock elements
     .attr('y1',-radius)
     .attr('y2',-radius - tinyTickLength)
     .attr('transform', d => rotateOuter(d, 0));
+}
+
+function drawClock(){ //create all the clock elements
+  const smallerDim = Math.min(window.innerWidth, window.innerHeight);
+	const outerScale = scales[state.scale];
+
+  var svg = d3.select("#dial").append("svg")
+    .attr('width', "100%")
+    .attr('height', "100%")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMidYMid meet");
+
+  var rule = svg.append('g')
+    .attr('id','slide-outer')
+    .attr('transform','translate(' + (radius + margin) + ',' + (radius + margin) + ')')
+
+  var face = rule.append('g').attr('id', 'slide-face') // .attr('class', 'animate');
+  var ring = rule.append('g').attr('id', 'slide-ring') // .attr('class', 'animate');
+
+	face.append('g').attr('id','face-overlay')
+    .append('circle')
+    .attr('class', 'edge')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('r', radius);
+
+  // FACE TICKS and LABELS (always use innerScaleDefault = C/D)
+  // Home Tick
+  face.selectAll('.origin-tick')
+    .data(innerScaleDefault.tickDensity.origin).enter()
+    .append('line')
+    .attr('class', 'tick origin-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + originTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+
+  // Major Ticks
+  face.selectAll('.major-tick')
+    .data(innerScaleDefault.tickDensity.major).enter()
+    .append('line')
+    .attr('class', 'tick major-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + majorTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // Render all label types for the inner dial using the labelDensity configurations
+  if (innerScaleDefault.labelDensity) {
+    // Origin labels
+    if (innerScaleDefault.labelDensity.origin) {
+      renderLabels(face, 'origin',
+        innerScaleDefault.labelDensity.origin.values,
+        innerScaleDefault.labelDensity.origin.format,
+        {
+          anchor: 'middle',
+          x: 0,
+          y: -innerOriginLabelRadius,
+          transformFn: rotateInner,
+          offset: state.innerPosition
+        }
+      );
+    }
+
+    // Major labels
+    if (innerScaleDefault.labelDensity.major) {
+      renderLabels(face, 'major',
+        innerScaleDefault.labelDensity.major.values,
+        innerScaleDefault.labelDensity.major.format,
+        {
+          anchor: 'middle',
+          x: 0,
+          y: -innerMajorLabelRadius,
+          transformFn: rotateInner,
+          offset: state.innerPosition
+        }
+      );
+    }
+
+    // Decimal labels (1.1-1.9)
+    if (innerScaleDefault.labelDensity.decimal) {
+      renderLabels(face, 'decimal-minor',  // Use a consistent class name with outer dial
+        innerScaleDefault.labelDensity.decimal.values,
+        innerScaleDefault.labelDensity.decimal.format,
+        {
+          anchor: 'middle',
+          x: 0,
+          y: -innerMinorLabelRadius,
+          transformFn: rotateInner,
+          offset: state.innerPosition
+        }
+      );
+    }
+
+  }
+
+  // Half Ticks
+  face.selectAll('.half-tick')
+    .data(innerScaleDefault.tickDensity.half).enter()
+    .append('line')
+    .attr('class', 'tick half-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + halfTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // Medium Ticks
+  face.selectAll('.med-tick')
+    .data(innerScaleDefault.tickDensity.medium).enter()
+    .append('line')
+    .attr('class', 'tick medium-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + mediumTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // Minor Ticks
+  face.selectAll('.minor-tick')
+    .data(innerScaleDefault.tickDensity.minor).enter()
+    .append('line')
+    .attr('class', 'tick minor-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + minorTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // Tiny ticks
+  face.selectAll('.tiny-tick')
+    .data(innerScaleDefault.tickDensity.tiny).enter()
+    .append('line')
+    .attr('class', 'tick tiny-tick')
+    .attr('x1',0)
+    .attr('x2',0)
+    .attr('y1',-radius)
+    .attr('y2',-radius + tinyTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // Minor Labels are now handled by the labelDensity.decimal configuration
+
+  // Special ticks and labels
+  face.selectAll('.special-ticks')
+    .data(innerScaleDefault.specialMarks).enter()
+    .append('line')
+    .attr('class', 'tick special-tick')
+    .attr('x1', 0)
+    .attr('x2', 0)
+    .attr('y1', -radius + mediumTickLength + specialTickPad)
+    .attr('y2', -radius + mediumTickLength + specialTickLength)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // Special Labels
+  face.selectAll('.special-labels')
+    .data(innerScaleDefault.specialMarks).enter()
+    .append('text')
+    .attr('class', 'label special-label')
+    .attr('text-anchor','middle')
+    .text(function(d, i){ return innerScaleDefault.specialLabels[i]; })
+    .attr('x', 0)
+    .attr('y', -innerSpecialLabelRadius)
+    .attr('transform', d => rotateInner(d, state.innerPosition));
+
+  // OUTER RING
+	renderOuterRing(ring, outerScale);
 
 
   // INDICATOR
@@ -1041,7 +829,7 @@ function drawClock(){ //create all the clock elements
 
 
   // HAND
-  var hand = rule.append('g').attr('id', 'hand').attr('class', 'animate')
+  var hand = rule.append('g').attr('id', 'hand') // .attr('class', 'animate')
 
   hand.append('line')
     .attr('class', 'hand')
@@ -1083,10 +871,183 @@ function drawClock(){ //create all the clock elements
     .attr('d', 'M-5,-' + (radius+20) + ' L0,-' + (radius+10) + ' L5,-' + (radius+20))
     .attr('class', 'history-chevron face-history-chevron');
 
-  return [face, hand, handHistoryMarker, faceHistoryMarker];
+  return [face, hand, ring, handHistoryMarker, faceHistoryMarker];
 }
 
-var [face, hand, handHistoryMarker, faceHistoryMarker] = drawClock();
+var [face, hand, ring, handHistoryMarker, faceHistoryMarker] = drawClock();
+
+function isFineMode() {
+  // Return true if either shift is pressed or fine mode is toggled on
+  return state.shiftKeyPressed || state.fineMode;
+}
+
+Number.prototype.mod = function(n) {
+    return ((this%n)+n)%n;
+};
+
+function optimalMove(frm, to) {
+  let diff = to.mod(360) - frm.mod(360);
+  if (Math.abs(diff) < 360/2.0) {
+    return frm + diff;
+  } else {
+    return frm - Math.sign(diff) * (360 - Math.abs(diff));
+  }
+}
+
+const faceReading = document.getElementById('faceReading');
+const handReading = document.getElementById('handReading');
+
+
+// Function to change the active scale
+function changeScale(scaleKey) {
+  try {
+    if (!scales[scaleKey]) {
+      console.error(`Scale ${scaleKey} not found`);
+      return;
+    }
+
+
+    // Only update the outer scale, inner stays as C/D
+		state.scale = scaleKey;
+    outerScale = scales[scaleKey];
+		ring.selectAll("*").remove();
+		renderOuterRing(ring, outerScale);
+		saveToStorage();
+
+  } catch (e) {
+    console.error("Error in changeScale:", e);
+  }
+}
+
+
+////////////////////////////////////////////
+// VIEW section
+// //////////////////////////////////////////
+
+function setFace(value) {
+	face?.attr('transform', 'rotate(' + value + ')');
+}
+
+function setHand(value) {
+	hand?.attr('transform', 'rotate(' + value + ')');
+}
+
+function optimalMove(frm, to) {
+  let diff = to.mod(360) - frm.mod(360);
+  if (Math.abs(diff) < 360/2.0) {
+    return frm + diff;
+  } else {
+    return frm - Math.sign(diff) * (360 - Math.abs(diff));
+  }
+}
+
+function expDecay(a, b, dt) {
+	b = optimalMove(a, b)
+	return b + (a - b) * Math.exp(-decay * dt);
+}
+
+
+function updateNeedle(elapsed) {
+	state.needlePosition = state.needlePosition.mod(360);
+	state.needleCurrent = expDecay(state.needleCurrent, state.needlePosition, elapsed);
+	setHand(state.needleCurrent);
+	state.needleCurrent = state.needleCurrent.mod(360)
+}
+
+function updateFace(elapsed) {
+	state.innerPosition = state.innerPosition.mod(360)
+	state.innerCurrent = expDecay(state.innerCurrent, state.innerPosition, elapsed);
+	setFace(state.innerCurrent);
+	state.innerCurrent = state.innerCurrent.mod(360)
+}
+
+
+// Update the view given a state
+function view() {
+	// Set the needle
+	const now = Date.now()
+	const elapsed = now - state.lastUpdated;
+
+	updateNeedle(elapsed)
+	updateFace(elapsed);
+	updateReadings();
+	viewButtons();
+	updateHandHistoryMarker();
+	updateFaceHistoryMarker();
+
+	if (powerMeter) {
+		powerMeter.valueAsNumber = state.power;
+	}
+	
+	state.lastUpdated = now
+}
+
+// The viewer for the buttons.
+function viewButtons() {
+  // Fine mode button
+	if (fineToggleButton) {
+		if (state.fineMode || state.shiftKeyPressed) {
+			fineToggleButton.classList.add('active');
+			fineToggleButton.textContent = 'Precise Mode';
+		} else {
+			fineToggleButton.classList.remove('active');
+			fineToggleButton.textContent = 'Fine Mode';
+		}
+	}
+
+	if (dragToggleButton) {
+		if (state.dragMode) {
+			dragToggleButton.classList.add('active');
+			dragToggleButton.textContent = 'Drag Mode';
+		} else {
+			dragToggleButton.classList.remove('active');
+			dragToggleButton.textContent = 'Scrub Mode';
+		}
+	}
+}
+
+function updateReadings() {
+  // Calculate outer reading based on the outer scale
+  // For outer reading, use only handPosition as the outer ring's 0 is fixed at the top
+  const outerAngle = state.needlePosition.mod(360);
+	const outerScale = scales[state.scale];
+  const outerValue = outerScale.valueFunction(outerAngle);
+
+  // Calculate inner reading based on inner scale (always C/D)
+  // For inner reading, use the relative position between hand and inner
+  const innerAngle = (state.needlePosition - state.innerPosition).mod(360);
+  const innerValue = innerScaleDefault.valueFunction(innerAngle);
+
+  // Apply power exponent to the reading value
+  // const powerValue = Math.pow(10, powerMeter.valueAsNumber);
+	const powerValue = 1.0;
+
+  // Format values based on scale type
+  let formattedOuterValue;
+  let formattedInnerValue;
+
+  // Handle special formatting for different scales - for outer
+  if (outerScale.key === "S" || outerScale.key === "T") {
+    // Trig functions - use degrees with precision
+    formattedOuterValue = outerValue.toFixed(1);
+    // Don't apply power to angular values
+  } else if (outerScale.key === "L") {
+    // Logarithm - show more decimal places
+    formattedOuterValue = (outerValue * powerValue).toFixed(4);
+  } else {
+    // Standard numeric scales
+    formattedOuterValue = (outerValue * powerValue).toFixed(3);
+  }
+
+  // Inner always uses C/D formatting (standard numeric)
+  formattedInnerValue = (innerValue * powerValue).toFixed(3);
+
+  // Add readings to the appropriate labels (without units):
+  // faceReading = inner reading (between hand and dial)
+  // handReading = outer reading (hand position on outer scale)
+  faceReading.innerHTML = formattedInnerValue;  // Inner dial reading
+  handReading.innerHTML = formattedOuterValue;  // Outer ring reading
+}
 
 function isDescendant(parent, child) {
      var node = child.parentNode;
@@ -1098,6 +1059,149 @@ function isDescendant(parent, child) {
      }
      return false;
 }
+
+function wheelDistance(evt) {
+  // Use fine mode scaling (1/20) if fine mode or shift key is active
+  const fineFactor = (state.fineMode || state.shiftKeyPressed) ? 20 : 1;
+  return evt.deltaY / 10 / fineFactor;
+}
+
+// Functions that simulate direct clicks with history preservation
+function simulateHandClick() {
+  // Simplified toggle: either align with inner dial or restore previous position
+  if (state.needleClickState === 0) {
+    // First click: save current position and align with inner dial
+		state.prevNeedlePosition = state.needlePosition;
+		state.needlePosition = 0;
+		state.needleClickState = 1;
+		updateHandHistoryMarker();
+  } else {
+    // Second click: restore saved position
+		state.needlePosition = state.prevNeedlePosition;
+		state.needleClickState = 0;
+    updateHandHistoryMarker(); // Hide the history marker
+  }
+}
+
+function simulateFaceClick() {
+  // Completely rewritten to guarantee access to the origin position
+  // We'll use a simple 3-state cycle with guaranteed positions
+
+  // First, decide what to do based on current state
+  switch (state.innerClickState) {
+    case 0: // First click - align with needle
+      // Save current position before changing
+			state.prevInnerPosition = state.innerPosition;
+			state.innerPosition = state.needlePosition;
+			state.innerClickState = 1;
+      break;
+
+    case 1: // Second click - align with origin (0°)
+			state.innerPosition = 0;
+			state.innerClickState = 2;
+      break;
+
+    case 2: // Third click - restore saved position
+			state.innerPosition = state.prevInnerPosition;
+			state.innerClickState = 0;
+  }
+
+  // Always update the history marker
+  updateFaceHistoryMarker();
+}
+
+// Functions to update history markers
+function updateHandHistoryMarker() {
+  if (state.needleClickState === 1 && state.prevNeedlePosition > 0) {
+    // Show and position the hand history marker
+    handHistoryMarker
+      .style('opacity', 0.5)
+      .attr('transform', 'rotate(' + state.prevNeedlePosition + ')');
+  } else {
+    // Hide the marker
+    handHistoryMarker.style('opacity', 0);
+  }
+}
+
+function updateFaceHistoryMarker() {
+  if (state.innerClickState > 0 && state.prevInnerPosition > 0) {
+    // Show and position the face history marker
+    faceHistoryMarker
+      .style('opacity', 0.5)
+      .attr('transform', 'rotate(' + state.prevInnerPosition + ')');
+  } else {
+    // Hide the marker
+    faceHistoryMarker.style('opacity', 0);
+  }
+}
+
+function reset(evt) {
+  evt.preventDefault();
+
+  // Don't process clicks on buttons or their children
+  if (evt.target.tagName === 'BUTTON' || evt.target.closest('button')) {
+    return;
+  }
+
+  // Use the same functions as the buttons for consistency
+  if (isDescendant(faceElement, evt.target)) {
+    // Center circle click - handle needle position
+    simulateHandClick();
+  } else {
+    // Outer area click - handle face position
+    simulateFaceClick();
+  }
+}
+
+
+// Initialize UI elements when the page loads
+window.addEventListener("load", function() {
+  // Initialize mode buttons
+  fineToggleButton = document.getElementById('fineToggle');
+  dragToggleButton = document.getElementById('dragToggle');
+	powerMeter = document.getElementById("power");
+	viewButtons();
+
+  // Initialize dial class based on drag mode state
+  dialElement = document.getElementById('dial');
+	faceElement = document.getElementById('slide-face');
+  if (dialElement) {
+    if (state.dragMode) {
+      dialElement.classList.add('drag-mode');
+    } else {
+      dialElement.classList.remove('drag-mode');
+    }
+  }
+
+	dial.onwheel = (evt) => {
+		evt.preventDefault();
+		if (isDescendant(faceElement, evt.target)) {
+			state.innerPosition += wheelDistance(evt);
+			state.innerClickState = 0;
+		} else {
+			state.needlePosition += wheelDistance(evt);
+			state.needleClickState = 0;
+		} 
+	};
+	// Add main event listeners
+	dial.addEventListener("click", reset, false);
+	dial.addEventListener("touchstart", handleStart, false);
+	dial.addEventListener("touchend", handleEnd, false);
+	dial.addEventListener("touchcancel", handleCancel, false);
+	dial.addEventListener("touchmove", handleMove, false);
+
+  // Initialize scale selector to match the saved or default scale
+  const scaleSelect = document.getElementById('scaleSelect');
+  if (scaleSelect) {
+    scaleSelect.value = scales[state.scale].key;
+  }
+});
+
+
+///////////////////////////////////
+// Touch
+// //////////////////////////////
+
 
 // Function to check if a point is near the needle
 function isNearNeedle(x, y) {
@@ -1123,131 +1227,22 @@ function isNearNeedle(x, y) {
   return distance > (dialPixelRadius * 0.7); // Outer 30% controls needle
 }
 
-function isFineMode() {
-  // Return true if either shift is pressed or fine mode is toggled on
-  return shiftKeyPressed || fineMode;
-}
-
-function wheelDistance(evt) {
-  // Use fine mode scaling (1/20) if fine mode or shift key is active
-  const fineFactor = isFineMode() ? 20 : 1;
-  return evt.deltaY / 10 / fineFactor;
-}
-
 function softplus(x) {
   return Math.log(1 + Math.exp(x))/Math.log(2)
 }
 
 function touchDistance(dX, dY, shiftKey) {
   // Use fine mode scaling (1/20) if fine mode is active or shift key is pressed
-  const fineFactor = isFineMode() || shiftKey ? 20 : 1;
+  const fineFactor = (state.fineMode || state.shiftKeyPressed) ? 20 : 1;
   return 0.5 * dY * softplus(0.01 * dX) / fineFactor;
 }
-
-Number.prototype.mod = function(n) {
-    return ((this%n)+n)%n;
-};
-
-function optimalMove(frm, to) {
-  let diff = to.mod(360) - frm.mod(360);
-  if (Math.abs(diff) < 360/2.0) {
-    return frm + diff;
-  } else {
-    return frm - Math.sign(diff) * (360 - Math.abs(diff));
-  }
-}
-
-const faceReading = document.getElementById('faceReading');
-const handReading = document.getElementById('handReading');
-
-// Functions to manage position history
-function saveHandPosition(position) {
-  handPositionHistory.unshift(position); // Add to start of array
-  if (handPositionHistory.length > maxHistoryLength) {
-    handPositionHistory.pop(); // Remove oldest item
-  }
-}
-
-function saveFacePosition(position) {
-  facePositionHistory.unshift(position); // Add to start of array
-  if (facePositionHistory.length > maxHistoryLength) {
-    facePositionHistory.pop(); // Remove oldest item
-  }
-}
-
-// Functions to update history markers
-function updateHandHistoryMarker() {
-  if (centerClickState === 1 && handPositionHistory.length > 0) {
-    // Show and position the hand history marker
-    handHistoryMarker
-      .style('opacity', 0.5)
-      .attr('transform', 'rotate(' + handPositionHistory[0] + ')');
-  } else {
-    // Hide the marker
-    handHistoryMarker.style('opacity', 0);
-  }
-}
-
-function updateFaceHistoryMarker() {
-  if (outerClickState > 0 && facePositionHistory.length > 0) {
-    // Show and position the face history marker
-    faceHistoryMarker
-      .style('opacity', 0.5)
-      .attr('transform', 'rotate(' + facePositionHistory[0] + ')');
-  } else {
-    // Hide the marker
-    faceHistoryMarker.style('opacity', 0);
-  }
-}
-
-// Reset both history states
-function resetHistoryStates() {
-  centerClickState = 0;
-  outerClickState = 0;
-  updateHandHistoryMarker();
-  updateFaceHistoryMarker();
-}
-
-function setFace(position) {
-  innerPosition = optimalMove(innerPosition, position);
-  face.attr('transform', 'rotate(' + innerPosition + ')');
-  updateReadings();
-
-  // Save inner dial position
-  saveToStorage(STORAGE_KEYS.INNER_POSITION, innerPosition);
-}
-
-function setHand(position) {
-  handPosition = optimalMove(handPosition, position);
-  hand.attr('transform', 'rotate(' + handPosition + ')');
-  updateReadings();
-
-  // Save hand position
-  saveToStorage(STORAGE_KEYS.HAND_POSITION, handPosition);
-}
-
-var page = document.getElementById('page');
-var dial = document.getElementById('dial');
-var faceElement = document.getElementById('slide-face');
-
-dial.onwheel = (evt) => {
-  evt.preventDefault();
-  // Reset both history states when wheel is used on either component
-  resetHistoryStates();
-
-  if (isDescendant(faceElement, evt.target)) {
-    setFace(innerPosition + wheelDistance(evt));
-  } else {
-    setHand(handPosition + wheelDistance(evt));
-  }
-};
 
 var ongoingTouches = [];
 
 function copyTouch({ identifier, pageX, pageY, target }) {
   // In drag mode, determine if this touch is near the needle
   let moveHand = false;
-  if (dragMode) {
+  if (state.dragMode) {
     moveHand = isNearNeedle(pageX, pageY);
     // Log what we're moving for debugging
     console.log("Drag mode - Moving: " + (moveHand ? "needle" : "inner dial"));
@@ -1255,13 +1250,15 @@ function copyTouch({ identifier, pageX, pageY, target }) {
     // In scrub mode, use the traditional method (inner vs outer part)
     moveHand = !isDescendant(faceElement, target);
   }
+	const needlePosition = state.needlePosition;
+	const innerPosition = state.innerPosition;
 
   return {
     identifier,
     pageX,
     pageY,
     target,
-    handPosition,
+    needlePosition,
     innerPosition,
     startX: pageX,
     startY: pageY,
@@ -1286,10 +1283,10 @@ function ongoingTouchIndexById(idToFind) {
   return -1;    // not found
 }
 
-
 function handleStart(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
+	state.lastUpdated = Date.now();
 
   // Get the center coordinates of the dial for circular drag calculations
   const dialRect = dial.getBoundingClientRect();
@@ -1301,7 +1298,7 @@ function handleStart(evt) {
     let touch = copyTouch(touches[i]);
 
     // For drag mode, calculate and store the initial angle
-    if (dragMode) {
+    if (state.dragMode) {
       // Calculate the initial angle for circular dragging
       const relX = touches[i].pageX - centerX;
       const relY = touches[i].pageY - centerY;
@@ -1329,6 +1326,7 @@ function handleStart(evt) {
 
 function handleEnd(evt) {
   var touches = evt.changedTouches;
+	state.lastUpdated = Date.now();
 
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
@@ -1345,6 +1343,7 @@ function handleEnd(evt) {
 function handleMove(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
+	state.lastUpdated = Date.now();
 
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
@@ -1354,10 +1353,11 @@ function handleMove(evt) {
       let delta = 0;
 
       // Reset both history states when touch is used
-      resetHistoryStates();
+			state.innerClickState = 0;
+			state.needleClickState = 0;
 
       // Handle movement differently based on mode
-      if (dragMode) {
+      if (state.dragMode) {
         // Circular drag mode - calculate the angle change
         const currentX = touches[i].pageX;
         const currentY = touches[i].pageY;
@@ -1411,8 +1411,8 @@ function handleMove(evt) {
 
       // Move the appropriate component based on what we're dragging
       if (ongoingTouch.moveHand) {
-        ongoingTouch.handPosition += delta;
-        setHand(ongoingTouch.handPosition);
+        ongoingTouch.needlePosition += delta;
+        setHand(ongoingTouch.needlePosition);
       } else {
         ongoingTouch.innerPosition += delta;
         setFace(ongoingTouch.innerPosition);
@@ -1426,6 +1426,7 @@ function handleMove(evt) {
 
 function handleEnd(evt) {
   var touches = evt.changedTouches;
+	state.lastUpdated = Date.now();
 
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
@@ -1467,152 +1468,4 @@ function handleCancel(evt) {
 }
 
 
-// Original simple reset functions
-function resetHand() {
-  setHand(innerPosition);
-}
-
-function resetFace() {
-  if ((innerPosition - handPosition).mod(360) === 0) {
-    // If already aligned with hand, align with origin (0)
-    setFace(0);
-  } else {
-    // Otherwise align with hand
-    setFace(handPosition);
-  }
-}
-
-// Functions that simulate direct clicks with history preservation
-function simulateHandClick() {
-  // Simplified toggle: either align with inner dial or restore previous position
-  if (centerClickState === 0) {
-    // First click: save current position and align with inner dial
-    saveHandPosition(handPosition);
-    resetHand(); // Reset to align with dial's 1 mark
-    centerClickState = 1;
-    updateHandHistoryMarker(); // Show the history marker
-  } else {
-    // Second click: restore saved position
-    if (handPositionHistory.length > 0) {
-      setHand(handPositionHistory[0]); // Use most recent saved position
-    }
-    centerClickState = 0;
-    updateHandHistoryMarker(); // Hide the history marker
-  }
-}
-
-function simulateFaceClick() {
-  // Completely rewritten to guarantee access to the origin position
-  // We'll use a simple 3-state cycle with guaranteed positions
-
-  // First, decide what to do based on current state
-  switch (outerClickState) {
-    case 0: // First click - align with needle
-      console.log("Face click state 0->1: Aligning with needle");
-      // Save current position before changing
-      saveFacePosition(innerPosition);
-      // Align with needle
-      setFace(handPosition);
-      outerClickState = 1;
-      break;
-
-    case 1: // Second click - align with origin (0°)
-      console.log("Face click state 1->2: Setting to origin (0°)");
-      // Set to exact 0 position (12 o'clock)
-      setFace(0);
-      outerClickState = 2;
-      break;
-
-    case 2: // Third click - restore saved position
-      console.log("Face click state 2->0: Restoring saved position");
-      // Restore previous position if available
-      if (facePositionHistory.length > 0) {
-        setFace(facePositionHistory[0]);
-      } else {
-        // Fallback if history is unavailable
-        setFace(0);
-      }
-      outerClickState = 0;
-      break;
-  }
-
-  // Always update the history marker
-  updateFaceHistoryMarker();
-}
-
-function reset(evt) {
-  evt.preventDefault();
-
-  // Don't process clicks on buttons or their children
-  if (evt.target.tagName === 'BUTTON' || evt.target.closest('button')) {
-    return;
-  }
-
-  // Use the same functions as the buttons for consistency
-  if (isDescendant(faceElement, evt.target)) {
-    // Center circle click - handle needle position
-    simulateHandClick();
-  } else {
-    // Outer area click - handle face position
-    simulateFaceClick();
-  }
-}
-
-// Add main event listeners
-dial.addEventListener("click", reset, false);
-dial.addEventListener("touchstart", handleStart, false);
-dial.addEventListener("touchend", handleEnd, false);
-dial.addEventListener("touchcancel", handleCancel, false);
-dial.addEventListener("touchmove", handleMove, false);
-
-// No extra button listeners needed
-
-// Initialize UI elements when the page loads
-window.addEventListener("load", function() {
-  // Initialize mode buttons
-  fineToggleButton = document.getElementById('fineToggle');
-  dragToggleButton = document.getElementById('dragToggle');
-  updateModesVisual();
-
-  // Initialize dial class based on drag mode state
-  const dialElement = document.getElementById('dial');
-  if (dialElement) {
-    if (dragMode) {
-      dialElement.classList.add('drag-mode');
-    } else {
-      dialElement.classList.remove('drag-mode');
-    }
-  }
-
-  // Update readings to reflect loaded values
-  updateReadings();
-
-  // Initialize scale selector to match the saved or default scale
-  const scaleSelect = document.getElementById('scaleSelect');
-  if (scaleSelect) {
-    scaleSelect.value = currentScale.key;
-  }
-
-  // Initialize power meter value from localStorage
-  const savedPower = loadFromStorage(STORAGE_KEYS.POWER, 0);
-  if (powerMeter && savedPower !== 0) {
-    powerMeter.valueAsNumber = savedPower;
-  }
-
-  // Add change event listener to save power value when changed manually
-  if (powerMeter) {
-    powerMeter.addEventListener('change', function() {
-      saveToStorage(STORAGE_KEYS.POWER, powerMeter.valueAsNumber);
-    });
-  }
-
-  // Prevent text selection on the dial
-  if (dialElement) {
-    dialElement.addEventListener('mousedown', function(e) {
-      // Prevent default mousedown behavior which includes text selection
-      if (e.detail > 1) { // Check if it's a double-click
-        e.preventDefault();
-      }
-    });
-  }
-});
+setInterval(view, 20);
