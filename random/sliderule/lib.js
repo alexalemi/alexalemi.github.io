@@ -1286,7 +1286,7 @@ function ongoingTouchIndexById(idToFind) {
 function handleStart(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
-	state.lastUpdated = Date.now();
+	// state.lastUpdated = Date.now();
 
   // Get the center coordinates of the dial for circular drag calculations
   const dialRect = dial.getBoundingClientRect();
@@ -1324,26 +1324,12 @@ function handleStart(evt) {
   }
 }
 
-function handleEnd(evt) {
-  var touches = evt.changedTouches;
-	state.lastUpdated = Date.now();
-
-  for (var i = 0; i < touches.length; i++) {
-    var idx = ongoingTouchIndexById(touches[i].identifier);
-
-    if (idx >= 0) {
-      ongoingTouches.splice(idx, 1);
-    } else {
-      console.log("Can't figure out which touch to end.");
-    }
-  }
-}
 
 
 function handleMove(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
-	state.lastUpdated = Date.now();
+	// state.lastUpdated = Date.now();
 
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
@@ -1412,10 +1398,10 @@ function handleMove(evt) {
       // Move the appropriate component based on what we're dragging
       if (ongoingTouch.moveHand) {
         ongoingTouch.needlePosition += delta;
-        setHand(ongoingTouch.needlePosition);
+        state.needlePosition = ongoingTouch.needlePosition; // Sync to state
       } else {
         ongoingTouch.innerPosition += delta;
-        setFace(ongoingTouch.innerPosition);
+        state.innerPosition = ongoingTouch.innerPosition; // Sync to state
       }
     } else {
       console.log("Can't figure out which touch to continue.");
@@ -1426,13 +1412,21 @@ function handleMove(evt) {
 
 function handleEnd(evt) {
   var touches = evt.changedTouches;
-	state.lastUpdated = Date.now();
+	// state.lastUpdated = Date.now();
 
   for (var i = 0; i < touches.length; i++) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
 
     if (idx >= 0) {
       const touch = ongoingTouches[idx];
+      
+      // Sync final positions to state
+      if (touch.moveHand) {
+        state.needlePosition = touch.needlePosition;
+      } else {
+        state.innerPosition = touch.innerPosition;
+      }
+      
       // Remove from active touches
       ongoingTouches.splice(idx, 1);
 
@@ -1455,6 +1449,14 @@ function handleCancel(evt) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
     if (idx >= 0) {
       const touch = ongoingTouches[idx];
+      
+      // Sync final positions to state
+      if (touch.moveHand) {
+        state.needlePosition = touch.needlePosition;
+      } else {
+        state.innerPosition = touch.innerPosition;
+      }
+      
       ongoingTouches.splice(idx, 1);
 
       // Restore animation based on what was being moved
