@@ -117,6 +117,12 @@ document.addEventListener('keydown', function(event) {
 	if (event.key === 'r') {
 		toggleFineMode()
 	}
+	if (event.key === 'q') {
+		simulateHandClick()
+	}
+	if (event.key === 'e') {
+		simulateFaceClick()
+	}
 });
 
 document.addEventListener('keyup', function(event) {
@@ -1066,6 +1072,10 @@ function simulateHandClick() {
 		state.needlePosition = 0;
 		state.needleClickState = 1;
 		updateHandHistoryMarker();
+	} else if (state.needleClickState === 1) {
+		// Second click, go to inner index.
+		state.needlePosition = state.innerPosition;
+		state.needleClickState = 2;
   } else {
     // Second click: restore saved position
 		state.needlePosition = state.prevNeedlePosition;
@@ -1103,7 +1113,7 @@ function simulateFaceClick() {
 
 // Functions to update history markers
 function updateHandHistoryMarker() {
-  if (state.needleClickState === 1 && state.prevNeedlePosition > 0) {
+  if (state.needleClickState > 0 && state.prevNeedlePosition > 0) {
     // Show and position the hand history marker
     handHistoryMarker
       .style('opacity', 0.5)
