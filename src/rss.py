@@ -27,7 +27,7 @@ TALK_SCHEME = "https://alexalemi.com/talks/"
 POST_SCHEME = "https://alexalemi.com/posts/"
 MAIN_ROOT = "https://alexalemi.com"
 BLOG_ROOT = "https://blog.alexalemi.com"
-OBTUDE_ROOT = "https://obtudes.alexalemi.com"
+OBTUDE_ROOT = "https://blog.alexalemi.com/ob/nbs/"
 
 REDIRECT_TEMPLATE = """<!DOCTYPE html>
 <head>
