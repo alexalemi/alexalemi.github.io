@@ -31,7 +31,7 @@ def augment_obtude(post):
     post['links'] = post.get('links', []) 
     post['links'].append(
             {
-                "href": f"https://obtudes.alexalemi.com/{post['src']}",
+                "href": f"https://blog.alexalemi.com/ob/nbs/{post['src']}",
                 "text": "[Obtude]",
                 "canonical": True
             })
