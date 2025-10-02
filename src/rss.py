@@ -223,6 +223,7 @@ def blog():
 
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
+      data = sorted(data, key=lambda x: x.get('date', None))
       for post in data:
         if not post.get('hidden', False) and not post.get('draft', False):
             fe = fg.add_entry()
