@@ -181,6 +181,14 @@ def main():
         fe = fg.add_entry()
         add_talk(fe, talk)
 
+  with open(os.path.join(ROOT, BLOG_DATA_PATH, "obtudes.json"), 'r') as f:
+      data = json.load(f)
+      for post in data:
+        # only include featured not hidden and not draft
+        if post.get('featured', False) and not post.get('hidden', False) and not post.get('draft', False):
+            fe = fg.add_entry()
+            add_obtude(fe, post)
+
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
       for post in data:
@@ -190,13 +198,6 @@ def main():
             content = render_post(post['src'])
             add_post(fe, post, content)
 
-  with open(os.path.join(ROOT, BLOG_DATA_PATH, "obtudes.json"), 'r') as f:
-      data = json.load(f)
-      for post in data:
-        # only include featured not hidden and not draft
-        if post.get('featured', False) and not post.get('hidden', False) and not post.get('draft', False):
-            fe = fg.add_entry()
-            add_obtude(fe, post)
 
   with open(os.path.join(ROOT, DATA_PATH, "writing.json"), 'r') as f:
       data = json.load(f)
