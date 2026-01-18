@@ -1,0 +1,9 @@
+{
+  "name": "alexalemi-blog-build",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@mathjax/src": "^4.1.0",
+    "linkedom": "^0.18.9"
+  }
+}

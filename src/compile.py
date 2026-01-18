@@ -127,15 +127,24 @@ def render_post(src):
 
 
 def convert_mj(path):
-    """Precompile the mathjax."""
-    # TODO: apparantely we can do this natively in Mathjax v3, look into that.
-    # Right now uses `mjpage` installed with `npm install -g mathjax-node-page`
-    logging.info(f"Converting {path} to html.")
+    """Precompile the mathjax using MathJax v3+ native Node.js API.
+
+    This replaces the deprecated mathjax-node-page (mjpage) with the official
+    MathJax v3/v4 server-side rendering approach.
+    """
+    logging.info(f"Converting {path} to html with MathJax.")
     assert path.suffixes == ['.mj', '.html'], f"Doesn't end with correct suffix! {path}"
     newpath = path.with_suffix('').with_suffix('.html')
-    # Use `mjpage --dollars < input.html > output.html` to generate a page with precompiled mathjax.
-    with open(path, 'r') as fin, open(newpath, 'w') as fout:
-        result = subprocess.run(['mjpage', '--dollars'], stdin=fin, stdout=fout, shell=True, check=True)
+
+    script_path = ROOT / 'mathjax-compile.mjs'
+    result = subprocess.run(
+        ['node', str(script_path), str(path), str(newpath)],
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        logging.error(f"MathJax compilation failed: {result.stderr}")
+        raise RuntimeError(f"MathJax compilation failed for {path}")
 
 
 def process_post(template_file, post, force=False):
