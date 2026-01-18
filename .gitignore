@@ -62,3 +62,11 @@ target/
 poetry.lock
 
 **/.claude/settings.local.json
+
+# Node.js
+node_modules/
+package-lock.json
+src/package-lock.json
+
+# Build artifacts
+*.mj.html
