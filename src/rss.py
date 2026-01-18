@@ -156,6 +156,15 @@ def add_obtude(fe, post, content=None):
   return fe
 
 
+def normalize_date(date_str):
+  """Normalize date strings to YYYY-MM-DD format for sorting.
+
+  Handles both YYYY-MM (research/talks) and YYYY-MM-DD (posts/writing) formats.
+  """
+  if len(date_str) == 7:  # YYYY-MM format
+    return date_str + "-01"
+  return date_str
+
 def main():
   # Main Feed
   fg = FeedGenerator()
@@ -168,42 +177,61 @@ def main():
   fg.link(href="https://alexalemi.com/rss.xml", rel="self")
   fg.language("en")
 
+  # Collect all entries from all sources
+  all_entries = []
 
   with open(os.path.join(ROOT, DATA_PATH, "research.json"), 'r') as f:
       data = json.load(f)
       for pub in data:
-        fe = fg.add_entry()
-        add_publication(fe, pub)
+        pub['_type'] = 'publication'
+        all_entries.append(pub)
 
   with open(os.path.join(ROOT, DATA_PATH, "talks.json"), 'r') as f:
       data = json.load(f)
       for talk in data:
-        fe = fg.add_entry()
-        add_talk(fe, talk)
+        talk['_type'] = 'talk'
+        all_entries.append(talk)
 
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "obtudes.json"), 'r') as f:
       data = json.load(f)
       for post in data:
         # only include featured not hidden and not draft
         if post.get('featured', False) and not post.get('hidden', False) and not post.get('draft', False):
-            fe = fg.add_entry()
-            add_obtude(fe, post)
+            post['_type'] = 'obtude'
+            all_entries.append(post)
 
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
       for post in data:
         # only include featured not hidden and not draft
         if post.get('featured', False) and not post.get('hidden', False) and not post.get('draft', False):
-            fe = fg.add_entry()
-            content = render_post(post['src'])
-            add_post(fe, post, content)
-
+            post['_type'] = 'post'
+            all_entries.append(post)
 
   with open(os.path.join(ROOT, DATA_PATH, "writing.json"), 'r') as f:
       data = json.load(f)
       for post in data:
-        fe = fg.add_entry()
-        add_post(fe, post)
+        post['_type'] = 'writing'
+        all_entries.append(post)
+
+  # Sort all entries by date (newest first)
+  all_entries = sorted(all_entries, key=lambda x: normalize_date(x.get('date', '')), reverse=True)
+
+  # Add sorted entries to feed
+  for entry in all_entries:
+      fe = fg.add_entry()
+      entry_type = entry['_type']
+      if entry_type == 'publication':
+          add_publication(fe, entry)
+      elif entry_type == 'talk':
+          add_talk(fe, entry)
+      elif entry_type == 'obtude':
+          add_obtude(fe, entry)
+      elif entry_type == 'post':
+          content = render_post(entry['src'])
+          add_post(fe, entry, content)
+      elif entry_type == 'writing':
+          add_post(fe, entry)
 
   outpath = os.path.join(ROOT, BUILD_PATH, RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
@@ -222,23 +250,36 @@ def blog():
   fg.link(href="https://blog.alexalemi.com/rss.xml", rel="self")
   fg.language("en")
 
+  # Collect all entries from both posts and obtudes
+  all_entries = []
+
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "posts.json"), 'r') as f:
       data = json.load(f)
-      data = sorted(data, key=lambda x: x.get('date', None))
       for post in data:
         if not post.get('hidden', False) and not post.get('draft', False):
-            fe = fg.add_entry()
             post = augment_post(post)
-            content = render_post(post['src'])
-            add_post(fe, post, content)
+            post['_type'] = 'post'
+            all_entries.append(post)
 
   with open(os.path.join(ROOT, BLOG_DATA_PATH, "obtudes.json"), 'r') as f:
       data = json.load(f)
       for post in data:
         if not post.get('hidden', False) and not post.get('draft', False):
-            fe = fg.add_entry()
             post = augment_obtude(post)
-            add_post(fe, post)
+            post['_type'] = 'obtude'
+            all_entries.append(post)
+
+  # Sort all entries by date (newest first)
+  all_entries = sorted(all_entries, key=lambda x: x.get('date', ''), reverse=True)
+
+  # Add sorted entries to feed
+  for entry in all_entries:
+      fe = fg.add_entry()
+      if entry['_type'] == 'post':
+          content = render_post(entry['src'])
+          add_post(fe, entry, content)
+      else:
+          add_post(fe, entry)
 
   outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
   logging.info(f"Writing to {outpath}")
