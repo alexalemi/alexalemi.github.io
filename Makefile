@@ -1,4 +1,4 @@
-.PHONY = serve
+.PHONY = serve live
 
 all: index.html rss.xml blog/index.html blog/rss.xml
 
@@ -21,4 +21,7 @@ blog/rss.xml: src/rss.py blog/data/posts.json
 
 serve:
 	python3 -m http.server
+
+live: src/node_modules
+	python3 src/live.py
 
