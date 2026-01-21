@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mathjax/src": "^4.1.0",
+    "@observablehq/notebook-kit": "^1.5.1",
     "linkedom": "^0.18.9"
   }
 }
