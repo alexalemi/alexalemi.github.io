@@ -1,5 +1,26 @@
 [
    {
+     "title": "EP15: The Information Bottleneck and Scaling Laws with Alex Alemi",
+     "links": [{
+       "href": "https://www.the-information-bottleneck.com/ep15-the-information-bottleneck-and-scaling-laws-with-alex-alemi/",
+       "text": "[website]",
+			 "canonical": true
+     }, {
+       "href": "https://www.youtube.com/watch?v=Yu72TBHlnTI",
+       "text": "[youtube]"
+     }, {
+       "href": "https://podcasts.apple.com/us/podcast/the-information-bottleneck/id1834616211",
+       "text": "[apple podcast]"
+     }, {
+       "href": "https://open.spotify.com/show/4gaj9tzCrNjP9e66pJQGnl",
+       "text": "[spotify]"
+     }],
+     "date": "2025-11",
+			"venue": "Information Bottleneck Podcast",
+     "id": "information-bottleneck-podcast",
+     "description": "I appeared on an episode of the Information Bottleneck Podcast and talked about scaling laws."
+   },
+   {
      "title": "How to Think About AI",
      "links": [{
        "href": "https://docs.google.com/presentation/d/1VhJm6Kcq0I5d-2VtpFxm0QoVwn64pqEEwTuWIyiSIrg/present?usp=sharing",
