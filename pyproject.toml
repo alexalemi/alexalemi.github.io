@@ -12,6 +12,7 @@ dependencies = [
     "mistletoe>=1.4.0,<2",
     "feedgen>=1.0.0,<2",
     "livereload>=2.7.0,<3",
+    "anthropic>=0.77.0",
 ]
 
 [tool.hatch.build.targets.sdist]
