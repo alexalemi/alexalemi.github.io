@@ -150,7 +150,7 @@ def convert_mj(path):
 def process_post(template_file, post, force=False):
     src = post['src']
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
-    output_path = input_path.with_suffix('.mj.html')
+    output_path = input_path.with_suffix('.html')
 
     # try to decide if necessary
     if not force and os.path.exists(output_path) and (os.path.getmtime(input_path) < os.path.getmtime(output_path)):
@@ -165,7 +165,6 @@ def process_post(template_file, post, force=False):
             template_file,
             post,
             output_path)
-    convert_mj(output_path)
 
 def blog(force=False):
     logging.debug("Compiling Blog..")
