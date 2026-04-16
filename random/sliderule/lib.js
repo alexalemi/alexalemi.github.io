@@ -145,7 +145,7 @@ function rotateOuter(d, offset) {
   return 'rotate(' + angle + ')';
 }
 
-const radians = 2 * Math.PI / 360;
+const radians = 2 * Math.PI / 360,
   margin = 50,
   radius = 200,
   width = (radius+margin)*2,
@@ -160,7 +160,7 @@ const radians = 2 * Math.PI / 360;
   tinyTickLength = 0.1 * majorTickLength,
   innerMinorLabelRadius = radius - minorTickLength - 25,
   specialTickLength = majorTickLength * 0.9,
-  innerSpecialLabelRadius = radius - mediumTickLength - specialTickLength - 15;
+  innerSpecialLabelRadius = radius - mediumTickLength - specialTickLength - 15,
   specialTickPad = 5,
   indicatorLength = 15,
   indicatorBleed = 20,
@@ -170,10 +170,9 @@ const radians = 2 * Math.PI / 360;
   ringOriginTickLength = 40,
   ringOriginLabelRadius = radius + 30,
   ringMajorTickLength = majorTickLength,
-  // ringMajorLabelRadius = -ringMajorTickLength - 20,
   ringMajorLabelRadius = ringOriginLabelRadius,
   ringMinorLabelRadius = radius + minorTickLength + 10,
-	decay = 0.03;
+  decay = 0.03;
 
     
 
@@ -517,19 +516,6 @@ function renderOuterRing(ring, outerScale) {
     .attr('y2',-radius - ringMajorTickLength)
     .attr('transform', d => rotateOuter(d, 0));
 
-  // Major Ticks
-  ring.selectAll('.major-tick')
-    .data(outerScale.tickDensity.major).enter()
-    .append('line')
-    .attr('class', 'tick major-tick')
-    .attr('x1',0)
-    .attr('x2',0)
-    .attr('y1',-radius)
-    .attr('y2',-radius - ring)
-    .attr('transform', d => rotateOuter(d, 0));
-
-
-
   // Render all label types for the outer ring using the labelDensity configurations
   if (outerScale.labelDensity) {
     // Origin labels
@@ -538,7 +524,7 @@ function renderOuterRing(ring, outerScale) {
         outerScale.labelDensity.origin.values,
         outerScale.labelDensity.origin.format,
         {
-          anchor: 'left',
+          anchor: 'start',
           x: 5,
           y: -ringOriginLabelRadius,
           transformFn: rotateOuter,
@@ -553,7 +539,7 @@ function renderOuterRing(ring, outerScale) {
         outerScale.labelDensity.major.values,
         outerScale.labelDensity.major.format,
         {
-          anchor: 'left',
+          anchor: 'start',
           x: 5,
           y: -ringMajorLabelRadius,
           transformFn: rotateOuter,
@@ -568,7 +554,7 @@ function renderOuterRing(ring, outerScale) {
         outerScale.labelDensity.half.values,
         outerScale.labelDensity.half.format,
         {
-          anchor: 'left',
+          anchor: 'start',
           x: 3,
           y: -ringMinorLabelRadius,
           transformFn: rotateOuter,
@@ -583,7 +569,7 @@ function renderOuterRing(ring, outerScale) {
         outerScale.labelDensity.decimal.values,
         outerScale.labelDensity.decimal.format,
         {
-          anchor: 'left',
+          anchor: 'start',
           x: 3,
           y: -ringMinorLabelRadius,
           transformFn: rotateOuter,
@@ -598,7 +584,7 @@ function renderOuterRing(ring, outerScale) {
         outerScale.labelDensity.teens.values,
         outerScale.labelDensity.teens.format,
         {
-          anchor: 'left',
+          anchor: 'start',
           x: 3,
           y: -ringMinorLabelRadius,
           transformFn: rotateOuter,
@@ -915,7 +901,7 @@ function changeScale(scaleKey) {
 
     // Only update the outer scale, inner stays as C/D
 		state.scale = scaleKey;
-    outerScale = scales[scaleKey];
+    const outerScale = scales[scaleKey];
 		ring.selectAll("*").remove();
 		renderOuterRing(ring, outerScale);
 		saveToStorage();
@@ -1001,6 +987,10 @@ function viewButtons() {
 			dragToggleButton.textContent = 'Scrub Mode';
 		}
 	}
+
+	if (dialElement) {
+		dialElement.classList.toggle('drag-mode', state.dragMode);
+	}
 }
 
 function updateReadings() {
@@ -1016,8 +1006,7 @@ function updateReadings() {
   const innerValue = innerScaleDefault.valueFunction(innerAngle);
 
   // Apply power exponent to the reading value
-  // const powerValue = Math.pow(10, powerMeter.valueAsNumber);
-	const powerValue = 1.0;
+  const powerValue = powerMeter ? Math.pow(10, powerMeter.valueAsNumber) : 1.0;
 
   // Format values based on scale type
   let formattedOuterValue;
@@ -1113,25 +1102,21 @@ function simulateFaceClick() {
 
 // Functions to update history markers
 function updateHandHistoryMarker() {
-  if (state.needleClickState > 0 && state.prevNeedlePosition > 0) {
-    // Show and position the hand history marker
+  if (state.needleClickState > 0) {
     handHistoryMarker
       .style('opacity', 0.5)
       .attr('transform', 'rotate(' + state.prevNeedlePosition + ')');
   } else {
-    // Hide the marker
     handHistoryMarker.style('opacity', 0);
   }
 }
 
 function updateFaceHistoryMarker() {
-  if (state.innerClickState > 0 && state.prevInnerPosition > 0) {
-    // Show and position the face history marker
+  if (state.innerClickState > 0) {
     faceHistoryMarker
       .style('opacity', 0.5)
       .attr('transform', 'rotate(' + state.prevInnerPosition + ')');
   } else {
-    // Hide the marker
     faceHistoryMarker.style('opacity', 0);
   }
 }
@@ -1184,12 +1169,13 @@ window.addEventListener("load", function() {
 			state.needleClickState = 0;
 		} 
 	};
-	// Add main event listeners
+	// Add main event listeners. touchstart/touchmove need passive: false
+	// so preventDefault() actually stops the browser's scroll/zoom gestures.
 	dial.addEventListener("click", reset, false);
-	dial.addEventListener("touchstart", handleStart, false);
+	dial.addEventListener("touchstart", handleStart, { passive: false });
 	dial.addEventListener("touchend", handleEnd, false);
 	dial.addEventListener("touchcancel", handleCancel, false);
-	dial.addEventListener("touchmove", handleMove, false);
+	dial.addEventListener("touchmove", handleMove, { passive: false });
 
   // Initialize scale selector to match the saved or default scale
   const scaleSelect = document.getElementById('scaleSelect');
