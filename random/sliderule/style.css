@@ -71,9 +71,7 @@ body {
 }
 
 .menu {
-  /* background-color: #5995DA; */
-  display: false;
-  visibility: none;
+  display: none;
 }
 
 .dial {
@@ -91,6 +89,8 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  /* Stop the browser from handling touch gestures so our handlers own them. */
+  touch-action: none;
   cursor: pointer;
 }
 
@@ -282,8 +282,8 @@ button.power {
   width: 60px;
 }
 
-/* mobile styles */
-@media only screen and (max-width: 400px) {
+/* mobile styles — covers phones up through iPhone Pro Max (430px) and typical Android widths */
+@media only screen and (max-width: 600px) {
   .section.info,
   .section.controls,
   .section.powers {
@@ -361,7 +361,7 @@ button.power {
 }
 
 /* tablet styles */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
+@media only screen and (min-width: 601px) and (max-width: 960px) {
   .container.extra {
     display: flex;
     flex-wrap: wrap;
@@ -544,7 +544,7 @@ svg {
   stroke-width: 1;
   stroke: var(--charcoal);
   fill: GhostWhite;
-  z-order: -2;
+  z-index: -2;
   filter: drop-shadow(0px 1px 1px var(--shadow));
 }
 
@@ -552,7 +552,7 @@ svg {
   stroke-width: 1.5;
   stroke: var(--red);
   opacity: 0.85;
-  z-order: 3;
+  z-index: 3;
 }
 
 .animate {
@@ -563,7 +563,7 @@ svg {
   stroke-width: 1.5;
   stroke: var(--red);
   opacity: 0.85;
-  z-order: 5;
+  z-index: 5;
 }
 
 .hand-overlay {
@@ -571,7 +571,7 @@ svg {
   stroke: var(--red);
   fill: var(--red);
   stroke-linecap: round;
-  z-order: 6;
+  z-index: 6;
 }
 
 /* Indicator style for drag mode */
@@ -594,7 +594,7 @@ svg {
   stroke: var(--red);
   fill: var(--red);
   stroke-linecap: round;
-  z-order: 7;
+  z-index: 7;
 }
 
 #main {
