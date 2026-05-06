@@ -1,5 +1,17 @@
 [
    {
+     "title": "Information Theory for Representation Learning",
+     "links": [{
+       "href": "https://docs.google.com/presentation/d/1CfCGJd3DeyGEdR1tbkNiNWh32UffwSbamFfttSxyvEE/present?usp=sharing",
+       "text": "[slides]",
+       "canonical": true
+     }],
+     "date": "2026-03",
+     "venue": "Emory TBIO Journal Club",
+     "id": "infotheory-emory",
+     "description": "An overview of how information theoretic principles motivate and advance representation learning, combining variational bounds on mutual information with deep neural networks across unsupervised, supervised, Bayesian, and predictive settings."
+   },
+   {
      "title": "EP15: The Information Bottleneck and Scaling Laws with Alex Alemi",
      "links": [{
        "href": "https://www.the-information-bottleneck.com/ep15-the-information-bottleneck-and-scaling-laws-with-alex-alemi/",
