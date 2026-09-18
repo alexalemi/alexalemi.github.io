@@ -7,6 +7,7 @@ below were fit to the site's original 180px favicon (apple-touch-icon.png).
 
     python make_koc.py            # write ../koc.svg
     python make_koc.py --jpegs    # also render koc_<size>.jpg (needs rsvg-convert + ImageMagick)
+    python make_koc.py --favicons # also render the site's favicon set into the repo root
 """
 import math, pathlib, subprocess, sys
 
@@ -89,6 +90,27 @@ def render_jpegs(svg_path):
         subprocess.run(["convert", "-", "-quality", "92", str(HERE / f"koc_{n}.jpg")], input=png, check=True)
 
 
+FAVICONS = {"favicon-16x16.png": 16, "favicon-32x32.png": 32, "apple-touch-icon.png": 180,
+            "android-chrome-192x192.png": 192, "android-chrome-512x512.png": 512}
+ICO_SIZES = (16, 32, 48)
+
+
+def render_favicons(svg_path, root):
+    """Transparent PNGs plus a multi-resolution favicon.ico, named as site.webmanifest and the page heads expect."""
+    def png(n, dest):
+        subprocess.run(["rsvg-convert", "-w", str(n), "-h", str(n), str(svg_path), "-o", str(dest)], check=True)
+    for name, n in FAVICONS.items():
+        png(n, root / name)
+    tmp = [root / f".ico_{n}.png" for n in ICO_SIZES]
+    try:
+        for n, p in zip(ICO_SIZES, tmp):
+            png(n, p)
+        subprocess.run(["convert", *map(str, tmp), str(root / "favicon.ico")], check=True)
+    finally:
+        for p in tmp:
+            p.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
     out = HERE.parent / "koc.svg"
     out.write_text(build_svg())
@@ -96,3 +118,7 @@ if __name__ == "__main__":
     if "--jpegs" in sys.argv:
         render_jpegs(out)
         print(f"wrote koc_{{{','.join(map(str, SIZES))}}}.jpg")
+    if "--favicons" in sys.argv:
+        root = HERE.parent.parent
+        render_favicons(out, root)
+        print(f"wrote {', '.join(FAVICONS)}, favicon.ico into {root}")
