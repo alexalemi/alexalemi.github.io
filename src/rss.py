@@ -32,13 +32,13 @@ OBTUDE_ROOT = "https://blog.alexalemi.com/ob/nbs/"
 REDIRECT_TEMPLATE = """<!DOCTYPE html>
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153903138-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F5SW43T5NT"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
 
-  gtag('config', 'UA-153903138-1');
+  gtag('config', 'G-F5SW43T5NT');
 </script>
 </head>
 <meta charset="utf-8">
