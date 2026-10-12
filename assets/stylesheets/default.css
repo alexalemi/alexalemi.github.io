@@ -45,7 +45,7 @@ html {
   h2,
   strong {
     color: var(--default-color);
-    font-family: "Muli", sans-serif;
+    font-family: "Mulish", "Muli", sans-serif;
   }
 
   h2 {
