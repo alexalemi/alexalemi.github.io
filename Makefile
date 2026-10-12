@@ -1,6 +1,6 @@
 .PHONY = serve live
 
-all: index.html rss.xml blog/index.html blog/rss.xml bits/index.html bits/bits.xml
+all: index.html rss.xml sitemap.xml blog/index.html blog/rss.xml blog/sitemap.xml bits/index.html bits/bits.xml
 
 # Ensure Node.js dependencies are installed for MathJax compilation
 src/node_modules: src/package.json
@@ -19,11 +19,17 @@ rss.xml: data/research.json data/talks.json src/rss.py data/writing.json blog/da
 blog/rss.xml: src/rss.py blog/data/posts.json
 	python3 src/rss.py blog
 
+sitemap.xml: src/sitemap.py data/research.json data/talks.json data/writing.json blog/data/posts.json blog/data/obtudes.json
+	python3 src/sitemap.py main
+
+blog/sitemap.xml: src/sitemap.py blog/data/posts.json blog/data/obtudes.json
+	python3 src/sitemap.py blog
+
 serve:
 	python3 -m http.server
 
 live: src/node_modules
 	python3 src/live.py
 
-bits/index.html bits/bits.xml: bits/build_bits.py bits/data/bits.json bits/templates/bits.tpl
+bits/index.html bits/bits.xml bits/sitemap.xml: bits/build_bits.py bits/data/bits.json bits/templates/bits.tpl
 	python3 bits/build_bits.py

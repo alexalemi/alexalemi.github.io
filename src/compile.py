@@ -126,6 +126,17 @@ def render_post(src):
     return content
 
 
+def lazy_images(content):
+    """Lazy load every image but the first, which is likely above the fold."""
+    count = itertools.count()
+    def add_loading(match):
+        tag = match.group(0)
+        if next(count) == 0 or 'loading=' in tag:
+            return tag
+        return tag.replace('<img', '<img loading="lazy" decoding="async"', 1)
+    return re.sub(r'<img\b[^>]*>', add_loading, content)
+
+
 def convert_mj(path):
     """Precompile the mathjax using MathJax v3+ native Node.js API.
 
@@ -160,7 +171,7 @@ def process_post(template_file, post, force=False):
     else:
         logging.debug(f"Compiling {post['title']}")
 
-    post['content'] = render_post(src)
+    post['content'] = lazy_images(render_post(src))
     compile_template(
             template_file,
             post,
