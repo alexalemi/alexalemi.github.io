@@ -4,15 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>alexalemi.com</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5SW43T5NT"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-F5SW43T5NT');
-    </script>
 
 		<!-- favicon stuff -->
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
