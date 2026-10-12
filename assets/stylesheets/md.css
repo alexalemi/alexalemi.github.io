@@ -1,6 +1,5 @@
 /* Browser reset */
-@import url('https://fonts.googleapis.com/css?family=Lato|Muli&display=swap');
-@import url('https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css');
+@import url('../fonts/fonts.css');
 
 
 html {
