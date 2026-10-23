@@ -46,7 +46,6 @@
         "@type": "Person",
         "name": "Alexander A. Alemi",
         "jobTitle": "Research Scientist",
-        "worksFor": { "@type": "Organization", "name": "Anthropic" },
         "alumniOf": [
           { "@type": "CollegeOrUniversity", "name": "Cornell University" },
           { "@type": "CollegeOrUniversity", "name": "California Institute of Technology" }
@@ -327,7 +326,7 @@
     <!-- Bio and stuff -->
 
         <p>
-            I work at <a href="https://www.anthropic.com/">Anthropic</a>. Formerly at <a href="https://ai.google/research/people/104980/">Google Deepmind</a> and <a href="https://la.disneyresearch.com/alumni/">Disney Research</a>. My current focus is Scaling and the intersection of Information Theory and Deep Learning.
+            My research focuses on Scaling and the intersection of Information Theory and Deep Learning.
             I got my Ph.D. in Theoretical Condensed Matter Physics at Cornell University,
             supervised by <a href="http://sethna.lassp.cornell.edu/">Jim Sethna</a>.
             I got my B.S. at Caltech, where I majored in Physics.
