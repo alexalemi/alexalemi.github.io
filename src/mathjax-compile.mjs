@@ -2,10 +2,15 @@
 /**
  * MathJax Server-Side Compilation Script (MathJax v4)
  *
- * Processes HTML files containing LaTeX math ($...$, $$...$$) and outputs
- * pre-rendered CHTML. This replaces the deprecated mathjax-node-page (mjpage).
+ * Processes HTML containing LaTeX math ($...$, $$...$$, \(...\), \[...\]) and
+ * outputs pre-rendered CHTML, so readers don't need to download or run MathJax.
  *
- * Uses linkedom for robust HTML parsing (tolerates malformed HTML).
+ * - Pages with no math are passed through byte-for-byte unchanged.
+ * - Assistive MathML is included so screen readers can still read the math.
+ * - The font URL is pinned to the exact installed font package version, so the
+ *   CSS we emit can never drift out of sync with the font files it points to.
+ * - Any TeX error (undefined macro, bad syntax) fails the build instead of
+ *   silently shipping red error text.
  *
  * Usage: node mathjax-compile.mjs <input.html> [output.html]
  *        cat input.html | node mathjax-compile.mjs > output.html
@@ -14,60 +19,93 @@
 import MathJax from '@mathjax/src/source';
 import {parseHTML as LINKEDOM} from 'linkedom';
 import fs from 'node:fs';
+import {createRequire} from 'node:module';
 
-// Read input file from argument or stdin
+const require = createRequire(import.meta.url);
+const fontVersion = require('@mathjax/mathjax-newcm-font/package.json').version;
+const FONT_URL =
+  process.env.MATHJAX_FONT_URL ||
+  `https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@${fontVersion}/chtml/woff2`;
+
 const inputFile = process.argv[2];
 const outputFile = process.argv[3];
+const htmlContent = fs.readFileSync(inputFile || 0, 'utf8');
 
-let htmlContent;
-if (inputFile) {
-  htmlContent = fs.readFileSync(inputFile, 'utf8');
-} else {
-  htmlContent = fs.readFileSync(0, 'utf8');
+function emit(text) {
+  if (outputFile) {
+    fs.writeFileSync(outputFile, text);
+  } else {
+    process.stdout.write(text);
+  }
 }
 
-// Initialize MathJax with tex-chtml configuration using linkedom adaptor
+const texErrors = [];
+
 await MathJax.init({
   LINKEDOM: LINKEDOM,  // Must be at config root level for linkedom adaptor
   loader: {
-    load: ['input/tex', 'output/chtml', 'adaptors/linkedom'],
+    load: ['input/tex', 'output/chtml', 'adaptors/linkedom', 'a11y/assistive-mml'],
     paths: { mathjax: '@mathjax/src/bundle' }
   },
-  options: {},
+  // NB: no `options` block. When one is present, the assistive-mml component
+  // injects menu settings that are invalid without ui/menu loaded, and init
+  // fails. Assistive MathML is enabled by default once the component loads.
   startup: {
-    typeset: true,
+    typeset: false,
     document: htmlContent
   },
   tex: {
     inlineMath: [['$', '$'], ['\\(', '\\)']],
     displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: true
+    processEscapes: true,
+    formatError(jax, err) {
+      texErrors.push(err.message);
+      return jax.formatError(err);
+    }
   },
   chtml: {
-    fontURL: 'https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font/chtml/woff2'
+    fontURL: FONT_URL
   }
 });
 
-// Wait for MathJax to be ready
 await MathJax.startup.promise;
 
-// Get the adaptor and document
 const adaptor = MathJax.startup.adaptor;
 const document = MathJax.startup.document;
 
-// Render all math
+// Work around a MathJax/linkedom bug: the assistive-mml extension parses a bare
+// `<math>...</math>` fragment and expects it in <body>, but linkedom treats the
+// first tag of an unwrapped fragment as the root element, so body is empty and
+// MathJax crashes. Wrap fragments in <html><body> so they land where expected.
+const parseDocument = adaptor.parse.bind(adaptor);
+adaptor.parse = (text, format = 'text/html') =>
+  /^\s*<(!doctype|html)/i.test(text)
+    ? parseDocument(text, format)
+    : parseDocument(`<html><body>${text}</body></html>`, format);
+
 await document.renderPromise();
 
-// Build the output
-let output = adaptor.doctype(document.document);
-output += adaptor.outerHTML(adaptor.root(document.document));
-
-// Write output
-if (outputFile) {
-  fs.writeFileSync(outputFile, output);
-} else {
-  process.stdout.write(output);
+// Undefined macros don't raise errors: the `noundefined` package renders them
+// as red text (e.g. a red "\foo"). Catch those too.
+for (const item of document.math) {
+  const mml = document.toMML(item.root);
+  for (const [, name] of mml.matchAll(/<mtext mathcolor="red"[^>]*>(\\[^<]*)<\/mtext>/g)) {
+    texErrors.push(`Undefined control sequence ${name} in: ${item.math.slice(0, 80)}`);
+  }
 }
 
-// Signal completion
+if (texErrors.length) {
+  for (const msg of texErrors) console.error(`TeX error: ${msg}`);
+  process.exit(1);
+}
+
+if (Array.from(document.math).length === 0) {
+  // No math: don't re-serialize (and don't inject the MathJax stylesheet).
+  emit(htmlContent);
+} else {
+  let output = adaptor.doctype(document.document);
+  output += adaptor.outerHTML(adaptor.root(document.document));
+  emit(output);
+}
+
 MathJax.done();

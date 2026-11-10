@@ -52,17 +52,17 @@ def load_data(data_files):
     return data
 
 
-def compile_template(template_path, data, output_path):
-    logging.debug(f"Compiling {template_path} to {output_path}...")
+def render_template(template_path, data):
     template_path = template_path.resolve()
-
     env = jinja2.environment.Environment(
         loader=jinja2.FileSystemLoader(template_path.parent))
+    return env.get_template(template_path.name).render(**data)
 
-    template = env.get_template(template_path.name)
 
+def compile_template(template_path, data, output_path):
+    logging.debug(f"Compiling {template_path} to {output_path}...")
     with open(output_path, 'w') as f:
-        f.write(template.render(**data))
+        f.write(render_template(template_path, data))
 
 
 def process_template(template_file, data, output_dir):
@@ -137,25 +137,28 @@ def lazy_images(content):
     return re.sub(r'<img\b[^>]*>', add_loading, content)
 
 
-def convert_mj(path):
-    """Precompile the mathjax using MathJax v3+ native Node.js API.
+# Set MATHJAX=client to skip server-side rendering and ship the MathJax script
+# instead (e.g. if node isn't available, or to debug a rendering difference).
+PRERENDER_MATH = os.environ.get('MATHJAX', 'server') != 'client'
 
-    This replaces the deprecated mathjax-node-page (mjpage) with the official
-    MathJax v3/v4 server-side rendering approach.
+
+def prerender_math(html, name):
+    """Typeset all the TeX in `html` to static CHTML with MathJax under Node.
+
+    See mathjax-compile.mjs. Pages without math come back unchanged; TeX errors
+    and undefined macros fail the build rather than shipping broken math.
     """
-    logging.info(f"Converting {path} to html with MathJax.")
-    assert path.suffixes == ['.mj', '.html'], f"Doesn't end with correct suffix! {path}"
-    newpath = path.with_suffix('').with_suffix('.html')
-
-    script_path = ROOT / 'mathjax-compile.mjs'
+    logging.info(f"Prerendering math in {name} with MathJax.")
     result = subprocess.run(
-        ['node', str(script_path), str(path), str(newpath)],
+        ['node', str(ROOT / 'mathjax-compile.mjs')],
+        input=html,
         capture_output=True,
-        text=True
+        text=True,
+        cwd=ROOT,
     )
     if result.returncode != 0:
-        logging.error(f"MathJax compilation failed: {result.stderr}")
-        raise RuntimeError(f"MathJax compilation failed for {path}")
+        raise RuntimeError(f"MathJax prerendering failed for {name}:\n{result.stderr}")
+    return result.stdout
 
 
 def process_post(template_file, post, force=False):
@@ -163,8 +166,10 @@ def process_post(template_file, post, force=False):
     input_path = (ROOT / Path('../blog') / Path(src)).resolve()
     output_path = input_path.with_suffix('.html')
 
-    # try to decide if necessary
-    if not force and os.path.exists(output_path) and (os.path.getmtime(input_path) < os.path.getmtime(output_path)):
+    # Rebuild if the post, the template, or the math renderer changed.
+    deps = [input_path, template_file, ROOT / 'mathjax-compile.mjs']
+    newest_dep = max(os.path.getmtime(p) for p in deps)
+    if not force and os.path.exists(output_path) and newest_dep < os.path.getmtime(output_path):
         # appears to not have been updated, skip
         logging.debug(f"Skipping {post['title']}")
         return
@@ -172,10 +177,12 @@ def process_post(template_file, post, force=False):
         logging.debug(f"Compiling {post['title']}")
 
     post['content'] = lazy_images(render_post(src))
-    compile_template(
-            template_file,
-            post,
-            output_path)
+    post['prerender_math'] = PRERENDER_MATH
+    html = render_template(template_file, post)
+    if PRERENDER_MATH:
+        html = prerender_math(html, src)
+    with open(output_path, 'w') as f:
+        f.write(html)
 
 def blog(force=False):
     logging.debug("Compiling Blog..")
