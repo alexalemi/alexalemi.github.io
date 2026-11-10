@@ -9,6 +9,7 @@ import subprocess
 from mistletoe import Document
 from mathjax import MathJaxRenderer
 import os
+import shutil
 from pathlib import Path
 
 
@@ -184,6 +185,33 @@ def process_post(template_file, post, force=False):
     with open(output_path, 'w') as f:
         f.write(html)
 
+MATH_FONT_SRC = ROOT / 'node_modules/@mathjax/mathjax-newcm-font/chtml/woff2'
+MATH_FONT_DIR = 'assets/mathjax/woff2'
+
+
+def sync_math_fonts(blog_dir):
+    """Self-host exactly the MathJax fonts the prerendered posts reference.
+
+    Copies each referenced woff2 from the installed font package (refreshing it
+    if the package was upgraded) and deletes any that no post uses anymore.
+    """
+    pattern = re.compile(re.escape(MATH_FONT_DIR) + r'/([\w.-]+\.woff2)')
+    needed = set()
+    for html in blog_dir.glob('*.html'):
+        needed.update(pattern.findall(html.read_text()))
+    dest = blog_dir / MATH_FONT_DIR
+    dest.mkdir(parents=True, exist_ok=True)
+    for name in sorted(needed):
+        src, dst = MATH_FONT_SRC / name, dest / name
+        if not dst.exists() or src.read_bytes() != dst.read_bytes():
+            logging.info(f"Copying math font {name}")
+            shutil.copyfile(src, dst)
+    for stale in dest.glob('*.woff2'):
+        if stale.name not in needed:
+            logging.info(f"Removing unused math font {stale.name}")
+            stale.unlink()
+
+
 def blog(force=False):
     logging.debug("Compiling Blog..")
     blog_files = list((ROOT / Path('../blog/data/')).resolve().glob('*.json'))
@@ -198,6 +226,9 @@ def blog(force=False):
 
     for post in blog_data['posts']:
         process_post(ROOT / Path('../blog/templates/post.tpl'), post, force=force)
+
+    if PRERENDER_MATH:
+        sync_math_fonts((ROOT / Path('../blog')).resolve())
 
 if __name__ == '__main__':
     if sys.argv[1] == 'main':
