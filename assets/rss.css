@@ -1,0 +1,133 @@
+/* Styles RSS feeds when they're opened directly in a browser.
+ *
+ * Linked from each feed with <?xml-stylesheet type="text/css" href="assets/rss.css"?>.
+ * Browsers style raw XML with CSS (this replaced our XSLT stylesheet, which
+ * browsers are removing). Feed readers ignore this file entirely.
+ *
+ * Every element in an XML document is inline and unstyled by default, so we
+ * make the ones we want visible blocks and hide the rest. Identical copies
+ * live in alexalemi.com/assets, blog/assets and bits/assets.
+ */
+@import url("fonts/fonts.css");  /* must precede @namespace */
+@namespace atom url("http://www.w3.org/2005/Atom");
+@namespace content url("http://purl.org/rss/1.0/modules/content/");
+
+rss {
+  --accent-color: #3685B5;
+  --default-color: #2B2D54;
+  --alt-color: DimGray;
+  --bg-color: #fefefe;
+  --rule-color: #ddd;
+  --chip-color: #eee;
+
+  display: block;
+  color-scheme: light dark;
+  background-color: var(--bg-color);
+  color: var(--default-color);
+  font-family: "Lato", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  rss {
+    --accent-color: #6FB3DE;
+    --default-color: #E3E4F0;
+    --alt-color: #A0A3AE;
+    --bg-color: #16171F;
+    --rule-color: #3A3C4A;
+    --chip-color: #262833;
+  }
+}
+
+channel {
+  display: block;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+/* Explain what this page is before anything else. */
+channel::before {
+  display: block;
+  content: "📡 This is an RSS feed. To subscribe, copy this page's address into your feed reader. New posts will show up there automatically.";
+  background: var(--chip-color);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Hide feed metadata and the full post bodies (escaped HTML that would show up
+   as raw markup). Unprefixed selectors match any namespace, so atom|link has to
+   come after the link rules below to win. */
+docs, generator, image, language, lastBuildDate, ttl,
+guid, category, enclosure, author, comments, source,
+content|encoded {
+  display: none;
+}
+
+channel > title {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+channel > description {
+  display: block;
+  color: var(--alt-color);
+  margin: 0.25rem 0 1.5rem;
+}
+
+channel > link {
+  display: none;
+}
+
+/* Flex so we can show title, date, summary, URL regardless of element order. */
+item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule-color);
+}
+
+item > title {
+  order: 1;
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+item > pubDate {
+  order: 2;
+  display: block;
+  color: var(--alt-color);
+  font-size: 0.8rem;
+}
+
+item > description {
+  order: 3;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* CSS can't turn the URL into a clickable link, but showing it means readers
+   can still copy it. Items without a <link> fall back to a permalink <guid>. */
+item > link,
+item > guid[isPermaLink="true"] {
+  order: 4;
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+item > link ~ guid[isPermaLink],
+atom|link {
+  display: none;
+}

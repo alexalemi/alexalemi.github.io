@@ -14,7 +14,6 @@ from compile import augment_post, render_post, augment_obtude
 logging.basicConfig(level=logging.DEBUG)
 
 ROOT = os.path.dirname(os.path.realpath(__file__))
-STYLE = "assets/stylesheets/rss.xls"
 RSS_FILENAME = "rss.xml"
 BLOG_RSS_FILENAME = "blog/rss.xml"
 DATA_PATH = "../data"
@@ -210,7 +209,7 @@ def main():
 
   # Add sorted entries to feed
   for entry in all_entries:
-      fe = fg.add_entry()
+      fe = fg.add_entry(order="append")  # feedgen prepends by default, which reversed our sort
       entry_type = entry['_type']
       if entry_type == 'publication':
           add_publication(fe, entry)
@@ -265,7 +264,7 @@ def blog():
 
   # Add sorted entries to feed
   for entry in all_entries:
-      fe = fg.add_entry()
+      fe = fg.add_entry(order="append")  # feedgen prepends by default, which reversed our sort
       if entry['_type'] == 'post':
           content = render_post(entry['src'])
           add_post(fe, entry, content)
@@ -276,12 +275,12 @@ def blog():
   logging.info(f"Writing to {outpath}")
   rssfeed = fg.rss_file(outpath)
 
-def insert_second_line(flname, path="assets/stylesheets/rss.xsl"):
+def insert_second_line(flname, path="assets/rss.css"):
     with open(flname, 'r') as f:
         lines = f.readlines()
     with open(flname, 'w') as f:
         f.write(lines[0])
-        f.write(f'<?xml-stylesheet type="text/xsl" href="{path}"?>\n')
+        f.write(f'<?xml-stylesheet type="text/css" href="{path}"?>\n')
         f.writelines(lines[1:])
 
 
@@ -291,12 +290,12 @@ if __name__ == "__main__":
       logging.info("Generating RSS Feed.")
       main()
       outpath = os.path.join(ROOT, BUILD_PATH, RSS_FILENAME)
-      insert_second_line(outpath, 'assets/stylesheets/rss.xsl')
+      insert_second_line(outpath, 'assets/rss.css')
     elif sys.argv[1] == 'blog':
       logging.info("Generating Blog RSS Feed.")
       blog()
       outpath = os.path.join(ROOT, BUILD_PATH, BLOG_RSS_FILENAME)
-      insert_second_line(outpath, 'assets/rss.xsl')
+      insert_second_line(outpath, 'assets/rss.css')
 
 
 
