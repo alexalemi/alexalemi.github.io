@@ -7,8 +7,8 @@
  *
  * - Pages with no math are passed through byte-for-byte unchanged.
  * - Assistive MathML is included so screen readers can still read the math.
- * - The font URL is pinned to the exact installed font package version, so the
- *   CSS we emit can never drift out of sync with the font files it points to.
+ * - Fonts are self-hosted, copied from the installed font package at build
+ *   time, so the CSS we emit can never drift out of sync with the font files.
  * - Any TeX error (undefined macro, bad syntax) fails the build instead of
  *   silently shipping red error text.
  *
@@ -19,13 +19,10 @@
 import MathJax from '@mathjax/src/source';
 import {parseHTML as LINKEDOM} from 'linkedom';
 import fs from 'node:fs';
-import {createRequire} from 'node:module';
 
-const require = createRequire(import.meta.url);
-const fontVersion = require('@mathjax/mathjax-newcm-font/package.json').version;
-const FONT_URL =
-  process.env.MATHJAX_FONT_URL ||
-  `https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@${fontVersion}/chtml/woff2`;
+// Fonts are self-hosted: compile.py copies the woff2 files the posts reference
+// from node_modules into blog/assets/mathjax/woff2 (relative to the posts).
+const FONT_URL = process.env.MATHJAX_FONT_URL || 'assets/mathjax/woff2';
 
 const inputFile = process.argv[2];
 const outputFile = process.argv[3];
