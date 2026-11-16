@@ -65,22 +65,6 @@ html {
     color: var(--default-color);
   }
 
-  .headshot {
-    float: right;
-    width: 14em;
-    padding-left: 2em;
-  }
-
-  .headshot img {
-    width: 100%;
-  }
-
-  @media (max-width: 650px) {
-    .headshot {
-      width: 10em;
-    }
-  }
-
   header {
     display: flex;
     align-items: center;
@@ -97,16 +81,6 @@ html {
 
     .social-links {
       margin-top: 0.5em;
-    }
-  }
-
-  @media (max-width: 390px) {
-    header {
-      width: 8em;
-    }
-
-    .social-links {
-      width: 8em;
     }
   }
 

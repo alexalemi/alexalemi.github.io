@@ -27,8 +27,6 @@
     <meta property="og:description" content="Alexander A. Alemi, Research Scientist">
     <meta property="og:url" content="https://alexalemi.com/">
     <meta property="og:site_name" content="alexalemi.com">
-    <meta property="og:image" content="https://alexalemi.com/assets/images/me_small.jpg">
-    <meta property="og:image:alt" content="Headshot of Alex Alemi">
     <meta property="profile:first_name" content="Alexander">
     <meta property="profile:last_name" content="Alemi">
 
@@ -50,7 +48,6 @@
           { "@type": "CollegeOrUniversity", "name": "Cornell University" },
           { "@type": "CollegeOrUniversity", "name": "California Institute of Technology" }
         ],
-        "image": "https://alexalemi.com/assets/images/me_small.jpg",
         "url": "https://alexalemi.com/",
         "sameAs": [
           "https://blog.alexalemi.com/",
@@ -155,23 +152,6 @@
           color: var(--default-color);
         }
 
-        .headshot {
-            float: right;
-            width: 14em;
-            padding-left: 2em;
-        }
-
-        .headshot img {
-            width: 100%;
-            height: auto;
-        }
-
-        @media (max-width: 650px) {
-            .headshot {
-                width: 10em;
-            }
-        }
-
         header {
             display: flex;
             align-items: center;
@@ -188,16 +168,6 @@
 
             .social-links {
                 margin-top: 0.5em;
-            }
-        }
-
-        @media (max-width: 390px) {
-            header {
-                width: 8em;
-            }
-
-            .social-links {
-                width: 8em;
             }
         }
 
@@ -258,14 +228,6 @@
 </head>
 
 <body>
-
-    <!-- Headshot -->
-    <div class="headshot">
-        <a href="assets/images/me.jpg"><picture>
-            <source type="image/webp" srcset="assets/images/me_round.webp">
-            <img src="assets/images/me_round.jpg" width="300" height="300" fetchpriority="high" alt="Headshot of Alex Alemi">
-        </picture></a>
-    </div>
 
     <!-- Header with social links -->
     <header>
